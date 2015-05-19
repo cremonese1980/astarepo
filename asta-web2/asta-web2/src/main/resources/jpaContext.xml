@@ -35,9 +35,9 @@
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-      <property name="url" value="jdbc:mysql//localhost:3306/" />
-      <property name="username" value="root" />
-      <property name="password" value="root" />
+      <property name="url" value="jdbc:mysql//localhost:3306/astadb" />
+      <property name="username" value="asta_usr" />
+      <property name="password" value="asta_123" />
 </bean>
 
 	<beans>

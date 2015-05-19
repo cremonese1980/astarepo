@@ -8,7 +8,9 @@
 
 	<mvc:annotation-driven />
 
-	<context:component-scan base-package="com.github.cremonese1980" />
+	<context:component-scan base-package="it.astaweb.service" />
+	
+	<aop:config proxy-target-class="true"/>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -20,5 +22,7 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="messages" />
 	</bean>
+	
+	<bean id="studentService" class="it.astaweb.service.StudentServiceImpl" ></bean>
 
 </beans>

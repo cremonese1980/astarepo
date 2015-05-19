@@ -10,7 +10,7 @@
 
 	<context:annotation-config />
 
-	<jpa:repositories base-package="com.github.cremonese1980.repository" />
+	<jpa:repositories base-package="it.astaweb.repository" />
 
 	<bean
 		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />

@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("studentService")
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl implements StudentService{
 
-  @Autowired
+  @Autowired(required=true)
   private StudentRepository studentRepository;
 
   @Transactional

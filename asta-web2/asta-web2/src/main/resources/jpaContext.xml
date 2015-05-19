@@ -32,12 +32,19 @@
 			</map>
 		</property>
 	</bean>
-	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-      <property name="url" value="jdbc:mysql//localhost:3306/astadb" />
-      <property name="username" value="asta_usr" />
-      <property name="password" value="asta_123" />
-</bean>
 
-	<beans>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/astadb" />
+		<property name="username" value="asta_usr" />
+		<property name="password" value="asta_123" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	</beans>

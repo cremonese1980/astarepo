@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
- <h2>Message received : ${message}</h2>
+ <h2>Message received now : ${message}</h2>
 <h2>Counter : ${counter}</h2>	
 </body>
 </html>

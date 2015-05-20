@@ -1,0 +1,602 @@
+/********************************************************************* FONTS  ***************************************************************/
+@font-face {font-family: 'OpenSans';font-weight: 800;src: url('../shared/css/fonts/OpenSans-ExtraBold/opensans-extrabold-webfont.eot?v=3.0.1');src: url('../shared/css/fonts/OpenSans-ExtraBold/opensans-extrabold-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'),url('../shared/css/fonts/OpenSans-ExtraBold/opensans-extrabold-webfont.woff?v=3.0.1') format('woff'),url('../shared/css/fonts/OpenSans-ExtraBold/opensans-extrabold-webfont.ttf?v=3.0.1') format('truetype');}
+@font-face {font-family: 'OpenSans';font-weight: 700;src: url('../shared/css/fonts/OpenSans-Bold/opensans-bold-webfont.eot?v=3.0.1');src: url('../shared/css/fonts/OpenSans-Bold/opensans-bold-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'),url('../shared/css/fonts/OpenSans-Bold/opensans-bold-webfont.woff?v=3.0.1') format('woff'),url('../shared/css/fonts/OpenSans-Bold/opensans-bold-webfont.ttf?v=3.0.1') format('truetype');}
+@font-face {font-family: 'OpenSans';font-weight: 600;src: url('../shared/css/fonts/OpenSans-Semibold/opensans-semibold-webfont.eot?v=3.0.1');src: url('../shared/css/fonts/OpenSans-Semibold/opensans-semibold-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'),url('../shared/css/fonts/OpenSans-Semibold/opensans-semibold-webfont.woff?v=3.0.1') format('woff'),url('../shared/css/fonts/OpenSans-Semibold/opensans-semibold-webfont.ttf?v=3.0.1') format('truetype');}
+@font-face {font-family: 'OpenSans';font-weight: normal;src: url('../shared/css/fonts/OpenSans-Regular/opensans-regular-webfont.eot?v=3.0.1');src: url('../shared/css/fonts/OpenSans-Regular/opensans-regular-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'),url('../shared/css/fonts/OpenSans-Regular/opensans-regular-webfont.woff?v=3.0.1') format('woff'),url('../shared/css/fonts/OpenSans-Regular/opensans-regular-webfont.ttf?v=3.0.1') format('truetype');}
+
+/********************************************************************* TEMPLATE ***************************************************************/
+body {min-width: 320px; font-family: OpenSans; font-size: 17px;}
+sup {font-size: 0.2em; top: -2.5em;}
+a {text-decoration: none;}
+a:hover {text-decoration: underline;}
+button {border:none;}
+em {font-style: normal;}
+h2 {font-size: 30px;font-weight: 400;padding: 15px 0;margin: 0;}
+label {font-weight: 600;}
+.isMobile {display: none !important;}
+.isDesktop {display: block !important;}
+*:before, *:after {font-family:Symbols;}
+
+.balloonStyle .balloon-wrapper {padding: 11px; font-size: 15px;}
+.balloonStyle .balloon-content .footer h2 {margin:11px 0; color: #000;padding: 0;}
+.balloonStyle .balloon-content .footer span {font-weight: bold;}
+.balloonStyle .balloon-content .footer strong {color: #000;font-size: 10px;font-weight: normal;}
+.balloonStyle .balloon-wrapper.bottom, .balloonStyle .balloon-wrapper.top {max-width: 252px !important;min-width: 252px !important;} 
+.balloonStyle .balloon-wrapper.bottom .footer, .balloonStyle .balloon-wrapper.top .footer {display: none;}
+.balloonStyle .bottom.balloon-wrapper .header, .balloonStyle .top.balloon-wrapper .header {width: auto; float:none;}
+.balloonStyle .balloon-wrapper.bottom {position: relative; top: 6px !important; left: 0 !important; right: 0 !important; bottom: 0 !important;}
+.overlayFormError .title {color: #434343;font-weight: bold;}
+.overlayFormError .error {color: red; font-style: italic;}
+.overlayFormError .description {font-size: 80%; padding: 11px 0;}
+
+.wrap-dropDown, .wrap-dropDown.hover, .wrap-dropDown.active {border-color: #fff; border-style: outset;border-top: 1px solid #F1F1F1;}
+.wrap-dropDown {line-height: 29px;border-radius: 4px;}
+.wrap-dropDown .dropDownRidesigned .dropDownArrow {background: #ccc; color: #fff; border: 1px solid #fff;border-radius: 0 4px 4px 0;line-height: 29px !important;}
+.wrap-dropDown .dropDownRidesigned .dropDownTitle {padding: 3px 3px 3px 11px;}
+.wrap-dropDown .dropDownRidesigned ul.dropDownList li .imageWrapper 
+	{height: 33px; width: 65px; border: 1px dotted #ddd;}
+.wrap-dropDown .dropDownRidesigned .dropDownTitle .imageWrapper {display: none;}
+.playPage .wrap-dropDown, .playPage .wrap-dropDown select {background: #f0f3f5}
+.playPage .element-wrapper select, .resultsPage .element-wrapper select {height: 28px;}
+.playPage .wrap-dropDown .dropDownRidesigned .dropDownArrow {background: #1a86ea;}
+
+.pageTitle {font-size: 29px;font-weight: 500; display: block; padding: 20px 0;}
+div.smallSpacer {height:11px;}
+.button.backToTop {font-size: 15px;position: fixed;top: 29px;left: 11px;opacity: 0.7;z-index: 5;display: none; cursor: pointer; padding: 6px;}
+.button.backToTop:after {content:"";}
+.button.backToTop:before {padding-right:22px; content:"\F0A6"; font-size: 100%;vertical-align: initial;}
+
+.clear {clear: both;}
+/********************************************************************* COLORS ***************************************************************/
+/* light grey */
+#wrapperHeader .section1, .homePage .howItWorks, .loginStyle .section1,
+.resultsPage #wrapperMain .section2, .playPage .search,#wrapperMain .searchBanner,
+.searchPage #wrapperMain .section2, .becomeFundraiser #wrapperMain .section2,
+#wrapperMain .banner, .becomeFundraiser .howCanRaise
+ {background-color: #f8f8f8;}
+ 
+.loginStyle .pageTitle {border-color: #f8f8f8;}
+/* Dark gray */
+.homePage .results span, .homePage .results p, label,
+.loginPage #wrapperMain .section2 ul, .registrationPage,
+.resultsPage .numbers span, .resultsPage, .playPage .search .inner,
+.playPage #affiliateScroll .box span, .textPage.inner, .becomeFundraiser #wrapperMain
+ {color: #434343;}
+.searchPage #wrapperMain .searchResults .item {border-color: #434343;}
+
+/* white */
+a, #wrapperMain .banner .inner, #wrapperFooter .section2, .homePage .results .star span,
+.resultsPage .star span, #wrapperMain .wrapperBannerBox {color: #fff;}
+.searchPage #wrapperMain .section2 .logoWrapper {background-color: #fff;}
+
+/********************************************************************* SHADOWS ***************************************************************/
+.selectStyle.element-wrapper, .searchPage #wrapperMain .section2 .logoWrapper
+	{-webkit-box-shadow: -1px 1px 3px 0px #979797;box-shadow: -1px 1px 3px 0px #979797;}
+.wrap-autocomplete.element-wrapper .autocomplete-list, .wrap-dropDown, .wrap-dropDown .dropDownRidesigned .dropDownList,
+#wrapperMain .wrapperBannerBox, .becomeFundraiser .howCanRaise .sectionPreview img
+	{-webkit-box-shadow: 0px 2px 4px -1px #000;box-shadow: 0px 2px 4px -1px #000;}
+
+/********************************************************************* BUTTONS ***************************************************************/
+.button {display: inline-block; padding: 6px 11px; text-decoration: none;}
+.button:hover {text-decoration: none; }
+.button:after {content: "\F04B"; padding-left: 6px; display: inline-block; font-size: 69%; vertical-align: middle; top: -2px;position: relative;} 
+  
+#wrapperMain .banner .list:after,
+.loginStyle #wrapperMain .forgot:after, .searchPage #wrapperMain .list:after
+ {content:"\F101"; padding-left: 6px; display: inline-block;}
+ 
+ /********************************************************************* BOTH VERSION ***************************************************************/
+ .inner {max-width: 984px; margin: 0 auto;display: block; padding: 0 20px; position: relative;}
+ .inner.noPadding {padding: 0;max-width: 1024px;}
+#wrapperHeader {height: 110px;}
+#wrapperHeader .section1 .links {float: right;font-size: 14px;padding: 2px 0;}
+#wrapperHeader .section1 .links, #wrapperHeader .section1 .links a {color: #434343; font-weight: 600;}
+#wrapperHeader .section2 .wrapperLogo {width: 30%; display: block;}
+#wrapperHeader .section2 .logo {width: 92%;padding: 8px 0 0 0; min-width: 290px;}
+#wrapperMain .banner .shadowOver {-webkit-box-shadow: 0px 8px 6px -6px #8D8D8D;box-shadow: 0px 8px 6px -6px #8D8D8D;width: 100%;height: 24px;position: absolute;top: -24px;}
+#wrapperMain .banner .waves {position: absolute;width: 100%;overflow: hidden; height: 300px;background-repeat: no-repeat;background-position-x: center;}
+#wrapperMain .banner.short .waves {height: 209px;background-size: cover;}
+#wrapperMain .banner .waves canvas {position: absolute;display: block;}
+#wrapperMain .banner .titles {position: relative;text-align: left;}
+#wrapperMain .banner .titles h1 {margin: 0;padding: 42px 0 0 0; font-size: 47px;}
+#wrapperMain .banner .titles h2 {margin: 0;padding: 0 0 0 51px; font-size: 24px;}
+#wrapperMain .banner .wrapperSearch { display: inline-block;text-align: left; position: relative;text-shadow: none;}
+#wrapperMain .banner .wrapperSearch .opacity {background: #000; filter: alpha(opacity=50); opacity: 0.5; z-index: -1; position: absolute;
+	top: 0;left: 0;right: 0;border: 0;height: 74px;}
+#wrapperMain .banner .formSearch {background: white;padding: 2px 2px 1px 2px;width: 100%;margin: 0 auto;text-align: center;min-height: 35px;border: 1px inset #FFF;}
+#wrapperMain .banner .formSearch .wrap-autocomplete input {width: 100%;border: none; margin-top: 3px;}
+#wrapperMain .banner .formSearch button {width: 21%; float: right;}	
+#wrapperMain .banner .register {display: none; position: relative; z-index: 2;}
+#wrapperMain .wrapperJackpot .noJackpot .title {font-size: 42px; line-height: 47px; font-weight: 800;display: inline-block;}
+#wrapperMain .wrapperJackpot .noJackpot .subTitle {display: inline-block;font-size: 12px;text-align: left;}
+#wrapperMain .wrapperJackpot .noJackpot .subTitle span {display: block;}
+#wrapperMain .wrapperJackpot .jackpot .title {font-size: 17px; font-weight: 600; line-height: 29px;}
+#wrapperMain .short .wrapperJackpot .jackpot .title {font-size: 20px;}
+#wrapperMain .wrapperJackpot .jackpot .million, #wrapperMain .wrapperJackpot .jackpot .thousand {font-size: 38px; font-weight: 800; line-height: 47px;}
+#wrapperMain .wrapperJackpot .jackpot .millionShort, #wrapperMain .wrapperJackpot .jackpot .thousandShort {display:none;}
+#wrapperMain .short .wrapperJackpot .jackpot .million, #wrapperMain .short .wrapperJackpot .jackpot .thousand {display:none;}
+#wrapperMain .short .wrapperJackpot .jackpot .millionShort, #wrapperMain .short .wrapperJackpot .jackpot .thousandShort {display: block;font-size: 101px;line-height: 105px;font-weight: 800;margin-bottom: 6px;}
+#wrapperMain .wrapperJackpot .jackpot .estimated {display:none;}
+
+#wrapperFooter {text-align: center;clear: both;}
+#wrapperFooter .section1 {font-size: 24px; padding: 11px 0; font-weight: 400; line-height: 125%; color: #fff;}
+#wrapperFooter .section1 .questions {float: left; font-size: 125%;}
+#wrapperFooter .section1 .mail {float: right;}
+#wrapperFooter .section1 .phone em {font-size: 56%; font-weight: normal;}
+#wrapperFooter .section1 .phone:before, #wrapperFooter .section1 .mail:before
+	{padding: 0 11px 0 0; display: inline-block; vertical-align: middle; font-size: 150%;}
+#wrapperFooter .section1 .phone:before {content:"\F095";}
+#wrapperFooter .section1 .mail:before {content:"\F0E0";}
+#wrapperFooter .section1 .clear {clear:both; display: block;}
+
+#wrapperFooter .section2 .inner.estimated {text-align: left; font-size: 14px;padding-top: 6px;}
+#wrapperFooter .section2 .inner div {padding: 15px 0;}
+#wrapperFooter .section2 .socialShare {font-family: Symbols; }
+#wrapperFooter .section2 .socialShare a 
+	{font-family: Symbols;font-size: 30px;display: inline-block;padding: 0;
+	background-color: #fff;border-radius: 33px;width: 47px;height: 47px;line-height: 47px;margin: 0 8px;}
+#wrapperFooter .section2 .socialShare a:hover {text-decoration: none;}
+
+#wrapperFooter .section2 .logos img {width: 16%; vertical-align: middle;}
+#wrapperFooter .section2 .info {font-size: 11px;}
+
+.homePage .results {clear: both;}
+.homePage .results span
+	{border-width: 2px;border-style: solid;width: 47px;height: 47px;text-align: center;display: inline-block;line-height: 47px;font-size: 29px;
+	border-radius: 33px;margin: 0 6px 0 0;font-weight: 600;background: #fff;}
+.homePage .results .star span
+	{background: url("../img/public/star_big.png");width: 63px;line-height: 65px;height: 60px;margin-top: -5px;border: none;border-radius: 0; }
+.homePage .results .button {float:right; margin: 42px 0 0 0;}
+#wrapperMain .banner .list {padding-left: 11px;}
+#wrapperMain .banner {position: relative;z-index: 2;width: 100%;background-repeat: no-repeat; background-position: center; background-size: 100%;}
+
+.loginStyle #wrapperHeader .login, .loginStyle #wrapperHeader .links span {display: none;}
+.loginStyle #wrapperMain .pageTitle {border-top-style: solid; border-top-width: 2px;}
+.loginStyle #wrapperMain label {width: 150px; display: inline-block;}
+.loginStyle #wrapperMain input {width: 240px; padding: 4px; border: 1px inset #eee;}
+.loginStyle #wrapperMain .errorMessage {color: red; padding: 4px 0 11px 0;}
+.loginStyle #wrapperMain .forgot {padding-bottom: 20px; font-weight: 600; } 
+.loginStyle #wrapperMain .section2 ul li {padding: 0 0 22px 0; font-weight: 600;}
+.loginStyle #wrapperMain .spacer {clear: both; height: 20px;}
+.registrationPage input[type='text'], .registrationPage input[type='password'] {width: 312px; padding: 2px;}
+.registrationPage select {width: 318px;height: 27px;}
+.registrationPage label {width:33%;text-align:right;display:inline-block;margin:2px 11px 0px 0;vertical-align: middle;position:relative;vertical-align: top;min-width: 222px;}
+.registrationPage label[for="operatorTel"] {left: 9px;}
+.registrationPage label span {position: relative;left: 4px;}
+.registrationPage em {color:red; padding-right:6px;}
+.registrationPage .group-wrapper .element-wrapper {margin-left: 0;}
+.registrationPage .openAccount {margin: 20px 0;}
+.registrationPage .element-wrapper .icon {font-size: 18px !important;}
+
+.carousel-container {text-align: center;}
+.carousel-container .scroller-wrapper {border: none;margin: 20px 0;} 
+.carousel-container .scroller-wrapper .scrollbar {display: none;}
+.carousel-container .scroller-wrapper .arrows {display: block;}
+.carousel-container .scroller-wrapper .arrows .backward {position: absolute;left: -74px;top: 38px;font-size: 68px;height: 42px;overflow: hidden;line-height: 45px;}
+.carousel-container .scroller-wrapper .arrows .forward {position: absolute;right: -74px;top: 38px;font-size: 68px;height: 42px;overflow: hidden;line-height: 45px;}
+
+.carousel-container .carousel {width:1910px;padding-bottom:22px;}
+.carousel-container .carousel ul {margin: 0;padding: 0; list-style:none;}
+.carousel-container .carousel ul li {float: left; width: 191px;height: 114px;line-height: 114px;}
+.carousel-container .carousel ul li img {vertical-align: middle; max-width: 182px; max-height: 83px;}
+
+.homePage .howItWorks .bottomshadow {width: 100%; position: absolute;}	
+.homePage .howItWorks .bottomshadow img {width: 100%; height: 24px;}
+.homePage .howItWorks h2:after {content: "\00a0\F101"}
+.homePage .howItWorks h3 {font-weight: 600;}
+.homePage .howItWorks .findOut {float: right;clear: right;width: 368px;background: url("../img/public/paper_pattern.jpg");height: 56px; padding: 4px 11px;
+	-webkit-box-shadow: -3px 3px 2px 1px #757575;box-shadow: -3px 3px 2px 1px #757575;}
+.homePage .howItWorks .findOut .button {float:right;margin: 11px 0 0 0;}
+.homePage .howItWorks .findOut span {font-weight: 600; float: left; width: 195px;}
+.homePage .howItWorks .findOut span span {display: block;margin-left: 33px;}
+.homePage .howItWorks .findOut em {font-weight: 800;}
+.homePage .howItWorks .divider {clear: both;height: 15px;}
+
+.nextDraw  .wrap-countDown.element-wrapper {height: 56px; margin-top: -24px;}
+.nextDraw .wrap-countDown ul {font-size: 29px; line-height: 39px;width: 48px;height: 41px;margin-left: 4px;font-family: OpenSans; text-shadow: none; background-color: #cecfcb;}
+.nextDraw .wrap-countDown ul li div span span.inn {border-radius: 0;}
+.nextDraw .wrap-countDown span.wings {top: 15px;}
+.nextDraw .wrap-countDown .down span.wings {top: -6px;}
+.nextDraw .wrap-countDown span.wings.right {left: 42px;}
+.nextDraw .wrap-countDown div {margin: -0;}
+.nextDraw .wrap-countDown ul li div span span.inn {color: #000;}
+.nextDraw .wrap-countDown ul li div span.down span.inn {background-color: #e0e0e0;}
+.nextDraw .clock-container .labels {margin: 6px 0 0 0;}
+.nextDraw .clock-container .labels span {display: inline-block; text-align: center;font-size: 11px;width: 47px;}
+/****************************************************************** Steps Page ****************************************************/
+.stepWizardWrapper {background: #F9F9F9;color: #777;border-bottom: 1px solid #DDD; }
+.stepsWizard {padding-bottom: 33px;font-weight: bold; position: relative; z-index: 1;padding: 15px; }
+.stepsWizard h1 {margin-top: 0}
+.stepsWizard .box {width: 24%; float:left; position: relative; min-width: 137px;}
+.stepsWizard .box.openAccount {z-index: 11;}
+.stepsWizard .box.accountDetails {z-index: 10;}
+.stepsWizard .box.websiteEditor {z-index: 9;}
+.stepsWizard .box.sendForReview {z-index: 8;}
+.stepsWizard .box p {height: 55px;text-align: left;text-align: center;}
+.stepsWizard .box span.line {width: 100%; height: 12px;margin: 18px 0; float:left; border-right: 1px solid #fff;}
+.stepsWizard .box span.dot {float: left;display: block;width: 44px;height: 44px;border-radius: 42px;border: 2px solid #fff;font-size: 33px;text-align: center;
+	font-weight: 700;line-height: 42px;position: absolute;color: #fff;right: -24px;}						
+.stepsWizard .box.accountDetails span.line {width: 32%;}
+.stepsWizard .box.websiteEditor span.line {width: 48%;}
+.stepsWizard .box span.line {background-color: #E4E4E4;} .stepsWizard .box span.dot {background-color: #BCBCBC;}
+.stepsWizard .box.openAccount span {background: #FF9900;}
+
+.selectStyle.element-wrapper {font-size:14px;background: #fff;font-weight: 600; border-color:#fff;}
+.selectStyle.element-wrapper .placeholder {top: 5px !important; left:8px;color:#333;}
+.selectStyle.element-wrapper .icon 
+	{color:#fff;line-height: 33px !important;width: 33px !important;font-size:20px !important; 
+		vertical-align: middle;font-weight: normal;}
+.selectStyle.element-wrapper.wrap-select select {position: relative;top: 4px;background: #FFF;}
+
+.resultsPage #wrapperMain .section1 {text-align: center;}
+.resultsPage #wrapperMain .section1 .results {text-align: left;}
+.resultsPage .noPrizes {text-align: center; font-size: 33px; display: block; padding: 20px 0;}
+.resultsPage .results span
+	{border-width: 2px; border-style:solid; width: 58px;height: 58px;text-align: center; display: inline-block;
+	line-height: 58px;font-size: 33px;border-radius: 33px;margin: 0 6px 0 0;font-weight: 600; 
+	background-color: #fff;
+	}
+.resultsPage .results .star span
+	{background: url("../img/public/star_big.png");width: 69px;line-height: 69px;height: 69px;margin-top: -5px;
+	border: none;border-radius: 0; background-size: 69px 69px; }
+.resultsPage .wrap-dropDown.active .dropDownRidesigned ul.dropDownList {width: 100% !important;}
+
+.playPage h1 {line-height: 33px; margin:0; padding: 15px 0 0 0;}
+.playPage .search {margin:22px 0; font-size: 18px; font-weight:  700;}
+.playPage #affiliateList {width:400px;}
+.playPage .search a {cursor:pointer;}
+.playPage #affiliateScroll {width:99%; padding: 11px;}
+.playPage #affiliateScroll .capitalLetter {clear:both; font-size: 29px; font-weight: 700}
+
+#wrapperMain .searchBanner {margin: 20px 0; text-align: center; padding: 20px;}
+#wrapperMain .searchBanner .formSearch {background: white;padding: 1px;width: 65%;margin: 0 auto;text-align: center;min-height: 35px; border: 1px inset #eee;}
+#wrapperMain .searchBanner .formSearch .wrap-autocomplete input {width: 100%;border: none; margin-top: 3px;}
+#wrapperMain .searchBanner .formSearch button {width: 15%; min-width: 78px; float: right;}	
+#wrapperMain .searchBanner .list {width: 65%;text-align: left;display: block;margin: 0 auto;}
+
+.searchPage #wrapperMain .searchResults table {width:100%;}
+.searchPage #wrapperMain .searchResults .item {border-top: 1px solid #ACACAC;}
+.searchPage #wrapperMain .searchResults .item td {padding: 11px 0;}
+.searchPage #wrapperMain .searchResults .logo {width: 20%;}
+.searchPage #wrapperMain .searchResults .logo img {max-width: 290px; max-height: 100px;}
+.searchPage #wrapperMain .searchResults .name {text-align: left; text-transform: uppercase; font-size: 24px; font-weight: 700;}
+.searchPage #wrapperMain .searchResults .play {text-align: right;width: 159px;}
+.searchPage #wrapperMain .searchResults .button {font-size: 24px;width: 149px;text-align: center;padding: 5px;}
+
+.searchPage #wrapperMain .section2 {padding: 20px; text-align: left;text-align: center;}
+.searchPage #wrapperMain .section2 .logoWrapper {padding: 6px; display:inline-block; width: 210px; height: 100px; margin:29px 7px 0 7px; text-align: center;vertical-align: middle;}
+.searchPage #wrapperMain .section2 .logoWrapper a { display:inline-block;height: 100px;line-height: 161px;}
+.searchPage #wrapperMain .section2 .logoWrapper img {max-width: 200px; max-height: 100px;}
+.searchPage #wrapperMain .section2 .support {font-size: 33px;text-align: center;}
+.searchPage #wrapperMain .section2 .support em {font-size: 60%;}
+
+.wrap-autocomplete.element-wrapper {border: none; width: 78%; text-shadow: none;}
+.wrap-autocomplete.element-wrapper .autocomplete-list {margin-top: 7px;}
+
+.becomeFundraiser.overlayOpened {overflow: hidden;}
+.becomeFundraiser #wrapperHeader .section1 .links a.partner, .becomeFundraiser #wrapperHeader .section1 .links span {display: none;}
+.becomeFundraiser h3 {margin: 0 0 11px 0; font-weight: 600; font-size: 24px;}
+.becomeFundraiser .wrapperBannerBox h1 {background: #fff;margin: 0;text-align: center;font-size: 24px;line-height: 26px; padding: 11px 0 0 0;}
+.becomeFundraiser .wrapperBannerBox h1 span {display: block;}
+.becomeFundraiser .wrapperBannerBox h1 span strong {font-weight: 800;}
+.becomeFundraiser .wrapperBannerBox h6 {margin: 11px;font-weight: 400;font-size: 14px;}
+.becomeFundraiser .wrapperBannerBox .arrow {border: 150px solid transparent;border-top: 20px solid #fff; border-bottom: none;}
+.becomeFundraiser .wrapperBannerBox #formSignUp {background: #fff; margin: 11px; padding: 1px 1px 1px 5px; font-size: 15px;}
+.becomeFundraiser .wrapperBannerBox #formSignUp .element-wrapper {border: 0;}
+.becomeFundraiser .wrapperBannerBox #formSignUp input {width: 176px; border: 0; height: auto;}
+.becomeFundraiser .wrapperBannerBox #formSignUp .element-wrapper.active > .balloon-wrapper {display: none;}
+.becomeFundraiser .wrapperBannerBox #formSignUp .element-wrapper.active.validationError > .balloon-wrapper {display: block;}
+.becomeFundraiser .wrapperBannerBox #formSignUp .balloon-wrapper {padding: 11px;font-size: 15px;}
+.becomeFundraiser .wrapperBannerBox .moreInfo {display: block; cursor: pointer;margin: 11px;}
+.becomeFundraiser .wrapperBannerBox .moreInfo:after {content: "\00a0\F101"}
+.becomeFundraiser #wrapperMain .banner .titles {width: 63%;}
+.becomeFundraiser #wrapperMain .banner .titles h1 {font-size: 42px;}
+.becomeFundraiser .points {margin: 11px auto;}
+.becomeFundraiser .points h5 {font-weight: 400;font-size: 20px; margin: 0;padding: 20px 0;}
+.becomeFundraiser .points ul {list-style: none;margin: 0;padding: 0;}
+.becomeFundraiser .points ul li:before {content: "";width: 31px;height: 33px;display: inline-block;vertical-align: bottom;margin: 0 11px 0 0;}
+
+.becomeFundraiser .howCanRaise .inner {padding: 20px;}
+.becomeFundraiser .howCanRaise h3 {text-align: center;font-weight: 400;}
+.becomeFundraiser .howCanRaise h3 span {display: block;}
+.becomeFundraiser .howCanRaise h3 em {font-size: 60%; display: block;}
+.becomeFundraiser .howCanRaise .sectionVideo h3 span:after {content: "\F103"; display: inline-block; vertical-align: bottom; margin: 0 0 0 11px;}
+.becomeFundraiser .howCanRaise .sectionVideo .video {margin: 0 0 15px 0;}
+.becomeFundraiser .howCanRaise .sectionVideo .video iframe {width: 100%; height: 265px;}
+.becomeFundraiser .howCanRaise .sectionPreview img {max-height: 402px;margin: 29px auto;position: relative;z-index: 2;display: block; cursor: pointer;}
+.becomeFundraiser .support h3 {margin-top: 20px; font-weight: 400;}
+.becomeFundraiser #wrap-inputSignUp .placeholder {font-style: italic;}
+.becomeFundraiser #btnSignUp {font-size: 13px;}
+.becomeFundraiser .sectionVideo .button, .becomeFundraiser .howCanRaise .sectionVideo .info {padding: 6px 20px;}
+.becomeFundraiser .sectionVideo .more:after {content: "\00a0\F101";font-size: 100%;}
+
+#overlay-container.previewShop {width: 90%; }
+#overlay-container.previewShop .wrapper {overflow-y: scroll;text-align: center;}
+#overlay-container.previewShop.mobile .wrapper {overflow-y: initial; text-align: left;display: inline-block; width:100%;}
+#overlay-container.previewShop .wrapper img {max-width: 100%;}
+#overlay-container.previewShop.mobile {width: 100%; margin: 0; padding: 69px 0 0 0; text-align: center;}
+#overlay-container.previewShop.mobile img {width: 1vw;}
+#overlay-container.previewShop.mobile > div.closeOverlay {background-color: #1a86ea;top: 6px;right: 15px;font-size: 42px;line-height: 51px;width: 42px;text-align: center;}
+#overlay-container.previewShop.mobile {border: none; border-radius: 0;background: #ddd;overflow: hidden;}
+/********************************************************************* DESKTOP VERSION ***************************************************************/
+@media screen and (min-width: 641px) {
+	.commonOverride #wrapperMain .banner {text-align: center;height: 381px; text-shadow: 2px 2px 2px #474747;}
+	.commonOverride #wrapperMain .banner.short	{height: 209px;}
+	.commonOverride #wrapperMain .wrapperJackpot {text-align: center;}
+	.commonOverride #wrapperMain .wrapperJackpot .estimated {display:none;}
+	.commonOverride #wrapperMain .wrapperJackpot .noJackpot .superTitle {padding-top: 6px;}	
+	.commonOverride #wrapperMain .banner.short .wrapperJackpot .noJackpot .title {font-size: 101px; line-height: 105px; }	
+	.commonOverride #wrapperMain .banner.short .wrapperJackpot .noJackpot .subTitle {font-size: 29px;}	
+	.commonOverride #wrapperMain .wrapperBannerBox {position: absolute; right: 20px; width: 296px; min-height: 173px; z-index: 3;}
+	.commonOverride #wrapperMain .wrapperBannerBox .nextDraw {text-align: center;}
+	.commonOverride #wrapperMain .wrapperBannerBox .balls {position: absolute;bottom: -6px;}
+	.commonOverride #wrapperMain .banner .wrapperSearch {width: 74%;min-width: 420px;max-width: 735px;position: relative;padding: 4px 11px 11px 4px;top: 137px;}	
+	
+	.commonOverride #wrapperHeader .section2 .wrapperLogo {float: left;}	
+	
+	.commonOverride.homePage .support {font-size: 33px; text-align: left; padding-top: 11px;}
+	.commonOverride.homePage .support em {font-size: 60%; white-space:nowrap;}	
+	
+	.commonOverride.homePage .results .date {float: left;width: 24%; font-size: 20px; margin-right: 10%;}
+	.commonOverride.homePage .results .date h2 {margin-bottom: 6px; margin: 11px 0 0 0;}
+	.commonOverride.homePage .results .date p {font-size: 78%; margin:0;}
+	.commonOverride.homePage .results .date p strong {white-space:nowrap}
+	.commonOverride.homePage .results .numbers {float: left;}
+	.commonOverride.homePage .results .star {float: left;}
+	
+	.commonOverride.homePage .howItWorks {clear: both;}
+	.commonOverride.homePage .howItWorks h2 {width: 155px; float: left; font-size: 22px; text-align: right; margin: 0 11px 0 0;}
+	.commonOverride.homePage .howItWorks h2 em {font-weight: 800; text-transform: uppercase;}
+	.commonOverride.homePage .howItWorks .content {padding: 24px 0 0 200px;}
+	.commonOverride.homePage .howItWorks .step {float:left; width: 24%;}
+	.commonOverride.homePage .howItWorks .step img {width: 100%;}
+	.commonOverride.homePage .howItWorks .dottedLine {height: 1px;width: 92%;border-bottom-width: 2px;border-bottom-style: dotted;margin: 0 auto 11px auto;}
+	.commonOverride.homePage .howItWorks .arrow {position: absolute; right: 15px; top: 33%;}
+	.commonOverride.homePage .howItWorks .textWrapper {float:right;width: 435px;}
+	.commonOverride.homePage .howItWorks h3 {float:right; margin-right: 60%; margin-top: 51px;}
+	.commonOverride.homePage .howItWorks .video {float: left; margin-left: 15%; width: 33%;}
+		
+	.commonOverride.loginStyle #wrapperMain .forgot {clear:both; display: block; margin-left: 150px;}
+	
+	.commonOverride.loginPage #wrapperMain h2 {font-size: 26px;font-weight: 700;}
+	.commonOverride.loginPage #wrapperMain .data.n2 {float: left;}
+	.commonOverride.loginPage #wrapperMain .login {float: left;}
+	.commonOverride.loginPage #wrapperMain input {margin-right: 83px;}
+	.commonOverride.loginPage #wrapperMain .section2 ul {float:left;}
+	.commonOverride.loginPage #wrapperMain .section2 .openAccount {float:left;margin: 47px 0 114px 51px;}
+	
+	.commonOverride.recPswPage #wrapperMain .forgot {margin-top: 33px;}
+	.commonOverride.recPswPage #wrapperMain h2 {font-size: 26px;font-weight: 700;}
+	.commonOverride.recUsernamePage #wrapperMain h2 {font-size: 26px;font-weight: 700;}
+
+	.commonOverride .registrationPage .privacyNote {margin-left: 33%;}
+	.commonOverride .registrationPage .wrap-checkbox .checkbox-wrapper span {width: 300px;font-family: Arial;vertical-align: top;}
+	.commonOverride .registrationPage table {width: 100%;}
+	.commonOverride .registrationPage .column.n1 {width: 33%;}
+	.commonOverride .registrationPage .column.n1 label {width:100%;}
+	.commonOverride .registrationPage .column.n2 {width: 56px; padding-left: 18px;}
+
+	.commonOverride.resultsPage #selectedDateId {width:380px; font-size: 17px;}
+	.commonOverride.resultsPage .results {clear: both; margin:22px auto 0 auto; width: 546px;}
+	.commonOverride.resultsPage .autocomplete-list .results {margin:0; width: auto;}
+	.commonOverride.resultsPage .results .numbers {float: left;}	
+	.commonOverride.resultsPage .results .star {float: right;}	
+	.commonOverride.resultsPage .results .button {float:right; margin: 42px 33px 0 0;}
+	.commonOverride.resultsPage .divider {clear: both;height: 33px;}
+	.commonOverride.resultsPage .prizes {padding: 20px 0;}
+	.commonOverride.resultsPage .prizes .inner div {float:left;font-size: 20px; padding: 15px 0; border-bottom: 1px solid #434343;}
+	.commonOverride.resultsPage .prizes .inner .title {font-size: 24px;}
+	.commonOverride.resultsPage .prizes .category {clear:both;}
+	.commonOverride.resultsPage .prizes .title {font-size: 33px;}
+	.commonOverride.resultsPage .prizes .category {width: 60%;}
+	.commonOverride.resultsPage .prizes .prize {width: 40%;}
+	.commonOverride.resultsPage .inner.note {clear:both; padding: 33px 20px;}
+	
+	.commonOverride.playPage .search {padding: 15px 0;}
+	.commonOverride.playPage .search a, .commonOverride.playPage .search span {width: 2.8%; display: inline-block;}
+	.commonOverride.playPage .search span.number {width: 29px;}
+	.commonOverride.playPage #affiliateScroll .box {display: block;float: left;width: 220px;min-height:155px;padding: 11px;border: 2px solid #1a86ea;margin: 11px;text-align: center;border-radius: 11px;color:#1a86ea; 
+	font-weight: 600; overflow: hidden;}
+	.commonOverride.playPage #affiliateScroll .box span {display: block;padding: 0 0 8px 0;}
+	.commonOverride.playPage #affiliateScroll .box span img {max-width:200px; max-height: 65px;}
+	.commonOverride.playPage #affiliateScroll .logoWrapper {height: 65px;line-height: 101px;}
+	.commonOverride.playPage #affiliateScroll .nameWrapper {height: 42px;}
+	.commonOverride.playPage #affiliateScroll .box .button {padding: 4px 20px;}
+	
+	.commonOverride .registrationPage .element-wrapper.active .placeholder, .commonOverride .registrationPage .element-wrapper .placeholder {color: transparent;}
+		
+	.commonOverride.searchPage #wrapperMain .section2 .support em {white-space:nowrap;}
+	.commonOverride.searchPage #wrapperMain .searchResults .item td {padding: 11px 6px;}
+		
+	.commonOverride .wrap-autocomplete.element-wrapper .autocomplete-list {width: 119%;}
+	.commonOverride.homePage .wrap-autocomplete.element-wrapper .autocomplete-list {width: 126%;}	
+
+	.commonOverride.becomeFundraiser .points ul li {float: left; min-width: 300px; width: 50%;margin: 0 0 11px 0;}
+	.commonOverride.becomeFundraiser .howCanRaise .sectionVideo {float: left;width: 48%;margin-right: 2%;}
+	.commonOverride.becomeFundraiser .howCanRaise .sectionPreview {float: left;width: 46%;border-left: 2px dotted #82c7f7;margin-left: 2%;}
+}
+
+/********************************************************************* PORTRAIT TABLET VERSION ***************************************************************/
+@media screen and (max-width: 990px)  and (min-width: 641px) {	
+	.registrationPage label {width: 24%;}
+	.commonOverride .registrationPage .privacyNote {margin-left: 25%;}
+	.commonOverride .registrationPage .column.n1 {width: 24%;}
+}
+@media screen and (max-width: 902px)  and (min-width: 641px)  {
+	.registrationPage #wrap-operatorDialingCode.element-wrapper.active + .balloon-wrapper {}
+	.balloonStyle .balloon-wrapper.bottom, .balloonStyle .balloon-wrapper.top {max-width: 295px !important;min-width: 295px !important;}
+	.balloonStyle .bottom .balloon-content .title {display: none;}
+	.element-wrapper.active + .balloon-wrapper + #wrap-operatorTel {position: absolute;top: 0px;left: 97px;}
+}
+@media screen and (max-width: 900px) {
+	.commonOverride.homePage .howItWorks .video {margin-left: 9%;}
+}
+@media screen and (max-width: 821px) {
+	#wrapperFooter .section1 {font-size: 17px;}
+	.commonOverride.homePage .howItWorks .video {margin-left: 3%;}
+}
+
+@media screen and (max-width: 840px) {
+	.commonOverride #wrapperMain .wrapperBannerBox {position: relative;width: 96%;height: 81px;padding: 0 2%;right: 0; overflow: hidden;min-height: 0px;}
+	.commonOverride.becomeFundraiser #wrapperMain .wrapperBannerBox {display: none;}
+	.commonOverride.becomeFundraiser #wrapperMain .banner .register {display: block;margin: 69px auto 0 auto;font-size: 20px;text-align: center;}
+	.commonOverride.becomeFundraiser #wrapperMain .banner .register .button {padding: 11px 33px;}
+	.commonOverride #wrapperMain .wrapperJackpot {float:left;}
+	.commonOverride #wrapperMain .short .wrapperJackpot {float:none;}
+	.commonOverride #wrapperMain .wrapperBannerBox .balls {display: none;}
+	.commonOverride #wrapperMain .wrapperBannerBox .nextDraw {padding: 11px 0 0 0;}
+	.commonOverride.becomeFundraiser #wrapperMain .banner .titles {width: auto;}
+}
+
+@media screen and (max-width: 753px) { 
+	.commonOverride.homePage .howItWorks .content {padding: 0;}
+	.commonOverride.homePage .howItWorks h2 {width: auto;float: none;text-align: left;margin: 0;padding: 0;}
+	.commonOverride.homePage .howItWorks .dottedLine {display: none;}
+	.commonOverride.homePage .howItWorks h2 {font-size: 24px; padding: 11px 0 11px 0;}
+	.commonOverride.homePage .howItWorks .step {display: none;}
+	.commonOverride.homePage .howItWorks .textWrapper h3 {display: none;}
+	.commonOverride.homePage .howItWorks .findOut {width: 92%;height: auto;padding: 11px 4%; margin: 0 0 20px 0;}
+	.commonOverride.homePage .howItWorks .video {float: none;width: auto; max-width: 360px;margin: 0 auto;}
+	.commonOverride.homePage .howItWorks .textWrapper {float: none;width: auto;}	
+}
+
+/********************************************************************* MOBILE VERSION ***************************************************************/
+@media screen and (max-width: 640px) {
+	#livechat-compact-container,#livechat-full {
+		width: 100% !important;
+		left: 0px;
+		right: auto;
+	}
+	.commonOverride .inner {padding: 6px;}
+	.commonOverride .inner.noPadding {padding: 0;}
+	.commonOverride .isMobile {display: block !important;}
+	.commonOverride .isDesktop {display: none !important;}
+	.commonOverride .button.backToTop {top: 4px;left: 4px;}
+	
+	.commonOverride #wrapperHeader .section2 .logo {padding: 0;}
+	.commonOverride #wrapperFooter .section2 {padding-bottom: 33px;}
+	
+	.commonOverride #wrapperMain .wrapperBannerBox {height: 71px;}
+	.commonOverride #wrapperMain .wrapperJackpot .noJackpot {font-size: 11px;margin-top: 9px}
+	.commonOverride #wrapperMain .wrapperJackpot .noJackpot .title {font-size: 33px; line-height: 42px;}
+	.commonOverride #wrapperMain .wrapperJackpot .jackpot {text-align: left;}
+	.commonOverride #wrapperMain .wrapperJackpot .jackpot .title {font-size: 9px;}
+	.commonOverride #wrapperMain .wrapperJackpot .jackpot .million {display:none;}
+	.commonOverride #wrapperMain .wrapperJackpot .jackpot .millionShort {display:block;font-weight: 800;font-size: 38px;line-height: 19px;}
+	.commonOverride #wrapperMain .wrapperBannerBox .nextDraw {float: right;width: 164px;}
+	
+	.commonOverride #wrapperMain .banner {clear: both;position: relative;background-size: 160%;}
+	.commonOverride #wrapperMain .banner.long {height: 326px;}
+	.commonOverride #wrapperMain .banner .inner {padding: 0;}
+	.commonOverride #wrapperMain .banner .titles h1 {font-size: 33px; padding: 20px 0 0 6px;}
+	.commonOverride #wrapperMain .banner .waves {background-size: 236%;background-repeat: no-repeat;}
+	.commonOverride #wrapperMain .banner .wrapperSearch {padding: 0;width: 100%;margin-top: 78px;}	
+	.commonOverride #wrapperMain .banner .wrapperForm {padding: 9px 2px 2px 2px;position: relative;}
+	.commonOverride #wrapperMain .banner .list {padding-left: 11px;}
+	.commonOverride #wrapperMain .banner .formSearch {width: 96%;}
+	.commonOverride #wrapperMain .banner .formSearch input {width: 10px;}
+	.commonOverride #wrapperMain .banner .formSearch .wrap-autocomplete input {width: 100%; font-size: 15px;padding: 4px 0;}
+	
+	.commonOverride .nextDraw .wrap-countDown ul {font-size: 25px;line-height: 29px;width: 40px;height: 31px;margin-left: 1px;}		
+	.commonOverride .nextDraw .wrap-countDown span.wings {top: 10px;}
+	.commonOverride .nextDraw .wrap-countDown .down span.wings {top: -6px;}
+	.commonOverride .nextDraw .wrap-countDown span.wings.right {left: 34px;}
+	.commonOverride .nextDraw .clock-container .labels {margin: -7px 0 0 0;}
+	.commonOverride .nextDraw .clock-container .labels span {font-size: 10px;width: 37px;}
+	
+	.commonOverride #wrapperMain .support {text-align: center; font-size: 4.2vw;}
+	.commonOverride #wrapperMain .support span {font-size: 6.9vw;}
+	.commonOverride #wrapperMain .support em {font-size: 4.2vw;}
+	.commonOverride #wrapperMain .partners .middle .button {font-size: 24px;padding: 6px 24px;}
+	
+	.commonOverride #wrapperFooter .section1 {padding: 6px 0; font-size: 20px;}
+	.commonOverride #wrapperFooter .section1 .inner span {display: block; float: none; padding: 0 0 15px 0; }
+	.commonOverride #wrapperFooter .section1 .inner span.clear {padding: 0;} 
+	.commonOverride #wrapperFooter .section1 .inner .mail {padding:0;}
+	.commonOverride #wrapperFooter .section1 .phone:before, .commonOverride #wrapperFooter .section1 .mail:before {font-size: 96%;}
+	.commonOverride #wrapperFooter .section2 .inner div {font-size: 15px;}
+	
+	.commonOverride.homePage .results {text-align: center;}
+	.commonOverride.homePage .results h2 {padding: 0;}
+	.commonOverride.homePage .results p {margin: 6px 0 20px 0;}
+	.commonOverride.homePage .results span {width: 38px;height: 38px;line-height: 38px;font-size: 26px;margin: 0 4px 0 0;}
+	.commonOverride.homePage .results .star span {width: 45px;height: 47px;background-size: 47px 47px;margin: 0;line-height: 47px;}
+	.commonOverride .carousel-container .carousel {width: 1010px;}
+	.commonOverride .carousel-container .carousel ul li img {max-width: 92px;}
+	.commonOverride .carousel-container .carousel ul li {width: 101px; height: 83px;}
+	.commonOverride .carousel-container .scroller-wrapper {margin: 6px 0;}	
+	.commonOverride .carousel-container .scroller-wrapper .arrows .backward {left: -38px;top: 45px;font-size: 42px;height: 27px;line-height: 29px;}
+	.commonOverride .carousel-container .scroller-wrapper .arrows .forward {right: -38px;top: 45px;font-size: 42px;height: 27px;line-height: 29px;}
+	
+	.commonOverride.playPage #affiliateList {width: 100%;}
+	.commonOverride.playPage #affiliateScroll {padding: 0;}
+	.commonOverride.playPage .choose {background: #f8f8f8;}
+	.commonOverride.playPage .search {background: none;}
+	.commonOverride.playPage .search a, .commonOverride.playPage .search span {display: inline-block; padding: 8px;}
+	
+	.commonOverride.playPage #affiliateScroll .capitalLetter {border-bottom: 2px solid #f8f8f8;margin-bottom: 11px;padding-bottom: 20px;}
+	.commonOverride.playPage #affiliateScroll .box {display: block;max-width: 100%;min-height:155px;
+		margin: 11px 0;text-align: center;color:#1a86ea;font-weight: 600; overflow: hidden;
+		border-bottom: 2px solid #f8f8f8;margin-bottom: 11px;padding-bottom: 20px;}
+	.commonOverride.playPage #affiliateScroll .box span {display: block;padding: 0 0 8px 0;}
+	.commonOverride.playPage #affiliateScroll .box span img {max-width:200px; max-height: 65px;}
+	.commonOverride.playPage #affiliateScroll .logoWrapper {height: 65px;line-height: 101px;}
+	.commonOverride.playPage #affiliateScroll .nameWrapper {height: 42px;}
+	.commonOverride.playPage #affiliateScroll .box .button {padding: 4px 20px;font-size: 24px;}
+	
+	.commonOverride.resultsPage .pageTitle {padding: 0;}
+	.commonOverride.resultsPage #wrapperMain .section1 .inner {padding: 0;}
+	.commonOverride.resultsPage #wrapperMain .section1 .results {text-align: center;background: #f8f8f8; padding: 1px; margin-top: 15px;}
+	.commonOverride.resultsPage .results span {width: 38px;height: 38px;line-height: 38px;font-size: 25px;margin: 0 6px 0 0; background-size: 38px 38px;}
+	.commonOverride.resultsPage .results .star span {width: 45px;height: 47px;background-size: 47px 47px;margin: 0;line-height: 47px;}
+	.commonOverride.resultsPage #wrapperMain .section2 {background: none;}
+	.commonOverride.resultsPage .prizes .title {font-size: 6vw;float: left; margin-bottom: 11px;}
+	.commonOverride.resultsPage .prizes .prize.title:before {content: "\00a0& ";}
+	.commonOverride.resultsPage .prizes .category, .commonOverride.resultsPage .prizes .prize {padding-left: 15px; font-size: 5vw;}
+	.commonOverride.resultsPage .prizes .prize {margin-bottom: 11px;}
+	.commonOverride.resultsPage .prizes .category.title , .commonOverride.resultsPage .prizes .prize.title {padding-left: 0px;}
+	.commonOverride.resultsPage .prizes .category {clear:both; font-weight: 700;}
+	
+	.commonOverride.searchPage #wrapperMain .pageTitle {padding: 0; margin: 0;}
+	.commonOverride.searchPage #wrapperMain .searchResults.isMobile .box {display: block;max-width: 100%;min-height:155px;
+		margin: 11px 0;text-align: center;color:#1a86ea;font-weight: 600; overflow: hidden;
+		border-bottom: 2px solid #f8f8f8;margin-bottom: 11px;padding-bottom: 20px;}
+	.commonOverride.searchPage #wrapperMain .searchResults.isMobile .box span {display: block;padding: 0 0 8px 0;}
+	.commonOverride.searchPage #wrapperMain .searchResults.isMobile .box span img {max-width:200px; max-height: 22vw;}
+	.commonOverride.searchPage #wrapperMain .searchResults.isMobile .logoWrapper {height: 22vw;line-height: 44vw;}
+	.commonOverride.searchPage #wrapperMain .searchResults.isMobile .nameWrapper {height: 42px; color: #1a86ea;}
+	.commonOverride.searchPage #wrapperMain .searchResults.isMobile .box .button {padding: 4px 20px;font-size: 24px; width: auto;}
+	.commonOverride.searchPage #wrapperMain .section2 {padding: 11px 0; text-align: center;}
+	
+	.commonOverride .registrationPage .pageTitle {margin: 0;padding-bottom:0; border-top: 2px solid #f8f8f8;}
+	.commonOverride .registrationPage #affiliateReg {text-align: center;}
+	.commonOverride .registrationPage label {display: none;}
+	.commonOverride .registrationPage input[type='text'], .commonOverride .registrationPage input[type='password'] {width: 272px;}
+	.commonOverride .registrationPage input#operatorTel {width: 174px !important;}
+	.commonOverride .registrationPage select {width: 277px;}
+	.commonOverride .registrationPage .openAccount {font-size: 24px;}
+	.commonOverride .balloonStyle .balloon-wrapper.bottom, .commonOverride .balloonStyle .balloon-wrapper.top {max-width: 256px !important;min-width: 256px !important;}
+
+	.commonOverride.loginStyle #wrapperMain label {display:none;}
+	.commonOverride.loginStyle .button {margin: 22px 0;}
+	.commonOverride.loginStyle #wrapperMain .forgot {font-size: 16px;}
+		
+	.commonOverride .wrap-autocomplete.element-wrapper .autocomplete-list {width: 119%;}	
+	.commonOverride .wrap-autocomplete.element-wrapper .title {height: 0px; overflow: hidden;}
+	.commonOverride .wrap-dropDown {width: 96%;margin-left: 1%;}
+	
+	.commonOverride.becomeFundraiser #wrapperMain .banner .titles h2 {display: none;}
+	.commonOverride.becomeFundraiser #wrapperMain .banner .titles {text-align: center;}	
+	.commonOverride.becomeFundraiser .points h5 {padding: 0 0 20px 0;}
+	.commonOverride.becomeFundraiser .points h5 em {display: none;}
+	.commonOverride.becomeFundraiser .points ul {font-size: 14px;}
+	.commonOverride.becomeFundraiser .howCanRaise h3 {text-align: left;}
+	.commonOverride.becomeFundraiser .howCanRaise .inner {padding: 6px;}
+	.commonOverride.becomeFundraiser .howCanRaise .sectionVideo .info {font-size: 14px;}
+	.commonOverride.becomeFundraiser .sectionPreview {margin: 20px 0 0 0;}
+	.commonOverride.becomeFundraiser .support h3 {text-align: left;}	
+	.commonOverride.becomeFundraiser .howCanRaise .sectionPreview img {max-height: 300px;}
+	
+	.commonOverride .balloonStyle .balloon-wrapper.bottom {display: none;}
+	}
+}

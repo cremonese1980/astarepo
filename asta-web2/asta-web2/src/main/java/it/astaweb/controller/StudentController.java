@@ -6,6 +6,8 @@ import it.astaweb.service.StudentService;
 
 import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+
+
 @Controller
 @SessionAttributes("student")
 public class StudentController {
+	
+	private static final Log LOG = LogFactory.getLog(StudentController.class);
 
   @Autowired(required=true)
   private StudentService studentService;
@@ -57,7 +63,8 @@ public class StudentController {
           return "login";
       } else {
           boolean found = studentService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
-          if (found) {                
+          if (found) {  
+        	  LOG.info(studentLogin.getUserName() + " logged in");
               return "success";
           } else {                
               return "failure";

@@ -7,7 +7,7 @@
 	<display-name>Asta web</display-name>
 	
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
 	</welcome-file-list>
 	
 	<servlet>
@@ -28,7 +28,7 @@
 	
 	 <servlet>
     <servlet-name>indexhtml</servlet-name> 
-    <jsp-file>/index.jsp</jsp-file>
+    <jsp-file>/WEB-INF/jsp/index.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>indexhtml</servlet-name>

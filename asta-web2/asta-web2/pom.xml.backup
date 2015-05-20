@@ -143,7 +143,7 @@
 			<plugin>
 			        <groupId>org.apache.maven.plugins</groupId>
 			        <artifactId>maven-compiler-plugin</artifactId>
-		        	<version>2.3.2</version>
+		        	<version>2.2.1</version>
 			        <configuration>
 					<source>1.6</source>
 				        <target>1.6</target>
@@ -187,7 +187,10 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 			        <configuration>
 					<port>5319</port>
-					<path>/asta-web2</path>
+					<httpsPort>5310</httpsPort>
+					<path>/path</path>
+					<keystoreFile>../../.keystore</keystoreFile>
+					<keystorePass>changeit</keystorePass>
 					<systemProperties>
 						<server.property>alpha</server.property>
 					</systemProperties>
@@ -214,4 +217,38 @@
 			</plugin>
 		</plugins>
 	</build>
+
+<!-- 	<build> -->
+<!-- 		<finalName>asta-web2</finalName> -->
+
+<!-- 		<plugins> -->
+
+<!-- 			<!-- Set JDK Compiler Level --> -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-compiler-plugin</artifactId> -->
+<!-- 				<version>3.0</version> -->
+<!-- 				<configuration> -->
+<!-- 					<source>${jdk.version}</source> -->
+<!-- 					<target>${jdk.version}</target> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+
+<!-- 			<!-- For Maven Tomcat Plugin --> -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.tomcat.maven</groupId> -->
+<!-- 				<artifactId>tomcat7-maven-plugin</artifactId> -->
+<!-- 				<version>2.2</version> -->
+<!-- 				<configuration> -->
+<!-- 					<url>http://localhost:8080/manager/text</url> -->
+<!-- 					<username>admin</username> -->
+<!-- 					<password>admin</password> -->
+<!-- 					<server>TomcatServer</server> -->
+<!-- 					<path>/asta-web2</path> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+
+<!-- 		</plugins> -->
+
+<!-- 	</build> -->
 </project>

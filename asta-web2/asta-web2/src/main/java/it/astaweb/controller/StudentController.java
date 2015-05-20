@@ -7,9 +7,6 @@ import it.astaweb.service.StudentService;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +26,7 @@ public class StudentController {
   public String signup(Model model) {
       Student student = new Student();        
       model.addAttribute("student", student);     
+      System.out.println("signup GET");
       return "signup";
   }
 

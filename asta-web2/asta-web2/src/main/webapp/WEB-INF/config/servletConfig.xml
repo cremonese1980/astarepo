@@ -22,7 +22,7 @@
 		<property name="basename" value="messages" />
 	</bean>
 	
-	<bean id= "studentService" class="it.astaweb.service.StudentServiceImpl"/>
+<!-- 	<bean id= "studentService" class="it.astaweb.service.StudentServiceImpl"/> -->
 	
 
 </beans>

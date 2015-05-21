@@ -34,13 +34,13 @@ body, .pageTitle, .resultsPage .prizes .title,
 .carousel-container .scroller-wrapper .arrows {color: #5BB6F7;}
 
 /********************************************************************* BOTH VERSION ***************************************************************/
-#wrapperMain .banner {background-image: url("../img/public/lottofc/header_bg.jpg");}
-.becomeFundraiser #wrapperMain .banner {background-image: url("../img/public/lottofc/header_fundraiser_bg.jpg");}
+#wrapperMain .banner {background-image: url("../img/public/header_bg.jpg");}
+.becomeFundraiser #wrapperMain .banner {background-image: url("../img/public/header_fundraiser_bg.jpg");}
 #wrapperMain .searchBanner .list {padding-left: 12px;}
 .searchPage #wrapperMain .searchResults .button {padding: 5px 0;}
-#wrapperMain .banner .waves {background-image: url('../img/public/lottofc/header_waves.png');}
+#wrapperMain .banner .waves {background-image: url('../img/public/header_waves.png');}
 
-.becomeFundraiser .points ul li:before {background: url('../img/public/lottofc/icons.png') no-repeat;}
+.becomeFundraiser .points ul li:before {background: url('../img/public/icons.png') no-repeat;}
 
 /********************************************************************* DESKTOP VERSION ***************************************************************/
 @media screen and (min-width: 641px) {

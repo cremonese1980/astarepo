@@ -6,7 +6,8 @@
 <div class="section1">
 	<div class="inner">
 		<div class="links">
-			<a href="http://www.crewroom.it/" target="_blank"><img src="http://www.crewroom.it/images/logo.jpg" alt="Crew Room" /></a>
+			<c:url var="url" value="/admin.html"/>
+			<a href="${url}" class="partner">Admin</a>
 		</div>
 		<div style="clear:both;"></div>
 	</div>
@@ -14,6 +15,6 @@
 
 <div class="section2">
 	<div class="inner">
-		Header 2	
+			<a href="http://www.crewroom.it/" target="_blank"><img src="http://www.crewroom.it/images/logo.jpg" alt="Crew Room" /></a>
 	</div>
 </div>

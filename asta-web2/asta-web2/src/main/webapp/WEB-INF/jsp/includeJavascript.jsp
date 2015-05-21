@@ -1,9 +1,9 @@
 
-<script src="${web}/shared/js/base2.js"></script>
-<script src="${web}/shared/js/jQuery-min-1.10.2.js"></script>
-<script src="${web}/shared/js/core.js?${startupTime}"></script>
-<script>core.isTest = ${publicService.test};</script>
-<script src="${web}/shared/js/jquery.base.forms-min.js?${startupTime}"></script>
+<script src="js/base2.js"></script>
+<script src="js/jQuery-min-1.10.2.js"></script>
+<script src="js/core.js?"></script>
+<script src="js/jquery.base.forms-min.js?"></script>
+
 
 <%-- CountDownObject --%>
 <script>
@@ -22,4 +22,3 @@
 </script>
 
 <%---- INCLUDE JAVASCRIPT ----%>
-<template:get key="head.script"><template:get key="head.script.add" /></template:get>

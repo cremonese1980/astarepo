@@ -1,12 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<!doctype html>
 
 <html>
 <head>
 	
 	<%-------------------------------------------------- TITLE --------------------------------------------------------%>
-	<title><template:get key="head.title">Asta Online!</template:get></title>
 	
 	<meta name="keywords" content="asta,benefica" />
 	<meta name="description" content="Asta benefica per..." />
@@ -21,13 +21,11 @@
 	<%@ include file="includeJavascript.jsp" %>
 	
 	
-	<noscript><style>#wrapperMain .inner.opacity {opacity:1;} #loadingIcon {display:none;} #ticker {display:none;}</style></noscript>
-	
+	<title>Asta Online!</title>
 	
 </head>
 
-<c:set var="cssMainClass"></c:set>
-<body class="commonOverride ${cssMainClass}">
+<body class="commonOverride becomeFundraiser support">
 	
 	<c:set var="showBackToTop"></c:set>
 	<c:if test="${showBackToTop=='true'}">
@@ -41,21 +39,21 @@
 		</script>			
 	</c:if>
 	
+	
 	<%-------------------------------------------------- HEADER --------------------------------------------------------%>
 	<div id="wrapperHeader">		
-		<jsp:include page="header.html" />
+		<jsp:include page="header.jsp" />
 	</div>	
 	
 
 	<div id="wrapperMain">		
-						
 
 		
 	</div>
 
 	<%-------------------------------------------------- FOOTER --------------------------------------------------------%>		
 	<div id="wrapperFooter">
-		<jsp:include page="footer.html" />
+		<jsp:include page="footer.jsp" />
 	</div>
 </body>
 

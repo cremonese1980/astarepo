@@ -6,7 +6,7 @@
 <div class="section1">
 	<div class="inner">
 		<div class="links">
-			Header 1
+			<a href="http://www.crewroom.it/" target="_blank"><img src="http://www.crewroom.it/images/logo.jpg" alt="Crew Room" /></a>
 		</div>
 		<div style="clear:both;"></div>
 	</div>

@@ -5,13 +5,13 @@
 <div class="section1">
 	<div class="inner">	
 		<span class="questions">Domande?</span>
-		<span class="phone">02 123456 <em>(9- 18, Lun - Ven)</em></span>
-		<span class="mail"><a href="mailto:info@crewroom.it">info@crewroom.it</a></span>
+		<span class="phone">02 123456 <em>(9- 18, Lun - Ven)</em></span>		
+		<span class="mail"><a href="mailto:info@crewroom.it" style="color: #fff">info@crewroom.it</a></span>
 		<span class="clear"></span>
 	</div>
 </div>
 <div class="section2">
-		<div class="inner estimated isDesktop">Totale raccolto</div>
+		<div class="inner estimated isDesktop"></div>
 	<div class="inner">
 		<div class="socialShare">
 			<a class="facebook" href='linkFace' target="_blank">&#xF09A;</a>
@@ -26,7 +26,7 @@
 			<a href="${url}">Become a Partner</a>
 		</div>	
 		<div class="logos isDesktop">
-			<a href="http://www.crewroom.it/" target="_blank"><img src="http://www.crewroom.it/images/logo.jpg" alt="Crew Room" /></a>
+			
 		</div>
 		<div class="info">
 			Info

@@ -6,9 +6,7 @@
  
 	<display-name>Asta web</display-name>
 	
-	<welcome-file-list>
-		<welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
-	</welcome-file-list>
+	
 	
 	<servlet>
 	<servlet-name>astawebHibernateServlet</servlet-name>
@@ -26,14 +24,19 @@
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
 	
-	 <servlet>
-    <servlet-name>indexhtml</servlet-name> 
-    <jsp-file>/WEB-INF/jsp/index.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>indexhtml</servlet-name>
-    <url-pattern>/index.html</url-pattern>
-</servlet-mapping> 
+<!-- 	 <servlet> -->
+<!--     <servlet-name>index</servlet-name> -->
+<!--     <jsp-file>/WEB-INF/jsp/index.jsp</jsp-file> -->
+<!--   </servlet> -->
+<!--   <servlet-mapping> -->
+<!--     <servlet-name>index</servlet-name> -->
+<!--     <url-pattern>/index.html</url-pattern> -->
+<!-- </servlet-mapping>  -->
+
+<!-- <welcome-file-list> -->
+<!-- 		<welcome-file>index</welcome-file> -->
+<!-- 		<welcome-file>/WEB-INF/jsp/index.jsp</welcome-file> -->
+<!-- 	</welcome-file-list> -->
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>

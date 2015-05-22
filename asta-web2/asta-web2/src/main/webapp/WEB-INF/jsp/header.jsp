@@ -6,7 +6,9 @@
 <div class="section1">
 	<div class="inner">
 		<div class="links">
-			Header 1
+			<a href="index.html">Home |</a>
+			<a href="loginAdmin.html">Admin |</a>
+			<a href="asta.html">Asta</a>
 		</div>
 		<div style="clear:both;"></div>
 	</div>
@@ -14,6 +16,6 @@
 
 <div class="section2">
 	<div class="inner">
-		Header 2	
+		<a href="http://www.crewroom.it/" target="_blank"><img width="20%" src="http://www.crewroom.it/images/logo.jpg" alt="Crew Room" /></a>
 	</div>
 </div>

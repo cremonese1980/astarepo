@@ -23,7 +23,6 @@ public class User {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name="last_login")
 	private Date lastLogin;
-	@NotEmpty
 	@Email
 	private String email;
 	public String getUsername() {

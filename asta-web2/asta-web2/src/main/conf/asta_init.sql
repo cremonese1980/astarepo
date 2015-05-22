@@ -5,3 +5,6 @@ insert into item(name,description,base_auction_price, expiring_date) values ('ca
 insert into item(name,description,base_auction_price, expiring_date) values ('martello', 'martello tascabile', 10.50,  curdate());
 
 insert into item(name,description,base_auction_price, expiring_date) values ('martello', 'martello tascabile', 10.50,  '2015-11-12');
+
+insert into users(username, password, enabled, name,email) values ('cremo','cremo',true,'gabri','cremonese1980@gmail.com');
+insert into users(username, password, enabled, name,email) values ('super','cazzola',true,'sarah','chevuoi@hotmail.com');

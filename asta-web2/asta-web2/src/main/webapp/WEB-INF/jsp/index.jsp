@@ -47,7 +47,8 @@
 	
 
 	<div id="wrapperMain">		
-		<div class="inner support">
+		<div class="inner support banner">
+		</div>
 			<span>Partecipa all'<strong>asta</strong>!</span>
 			<em>Scegli un prodotto</em>	
 			
@@ -94,7 +95,6 @@
 					</ul>
 				</div>
 			</div>	
-		</div>
 		
 	</div>
 

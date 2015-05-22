@@ -47,7 +47,9 @@
 	
 
 	<div id="wrapperMain">		
-
+		<div class="inner support banner">
+		
+		</div>
 		
 	</div>
 

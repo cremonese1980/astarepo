@@ -18,7 +18,7 @@
 			<a class="twitter" href='link tw' target="_blank">&#xF099;</a>    
 		</div>	
 		<div class="links">
-			<c:url var="url" value="/index.htm" /> 
+			<c:url var="url" value="/index.html" /> 
 			<a href="${url}">Home</a> &nbsp;&nbsp;|&nbsp;&nbsp;
 			<c:url var="url" value="/results.htm" /> 
 			<a href="${url}">Results</a> &nbsp;&nbsp;|&nbsp;&nbsp;

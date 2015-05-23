@@ -1,6 +1,7 @@
 package it.astaweb.repository;
 
 import it.astaweb.model.Item;
+import it.astaweb.model.ItemImage;
 
 import java.util.List;
 

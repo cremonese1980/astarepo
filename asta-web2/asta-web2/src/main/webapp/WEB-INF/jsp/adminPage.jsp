@@ -28,18 +28,6 @@
 
 <body class="commonOverride becomeFundraiser support">
 
-	<c:set var="showBackToTop"></c:set>
-	<c:if test="${showBackToTop=='true'}">
-		<div class="button backToTop">BACK TO TOP</div>
-		<script>			
-			$(".backToTop").on("click",function () {$("#wrapperMain").scrollToMe(500);});
-	    	$(window).scroll(function(e) {
-				if ($(window).scrollTop()>400) {$(".backToTop").fadeIn();
-				} else {$(".backToTop").fadeOut();}
-			});
-		</script>
-	</c:if>
-
 
 	<%-------------------------------------------------- HEADER --------------------------------------------------------%>
 	<div id="wrapperHeader">
@@ -48,36 +36,53 @@
 
 
 	<div id="wrapperMain">
-	<div class="inner support banner">
-		<c:if test="${not empty message}">
-			<div class="overlayFormError error">${message}</div>
-		</c:if>
-		<form:form id="myForm" method="post" action="loginAdmin.html"
-			class="bs-example form-horizontal" commandName="user">
-			<fieldset>
-				<legend>Student Enrollment Login Form</legend>
-				<div class="form-group">
-					<label for="userNameInput" class="col-lg-3 control-label">Username</label>
-					<div class="col-lg-9">
-						<form:input type="text" class="form-control" path="username"
-							id="userNameInput" placeholder="User Name" />
-						<form:errors path="username" cssClass="error" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="passwordInput" class="col-lg-3 control-label">Password</label>
-					<div class="col-lg-9">
-						<form:input type="password" class="form-control" path="password"
-							id="passwordInput" placeholder="Password" />
-						<form:errors path="password" cssClass="error" />
-					</div>
-				</div>
-				<div class="col-lg-9 col-lg-offset-3">
-					<button class="btn btn-primary">Login</button>
-				</div>
-			</fieldset>
-		</form:form>
-	</div>
+
+		<div class="pageTitle">
+			<span class="inner">Oggetti in vendita</span>
+			<span class="inner"><a href="insertItem.html">Aggiungi oggetto</a></span>
+		</div>
+
+		<div class="section1" style="background-color: #F8F8F8;">
+			<div class="inner">
+				<table class="commonOverride registrationPage" >
+					<thead align="center">
+						<tr>
+							<th width="10%"><h3>Nome</h3></th>
+							<th width="60%"><h3>Descrizione</h3></th>
+							<th width="10%"><h3>Base d'asta</h3></th>
+							<th width="10%"><h3>Scadenza</h3></th>
+							<th width="10%"><h3>Modifica</h3></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${itemlist}" var="item">
+							<tr>
+								<td>
+									${item.name}
+								</td>
+								<td>
+									${item.description}
+								</td>
+								<td>
+								<fmt:formatNumber value="${item.baseAuctionPrice}" 
+								currencyCode="EUR" type="currency" maxFractionDigits="2"/> 
+								</td>
+								<td>
+									<fmt:formatDate value="${item.expiringDate}" 
+									pattern="dd/MM/yyyy hh:mm:ss"/>
+								</td>
+								<td>
+									<a href="modifyItem.html?itemid=${item.id}">Modifica </a>
+									<a href="deleteItem.html?itemid=${item.id}">Elimina </a>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+
 	</div>
 
 	<%-------------------------------------------------- FOOTER --------------------------------------------------------%>

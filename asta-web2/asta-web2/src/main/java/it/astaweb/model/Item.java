@@ -2,11 +2,17 @@ package it.astaweb.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -23,13 +29,16 @@ public class Item {
 	private String name;
 	@NotEmpty
 	private String description;
-	@NotEmpty
+	@NotNull
 	@Column(name="base_auction_price")
 	private BigDecimal baseAuctionPrice;
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name="expiring_date")
 	private Date expiringDate;
+	@OneToMany(mappedBy="item")
+	private Set<ItemImage> images = new HashSet<ItemImage>();
+	
 	public Integer getId() {
 		return id;
 	}
@@ -59,6 +68,16 @@ public class Item {
 	}
 	public void setBaseAuctionPrice(BigDecimal baseAuctionPrice) {
 		this.baseAuctionPrice = baseAuctionPrice;
+	}
+	public void addImage(ItemImage image){
+		image.setItem(this);
+		this.images.add(image);
+	}
+	public Set<ItemImage> getImages() {
+		return images;
+	}
+	public void setImages(Set<ItemImage> images) {
+		this.images = images;
 	}
 
 	

@@ -52,3 +52,19 @@ create table item (
 	expiring_date datetime not null,
 	primary key (id)
 );
+
+create table item_image (
+	id int unsigned not null auto_increment,
+	id_item int unsigned not null,
+	name varchar(100) not null,
+	description varchar(250),
+	image LONGBLOB,
+	primary key (id)
+);
+/*
+ * FOREIGN KEYS
+ */
+alter table item_image
+	add constraint image_fk_item
+	foreign key(id_item)
+	references item(id);

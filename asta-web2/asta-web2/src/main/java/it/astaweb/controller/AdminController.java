@@ -1,8 +1,11 @@
 package it.astaweb.controller;
 
 import java.util.Date;
+import java.util.List;
 
+import it.astaweb.model.Item;
 import it.astaweb.model.User;
+import it.astaweb.service.AstaService;
 import it.astaweb.service.UserService;
 
 import javax.validation.Valid;
@@ -29,6 +32,9 @@ public class AdminController {
 
   @Autowired(required=true)
   private UserService userService;
+  
+  @Autowired(required=true)
+  private AstaService astaService;
 
   @RequestMapping(value="/loginAdmin", method=RequestMethod.GET)
   public String loginAdmin(Model model) {
@@ -55,6 +61,8 @@ public class AdminController {
       }
       userFound.setLastLogin(new Date());
       userService.update(userFound);
+      List<Item> itemList = astaService.findAllItem();        
+      model.addAttribute("itemlist", itemList);    
       return "adminPage";
   }
   

@@ -1,0 +1,16 @@
+
+Aggiungere data inizio asta agli oggetti
+Aggiungere stato agli oggetti PRE_SELL, ON_SELL, SOLD_OUT
+
+?? Una o più immagini per ogni oggetto?
+
+
+Aggiungere conferma javascript per eliminazione oggetto
+
+Test sicurezza, se utente non loggato non deve accedere alle pagine di modifica oggetti
+
+Aggiungere validazione lato server per aggiunta/modifica oggetti
+
+Cerca icona ingranaggi
+Cerca icona elimina
+Cerca icona (più +) per aggiungere oggetti

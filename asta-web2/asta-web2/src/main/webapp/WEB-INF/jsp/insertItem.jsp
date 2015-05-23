@@ -38,11 +38,22 @@
 	<div id="wrapperMain">
 
 		<div class="pageTitle">
-			<span class="inner">Inserimento/Modifica oggetto</span>
+			<c:choose>
+				<c:when test="${not empty item.id}">
+					<span class="inner">Modifica oggetto</span>
+									</c:when>
+				<c:otherwise>
+				<span class="inner">Inserimento</span>
+				</c:otherwise>
+				</c:choose>
+				
+		</div>
+		<div class="inner">
+				<span class="inner" ><a href="adminPage.html">Torna all'elenco</a></span>
 		</div>
 
 		<div class="section1" style="background-color: #F8F8F8;">
-			<div class="inner">
+			<div class="inner registrationPage">
 
 				<form:form id="myForm" method="post" action="insertItem.html" enctype="multipart/form-data"
 					commandName="item">
@@ -87,7 +98,7 @@
 					</div>
 					<div class="data n4">
 						<label for="description">Data scadenza</label>
-						<form:input type="expiringDate" class="form-control" path="expiringDate"
+						<form:input type="text" class="form-control" path="expiringDate"
 							id="expiringDate" placeholder="Data scadenza" />
 
 						<c:if test="${not empty expiringDateMessage}">
@@ -97,23 +108,57 @@
 						</c:if>
 
 					</div>
-						<div class="data n5">
-						<label for="description">Immagine</label>
-						<input name="image" type="file"/>
 
-						<c:if test="${not empty imageMessage}">
-							<div class="errorMessage" style="color: red;">
-								${imageMessage}
-							</div>
-						</c:if>
+					<c:choose>
+						<c:when test="${not empty item.id}">
+							<button class="button login">Modifica</button>
 
-					</div>
-						
-						
-					<button class="button login">Inserisci/Modifica</button>
+						</c:when>
+						<c:otherwise>
+							<button class="button login">Inserisci</button>
+						</c:otherwise>
+					</c:choose>
+
+					
 
 
 				</form:form>
+
+			</div>
+		</div>
+		
+		<div class="inner">&nbsp;</div>
+
+		<div class="section2" style="background-color: #F8F8F8;">
+			<div class="inner">
+				<c:if test="${not empty item.id}">
+					<div class="data n5">
+						<span><a href="addImage.html?itemid=${item.id}">Aggiungi
+								immagini</a></span>
+					</div>
+				</c:if>
+			</div>
+			<div class="inner">
+				<table class="commonOverride registrationPage" style="border: 1px solid #F8F8F8 ">
+					<thead align="center">
+						<tr>
+							<th width="20%"><h3>Titolo</h3></th>
+							<th width="20%"><h3>Descrizione</h3></th>
+							<th width="50%"><h3>Anteprima</h3></th>
+							<th width="10%"><h3>Elimina</h3></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${images}" var="image">
+							<tr>
+								<td>${image.name}</td>
+								<td>${image.description}</td>
+								<td>antemprima</td>
+								<td><a href="deleteImage.html?imageid=${image.id}">Elimina</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 
 			</div>
 		</div>

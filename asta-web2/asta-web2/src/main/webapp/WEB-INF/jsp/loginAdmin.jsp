@@ -59,7 +59,7 @@
 		</div>
 
 		<div class="section1" style="background-color: #F8F8F8;">
-			<div class="inner">
+			<div class="inner registrationPage">
 
 				<form:form id="myForm" method="post" action="loginAdmin.html"
 					commandName="user">

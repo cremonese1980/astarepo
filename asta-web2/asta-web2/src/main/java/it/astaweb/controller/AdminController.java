@@ -75,7 +75,8 @@ public class AdminController {
       if(loggedUser==null){
     	  return "redirect:index.html";
       }
-	 
+      List<Item> itemList = astaService.findAllItem();        
+      model.addAttribute("itemlist", itemList);    
       return "adminPage";
   }
 
@@ -93,6 +94,8 @@ public class AdminController {
           model.addAttribute("message", "Password sbagliata, ritenta");
           return "loginAdmin";
       }
+      List<Item> itemList = astaService.findAllItem();        
+      model.addAttribute("itemlist", itemList);    
       return "adminPage";
 //      return "redirect:login.html";
   }

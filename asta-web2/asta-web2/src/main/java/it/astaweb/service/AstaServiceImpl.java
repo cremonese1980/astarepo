@@ -59,15 +59,23 @@ public class AstaServiceImpl implements AstaService {
 		return itemImageRepository.findAll();
 	}
 
+	
 	@Override
 	public Item findItemById(Integer id) {
 		return itemRepository.findOne(id);
 	}
 
+	@Transactional
 	@Override
 	public void deleteItem(Item item) {
+		itemImageRepository.delete(item.getImages());
 		itemRepository.delete(item.getId());
 		
+	}
+
+	@Override
+	public Item findItemByIdAndFetchImages(Integer id) {
+		return itemRepository.findByIdAndFetchImages(id);
 	}
 
 }

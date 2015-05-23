@@ -1,7 +1,6 @@
 package it.astaweb.repository;
 
 import it.astaweb.model.Item;
-import it.astaweb.model.ItemImage;
 
 import java.util.List;
 
@@ -18,6 +17,9 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
   
   @Query("select * from Item ")
   List<Item> findAll();
+  
+  @Query("select i from Item i JOIN FETCH i.images where i.id = (:id)")
+  Item findByIdAndFetchImages(@Param("id") Integer id);
   
 }
 

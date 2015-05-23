@@ -39,6 +39,9 @@
 
 		<div class="pageTitle">
 			<span class="inner">Oggetti in vendita</span>
+		</div>
+		
+		<div class="inner">
 			<span class="inner"><a href="insertItem.html">Aggiungi oggetto</a></span>
 		</div>
 
@@ -51,7 +54,7 @@
 							<th width="60%"><h3>Descrizione</h3></th>
 							<th width="10%"><h3>Base d'asta</h3></th>
 							<th width="10%"><h3>Scadenza</h3></th>
-							<th width="10%"><h3>Modifica</h3></th>
+							<th width="10%"><h3>Azioni</h3></th>
 						</tr>
 					</thead>
 					<tbody>

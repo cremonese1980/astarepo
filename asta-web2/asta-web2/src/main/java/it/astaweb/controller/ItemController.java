@@ -16,6 +16,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,7 +54,7 @@ public class ItemController {
 
 	@RequestMapping(value = "/insertItem", method = RequestMethod.POST)
 	public String insertItem(@Valid @ModelAttribute("item") Item item,
-			BindingResult result, @RequestParam(value = "image", required = false) MultipartFile image, Model model) throws IOException {
+			BindingResult result, Model model) throws IOException {
 		if (result.hasErrors()) {
 			return "insertItem";
 		}
@@ -61,13 +62,7 @@ public class ItemController {
 		/*
 		 * TODO aggiungere validazione
 		 */
-//		item = astaService.findItemById(item.getId());
 		
-		ItemImage itemImage = new ItemImage();
-		itemImage.setImage(image.getBytes());
-		itemImage.setName(image.getName());
-		itemImage.setItem(item);
-		astaService.addImage(itemImage);
 		astaService.saveItem(item);
 
 		// if(userFound == null) {
@@ -88,7 +83,7 @@ public class ItemController {
 	}
 
 	@RequestMapping(value = "/modifyItem", method = RequestMethod.GET)
-	public String adminPage(@RequestParam Map<String, String> params, Model model) {
+	public String modifyItem(@RequestParam Map<String, String> params, Model model) {
 
 		User loggedUser = (User) model.asMap().get("user");
 
@@ -98,11 +93,15 @@ public class ItemController {
 
 		Item item = astaService.findItemById(Integer.parseInt((String)params.get("itemid")));
 		model.addAttribute("item", item);
+		
+		List<ItemImage> images = astaService.findAllImagesByItem(item.getId());
+		model.addAttribute("images", images);
+		
 		return "insertItem";
 	}
 
 	@RequestMapping(value = "/modifyItem", method = RequestMethod.POST)
-	public String adminPage(@Valid @ModelAttribute("user") User user,
+	public String modifyItem(@Valid @ModelAttribute("user") User user,
 			BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "loginAdmin";
@@ -120,6 +119,7 @@ public class ItemController {
 		// return "redirect:login.html";
 	}
 	
+	@Transactional
 	@RequestMapping(value = "/deleteItem", method = RequestMethod.GET)
 	public String deleteItem(@RequestParam Map<String, String> params, Model model) {
 
@@ -129,11 +129,75 @@ public class ItemController {
 			return "redirect:index.html";
 		}
 
-		Item item = astaService.findItemById(Integer.parseInt((String)params.get("itemid")));
+		Item item = astaService.findItemByIdAndFetchImages(Integer.parseInt((String)params.get("itemid")));
 		astaService.deleteItem(item);
 		List<Item> itemList = astaService.findAllItem();
 		model.addAttribute("itemlist", itemList);
 		return "adminPage";
+	}
+	
+	@RequestMapping(value = "/addImage", method = RequestMethod.GET)
+	public String addImage(@RequestParam Map<String, String> params, Model model) {
+
+		User loggedUser = (User) model.asMap().get("user");
+		if (loggedUser == null) {
+			return "redirect:index.html";
+		}
+
+		Item item = astaService.findItemById(Integer.parseInt((String)params.get("itemid")));
+		ItemImage itemImage = new ItemImage();
+		itemImage.setItem(item);
+		model.addAttribute("itemImage", itemImage);		
+		model.addAttribute("item", item);
+
+		return "addImage";
+	}
+
+	@RequestMapping(value = "/addImage", method = RequestMethod.POST)
+	public String addImage(@Valid @ModelAttribute("itemImage") ItemImage itemImage,
+			BindingResult result, @RequestParam(value = "uploadImage", required = false) MultipartFile uploadImage, Model model) throws IOException {
+		if (result.hasErrors()) {
+			return "insertItem";
+		}
+
+		User loggedUser = (User) model.asMap().get("user");
+		if (loggedUser == null) {
+			return "redirect:index.html";
+		}
+		boolean error = false;
+		if (!validateImage(uploadImage)) {
+			model.addAttribute("uploadImageMessage", "Inserisci una jpg");
+			error = true;
+		}
+		if (itemImage.getName()==null || itemImage.getName().trim().equals("")) {
+			model.addAttribute("nameMessage", "Titolo immagine obbligatorio");
+			error = true;
+		}
+		if (itemImage.getDescription()==null || itemImage.getDescription().trim().equals("")) {
+			model.addAttribute("descriptionMessage", "Descrizione immagine obbligatoria");
+			error = true;
+		}
+
+		model.addAttribute("item", itemImage.getItem());
+		
+		if(error){
+			return "addImage";
+			
+		}
+		itemImage.setImage(uploadImage.getBytes());
+		astaService.addImage(itemImage);
+
+		return "redirect:modifyItem.html?itemid=" + itemImage.getItem().getId();
+	}
+	
+	
+	
+	private boolean validateImage(MultipartFile image) {
+		if (image==null || image.getSize()<=0 ||  image.getContentType()==null
+				|| image.getContentType().trim().equals("") || !image.getContentType().equals("image/jpeg")) {
+			return false;
+		}
+		return true;
 	}
 
 }

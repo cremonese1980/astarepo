@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -36,7 +37,7 @@ public class Item {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name="expiring_date")
 	private Date expiringDate;
-	@OneToMany(mappedBy="item")
+	@OneToMany(mappedBy="item",fetch=FetchType.LAZY)
 	private Set<ItemImage> images = new HashSet<ItemImage>();
 	
 	public Integer getId() {
@@ -68,10 +69,6 @@ public class Item {
 	}
 	public void setBaseAuctionPrice(BigDecimal baseAuctionPrice) {
 		this.baseAuctionPrice = baseAuctionPrice;
-	}
-	public void addImage(ItemImage image){
-		image.setItem(this);
-		this.images.add(image);
 	}
 	public Set<ItemImage> getImages() {
 		return images;

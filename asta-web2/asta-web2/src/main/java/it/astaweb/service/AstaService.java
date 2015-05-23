@@ -11,6 +11,7 @@ public interface AstaService {
 	  Item saveItem(Item item);
 	  Item findItemByName(String name);
 	  Item findItemById(Integer id);
+	  Item findItemByIdAndFetchImages(Integer id);
 	  void deleteItem(Item item);
 	  List<Item> findAllItem();
 	  void updateItem(Item item);

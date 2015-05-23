@@ -1,8 +1,7 @@
 
 Aggiungere data inizio asta agli oggetti
 Aggiungere stato agli oggetti PRE_SELL, ON_SELL, SOLD_OUT
-
-?? Una o più immagini per ogni oggetto?
+Check dimensioni file caricato
 
 
 Aggiungere conferma javascript per eliminazione oggetto

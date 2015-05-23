@@ -3,12 +3,10 @@ package it.astaweb.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -24,7 +22,7 @@ public class ItemImage {
 	private String description;
 	@Column(columnDefinition="longblob")
 	private byte[] image;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade={CascadeType.MERGE})
 	@JoinColumn(name="id_item")
 	private Item item;
 	
@@ -58,8 +56,5 @@ public class ItemImage {
 	public void setItem(Item item) {
 		this.item = item;
 	}
-	
-	
 
-	
 }

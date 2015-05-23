@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository("itemImageRepository")
 public interface ItemImageRepository extends JpaRepository<ItemImage, Integer> {
 
-  @Query("select img from ItemImage img where item.id= :idItem")
+  @Query("select i from ItemImage i where i.item.id= ?1")
   List<ItemImage> findAllImagesByItem(Integer idItem);
   
 }

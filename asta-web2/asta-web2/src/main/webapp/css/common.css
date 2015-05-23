@@ -53,7 +53,10 @@ div.smallSpacer {height:11px;}
 .resultsPage #wrapperMain .section2, .playPage .search,#wrapperMain .searchBanner,
 .searchPage #wrapperMain .section2, .becomeFundraiser #wrapperMain .section2,
 #wrapperMain .banner, .becomeFundraiser .howCanRaise
- {background-color: #f8f8f8;}
+ {background-color: #DDDDDD;}
+ 
+ /*{background-color: #f8f8f8;}
+ 
  
 .loginStyle .pageTitle {border-color: #f8f8f8;}
 /* Dark gray */
@@ -158,9 +161,9 @@ a, #wrapperMain .banner .inner, #wrapperFooter .section2, .homePage .results .st
 .loginStyle #wrapperMain .forgot {padding-bottom: 20px; font-weight: 600; } 
 .loginStyle #wrapperMain .section2 ul li {padding: 0 0 22px 0; font-weight: 600;}
 .loginStyle #wrapperMain .spacer {clear: both; height: 20px;}
-.registrationPage input[type='text'], .registrationPage input[type='password'] {width: 312px; padding: 2px;}
+.registrationPage input[type='text'], .registrationPage input[type='password'], .registrationPage textarea, {width: 312px; padding: 2px;}
 .registrationPage select {width: 318px;height: 27px;}
-.registrationPage label {width:33%;text-align:right;display:inline-block;margin:2px 11px 0px 0;vertical-align: middle;position:relative;vertical-align: top;min-width: 222px;}
+.registrationPage label {width:15%;text-align:right;display:inline-block;margin:2px 11px 0px 0;vertical-align: middle;position:relative;vertical-align: top;min-width: 50px;}
 .registrationPage label[for="operatorTel"] {left: 9px;}
 .registrationPage label span {position: relative;left: 4px;}
 .registrationPage em {color:red; padding-right:6px;}

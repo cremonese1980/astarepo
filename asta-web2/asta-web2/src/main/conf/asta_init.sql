@@ -1,10 +1,8 @@
 use astadb;
 
-insert into item(name,description,base_auction_price, expiring_date) values ('casco', 'caschetto lavoro', 10.00,  curdate());
-
-insert into item(name,description,base_auction_price, expiring_date) values ('martello', 'martello tascabile', 10.50,  curdate());
-
-insert into item(name,description,base_auction_price, expiring_date) values ('martello', 'martello tascabile', 10.50,  '2015-11-12');
-
 insert into users(username, password, enabled, name,email) values ('cremo','cremo',true,'gabri','cremonese1980@gmail.com');
 insert into users(username, password, enabled, name,email) values ('super','cazzola',true,'sarah','chevuoi@hotmail.com');
+
+insert into configuration(name, value) values ('max.upload.size', '1999999');
+insert into configuration(name, value) values('base.directory', '/home/asta/store/img');
+

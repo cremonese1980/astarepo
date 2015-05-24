@@ -38,12 +38,14 @@ public class AstaServiceImpl implements AstaService {
 		return list;
 	}
 
+	@Transactional
 	@Override
 	public void updateItem(Item item) {
 		itemRepository.saveAndFlush(item);
 
 	}
 
+	@Transactional
 	@Override
 	public void addImage(ItemImage image) {
 		itemImageRepository.save(image);
@@ -76,6 +78,18 @@ public class AstaServiceImpl implements AstaService {
 	@Override
 	public Item findItemByIdAndFetchImages(Integer id) {
 		return itemRepository.findByIdAndFetchImages(id);
+	}
+
+	@Transactional
+	@Override
+	public void deleteItemImage(ItemImage itemImage) {
+		itemImageRepository.delete(itemImage.getId());
+		
+	}
+
+	@Override
+	public ItemImage findImageById(Integer id) {
+		return itemImageRepository.findOne(id);
 	}
 
 }

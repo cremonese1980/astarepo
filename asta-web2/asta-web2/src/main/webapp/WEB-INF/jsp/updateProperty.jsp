@@ -38,60 +38,34 @@
 	<div id="wrapperMain">
 
 		<div class="pageTitle">
-			<span class="inner">Oggetti in vendita</span>
+			<span class="inner">Gestione properties</span>
 		</div>
-		
-		<div class="inner">
-			<span class="inner"><a href="insertItem.html">Aggiungi oggetto</a></span>
-		</div>
+
 
 		<div class="section1" style="background-color: #F8F8F8;">
-			<div class="inner">
-				<table class="commonOverride registrationPage" >
-					<thead align="center">
-						<tr>
-							<th width="10%"><h3>Nome</h3></th>
-							<th width="50%"><h3>Descrizione</h3></th>
-							<th width="10%"><h3>Base d'asta</h3></th>
-							<th width="10%"><h3>Scadenza</h3></th>
-							<th width="10%"><h3>Inizio</h3></th>
-							<th width="10%"><h3>Stato</h3></th>
-							<th width="10%"><h3>Azioni</h3></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${itemlist}" var="item">
-							<tr>
-								<td>
-									${item.name}
-								</td>
-								<td>
-									${item.description}
-								</td>
-								<td>
-								<fmt:formatNumber value="${item.baseAuctionPrice}" 
-								currencyCode="EUR" type="currency" maxFractionDigits="2"/> 
-								</td>
-								<td>
-									<fmt:formatDate value="${item.expiringDate}" 
-									pattern="dd/MM/yyyy hh:mm:ss"/>
-								</td>
-								<td>
-									<fmt:formatDate value="${item.fromDate}" 
-									pattern="dd/MM/yyyy hh:mm:ss"/>
-								</td>
-								<td>
-									${item.status.value}
-								</td>
-								<td>
-									<a href="modifyItem.html?itemid=${item.id}">Modifica </a>
-									<a href="deleteItem.html?itemid=${item.id}">Elimina </a>
-								</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+			<div class="inner registrationPage">
+			
+				<form:form id="myForm" method="post" action="updateProperty.html"
+					 commandName="configuration">
 
+					<div class="data n1">
+						<label for="name">Key</label>
+						<form:input type="text" class="form-control" path="name" id="name"
+							placeholder="Key" />
+
+					</div>
+					<div class="data n2">
+						<label for="description">Value</label>
+						<form:input class="form-control" path="value"
+							id="value" placeholder="Value" />
+
+					</div>
+					
+					<button class="button login">Update</button>
+
+
+
+				</form:form>
 			</div>
 		</div>
 

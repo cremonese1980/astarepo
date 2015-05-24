@@ -19,6 +19,9 @@ public class ItemImage {
 	private Integer id;
 	@NotEmpty
 	private String name;
+	@Column(name="thumb_name")
+	private String thumbName;
+	private String path;
 	private String description;
 	@Column(columnDefinition="longblob")
 	private byte[] image;
@@ -55,6 +58,18 @@ public class ItemImage {
 	}
 	public void setItem(Item item) {
 		this.item = item;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public String getThumbName() {
+		return thumbName;
+	}
+	public void setThumbName(String thumbName) {
+		this.thumbName = thumbName;
 	}
 
 }

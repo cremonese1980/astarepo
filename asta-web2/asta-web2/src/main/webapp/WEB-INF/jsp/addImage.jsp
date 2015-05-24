@@ -39,7 +39,7 @@
 
 		<div class="pageTitle">
 			<span class="inner">Aggiungi immagine per <b>${item.name}</b></span>
-			<span><a href="modifyItem.html?itemid=${item.id}">Torna
+			<span class="inner"><a href="modifyItem.html?itemid=${item.id}">Torna
 					all'oggetto </a></span>
 		</div>
 
@@ -55,6 +55,8 @@
 									<th width="60%"><h3>Descrizione</h3></th>
 									<th width="10%"><h3>Base d'asta</h3></th>
 									<th width="10%"><h3>Scadenza</h3></th>
+									<th width="10%"><h3>Inizio</h3></th>
+									<th width="10%"><h3>Stato</h3></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -66,6 +68,9 @@
 									</td>
 									<td><fmt:formatDate value="${item.expiringDate}"
 											pattern="dd/MM/yyyy hh:mm:ss" /></td>
+									<td><fmt:formatDate value="${item.fromDate}"
+											pattern="dd/MM/yyyy hh:mm:ss" /></td>
+									<td>${item.status.value}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -102,7 +107,7 @@
 					<div class="data n1">
 						<label for="description">Descrizione</label>
 						<form:textarea class="form-control" path="description"
-							id="description" placeholder="Titolo" />
+							id="description" placeholder="Descrizione immagine" />
 
 						<c:if test="${not empty descriptionMessage}">
 							<div class="errorMessage" style="color: red;">

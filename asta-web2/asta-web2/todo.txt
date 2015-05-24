@@ -1,15 +1,27 @@
 
-Aggiungere data inizio asta agli oggetti
-Aggiungere stato agli oggetti PRE_SELL, ON_SELL, SOLD_OUT
+
+Tabelle asta
+Tabella/servizio per stampare sempre online il totale raccolto fino a quel momento.
+
+Test in locale sezione admin
+
+
+Test live locale sezione admin
 Check dimensioni file caricato
-
-
 Aggiungere conferma javascript per eliminazione oggetto
-
 Test sicurezza, se utente non loggato non deve accedere alle pagine di modifica oggetti
-
+Validazione lunghezza campi testuali
 Aggiungere validazione lato server per aggiunta/modifica oggetti
 
 Cerca icona ingranaggi
 Cerca icona elimina
 Cerca icona (più +) per aggiungere oggetti
+
+
+
+
+DONE Salvataggi immagini su disco e visualizzazione anteprima
+DONE Aggiungere data inizio asta agli oggetti
+DONE Aggiungere stato agli oggetti PRE_SELL, ON_SELL, SOLD_OUT
+DONE list documento google
+DONE Servlet per aggiornare ConfigurationService

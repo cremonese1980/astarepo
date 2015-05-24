@@ -24,6 +24,7 @@
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
 	
+	
 <!-- 	 <servlet> -->
 <!--     <servlet-name>index</servlet-name> -->
 <!--     <jsp-file>/WEB-INF/jsp/index.jsp</jsp-file> -->

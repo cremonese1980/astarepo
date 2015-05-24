@@ -4,12 +4,14 @@ import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
 import it.astaweb.model.User;
 import it.astaweb.service.AstaService;
+import it.astaweb.service.ImageService;
 import it.astaweb.service.UserService;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -37,6 +39,12 @@ public class ItemController {
 
 	@Autowired(required = true)
 	private AstaService astaService;
+	
+	@Autowired
+	private ServletContext servletContext;
+	
+	@Autowired
+	private ImageService imageService;
 
 	@RequestMapping(value = "/insertItem", method = RequestMethod.GET)
 	public String insertItem(Model model) {
@@ -62,8 +70,12 @@ public class ItemController {
 		/*
 		 * TODO aggiungere validazione
 		 */
-		
+		String okMessage = "Oggetto salvato correttaemente";
+		if(item.getId()!=null){
+			okMessage = "Oggetto modficato correttaemente";
+		}
 		astaService.saveItem(item);
+		model.addAttribute("okMessage", okMessage);
 
 		// if(userFound == null) {
 		// model.addAttribute("userMessage", "Utente sconosciuto, ritenta.");
@@ -79,7 +91,9 @@ public class ItemController {
 		// }
 		List<Item> itemList = astaService.findAllItem();
 		model.addAttribute("itemlist", itemList);
-		return "adminPage";
+		List<ItemImage> images = astaService.findAllImagesByItem(item.getId());
+		model.addAttribute("images", images);
+		return "insertItem";
 	}
 
 	@RequestMapping(value = "/modifyItem", method = RequestMethod.GET)
@@ -153,9 +167,11 @@ public class ItemController {
 		return "addImage";
 	}
 
+	@Transactional
 	@RequestMapping(value = "/addImage", method = RequestMethod.POST)
 	public String addImage(@Valid @ModelAttribute("itemImage") ItemImage itemImage,
-			BindingResult result, @RequestParam(value = "uploadImage", required = false) MultipartFile uploadImage, Model model) throws IOException {
+			BindingResult result, @RequestParam(value = "uploadImage", required = false) MultipartFile uploadImage, Model model) 
+					 {
 		if (result.hasErrors()) {
 			return "insertItem";
 		}
@@ -166,7 +182,7 @@ public class ItemController {
 		}
 		boolean error = false;
 		if (!validateImage(uploadImage)) {
-			model.addAttribute("uploadImageMessage", "Inserisci una jpg");
+			model.addAttribute("uploadImageMessage", "L'immagine deve essere una JPG, di dimensioni inferiori a 2 MB");
 			error = true;
 		}
 		if (itemImage.getName()==null || itemImage.getName().trim().equals("")) {
@@ -184,17 +200,44 @@ public class ItemController {
 			return "addImage";
 			
 		}
-		itemImage.setImage(uploadImage.getBytes());
+		
 		astaService.addImage(itemImage);
+		try {
+			imageService.saveImage(itemImage, uploadImage);
+			Item item = astaService.findItemById(itemImage.getItem().getId());
+			itemImage.setItem(item);
+			astaService.addImage(itemImage);
+		} catch (Exception e) {
+			model.addAttribute("uploadImageMessage", "Errore durante il salvataggio dell'immagine: " + e.getMessage());
+			astaService.deleteItemImage(itemImage);
+			return "addImage";
+		} 	
+//		model.addAttribute("item", itemImage.getItem());
+		
 
 		return "redirect:modifyItem.html?itemid=" + itemImage.getItem().getId();
 	}
 	
-	
+	@Transactional
+	@RequestMapping(value = "/deleteImage", method = RequestMethod.GET)
+	public String deleteImage(@RequestParam Map<String, String> params, Model model) {
+
+		User loggedUser = (User) model.asMap().get("user");
+
+		if (loggedUser == null) {
+			return "redirect:index.html";
+		}
+
+		ItemImage itemImage = astaService.findImageById(Integer.parseInt((String)params.get("imageid")));
+		astaService.deleteItemImage(itemImage);
+		
+		return "redirect:modifyItem.html?itemid=" + itemImage.getItem().getId();
+	}
 	
 	private boolean validateImage(MultipartFile image) {
 		if (image==null || image.getSize()<=0 ||  image.getContentType()==null
-				|| image.getContentType().trim().equals("") || !image.getContentType().equals("image/jpeg")) {
+				|| image.getContentType().trim().equals("") || !image.getContentType().equals("image/jpeg")
+				|| image.getSize()>1999999) {
 			return false;
 		}
 		return true;

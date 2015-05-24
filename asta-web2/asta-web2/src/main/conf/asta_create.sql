@@ -46,20 +46,32 @@ create table authorities (
 
 create table item (
 	id int unsigned not null auto_increment,
+	id_status varchar(20) not null,
 	name varchar(100) not null,
 	description varchar(250) not null,
 	base_auction_price DECIMAL(10,2) not null,
 	expiring_date datetime not null,
+	from_date datetime not null,
 	primary key (id)
 );
+
 
 create table item_image (
 	id int unsigned not null auto_increment,
 	id_item int unsigned not null,
 	name varchar(100) not null,
+	thumb_name varchar(100),
+	path varchar(200),
 	description varchar(250),
 	image LONGBLOB,
 	primary key (id)
+);
+
+create table configuration (
+	name varchar(100) not null,
+	value varchar(100) not null,
+	type varchar(50) ,	
+	primary key (name)
 );
 /*
  * FOREIGN KEYS
@@ -68,3 +80,4 @@ alter table item_image
 	add constraint image_fk_item
 	foreign key(id_item)
 	references item(id);
+	

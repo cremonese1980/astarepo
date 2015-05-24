@@ -50,7 +50,7 @@
 		<div class="inner support banner">
 		</div>
 			<span>Partecipa all'<strong>asta</strong>!</span>
-			<em>Scegli un prodotto</em>	
+			<em>Scegli un prodotto ${contextPath}</em>	
 			
 			<%-- ################################### CAROUSEL SLIDER ##################################### --%>
 			<script type="text/javascript">

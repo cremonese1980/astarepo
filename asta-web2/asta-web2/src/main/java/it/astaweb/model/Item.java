@@ -1,5 +1,7 @@
 package it.astaweb.model;
 
+import it.astaweb.utils.ItemStatus;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -10,9 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -37,8 +36,15 @@ public class Item {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name="expiring_date")
 	private Date expiringDate;
+	@NotNull
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Column(name="from_date")
+	private Date fromDate;
 	@OneToMany(mappedBy="item",fetch=FetchType.LAZY)
 	private Set<ItemImage> images = new HashSet<ItemImage>();
+	@NotNull
+	@Column(name="id_status", columnDefinition="varchar")
+	private ItemStatus status = ItemStatus.PRE_SELL;
 	
 	public Integer getId() {
 		return id;
@@ -75,6 +81,18 @@ public class Item {
 	}
 	public void setImages(Set<ItemImage> images) {
 		this.images = images;
+	}
+	public Date getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+	public ItemStatus getStatus() {
+		return status;
+	}
+	public void setStatus(ItemStatus status) {
+		this.status = status;
 	}
 
 	

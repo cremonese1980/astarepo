@@ -38,60 +38,86 @@
 	<div id="wrapperMain">
 
 		<div class="pageTitle">
-			<span class="inner">Oggetti in vendita</span>
-		</div>
-		
-		<div class="inner">
-			<span class="inner"><a href="insertItem.html">Aggiungi oggetto</a></span>
+			<span class="inner">Gestione properties</span>
 		</div>
 
+
 		<div class="section1" style="background-color: #F8F8F8;">
-			<div class="inner">
+			<div class="inner registrationPage">
+			
 				<table class="commonOverride registrationPage" >
 					<thead align="center">
 						<tr>
-							<th width="10%"><h3>Nome</h3></th>
-							<th width="50%"><h3>Descrizione</h3></th>
-							<th width="10%"><h3>Base d'asta</h3></th>
-							<th width="10%"><h3>Scadenza</h3></th>
-							<th width="10%"><h3>Inizio</h3></th>
-							<th width="10%"><h3>Stato</h3></th>
-							<th width="10%"><h3>Azioni</h3></th>
+							<th width="40%"><h3>Key</h3></th>
+							<th width="40%"><h3>Value</h3></th>
+							<th width="20%"><h3>Modifica</h3></th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${itemlist}" var="item">
+						<c:forEach items="${configurations}" var="configuration">
 							<tr>
 								<td>
-									${item.name}
+									${configuration.name}
 								</td>
 								<td>
-									${item.description}
+									${configuration.value}
 								</td>
 								<td>
-								<fmt:formatNumber value="${item.baseAuctionPrice}" 
-								currencyCode="EUR" type="currency" maxFractionDigits="2"/> 
-								</td>
-								<td>
-									<fmt:formatDate value="${item.expiringDate}" 
-									pattern="dd/MM/yyyy hh:mm:ss"/>
-								</td>
-								<td>
-									<fmt:formatDate value="${item.fromDate}" 
-									pattern="dd/MM/yyyy hh:mm:ss"/>
-								</td>
-								<td>
-									${item.status.value}
-								</td>
-								<td>
-									<a href="modifyItem.html?itemid=${item.id}">Modifica </a>
-									<a href="deleteItem.html?itemid=${item.id}">Elimina </a>
+									<a href="updateProperty.html?propertyname=${configuration.name}">Update </a>
 								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-
+				
+			</div>
+		</div>
+		
+		<div class="section1" style="background-color: #F8F8F8;">
+			NOT Refreshed Properties
+			<div class="inner registrationPage">
+			
+				<table class="commonOverride registrationPage" >
+					<thead align="center">
+						<tr>
+							<th width="40%"><h3>Key=Value</h3></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${printProperties}" var="property">
+							<tr>
+								<td>
+									${property}
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				
+			</div>
+		</div>
+		
+		<div class="section1" style="background-color: #F8F8F8;">
+			Refreshed Properties
+			<div class="inner registrationPage">
+			
+				<table class="commonOverride registrationPage" >
+					<thead align="center">
+						<tr>
+							<th width="40%"><h3>Key=Value</h3></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${printRefreshedProperties}" var="property">
+							<tr>
+								<td>
+									${property}
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				
 			</div>
 		</div>
 

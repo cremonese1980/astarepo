@@ -85,9 +85,9 @@
 					</div>
 					
 					<div class="data n3">
-						<label for="name">Base d'asta</label>
+						<label for="baseAuctionPrice">Base d'asta</label>
 						<form:input type="text" class="form-control" path="baseAuctionPrice"
-							id="baseAuctionPrice" placeholder="baseAuctionPrice"  />
+							id="baseAuctionPrice" placeholder="Prezzo Base d'asta"  />
 						
 						<c:if test="${not empty baseAuctionPriceMessage}">
 							<div class="errorMessage" style="color: red;">
@@ -97,7 +97,7 @@
 						
 					</div>
 					<div class="data n4">
-						<label for="description">Data scadenza</label>
+						<label for="expiringDate">Data scadenza (gg/MM/aaaa)</label>
 						<form:input type="text" class="form-control" path="expiringDate"
 							id="expiringDate" placeholder="Data scadenza" />
 
@@ -108,19 +108,30 @@
 						</c:if>
 
 					</div>
+					<div class="data n5">
+						<label for="fromDate">Data inizio (gg/MM/aaaa)</label>
+						<form:input type="text" class="form-control" path="fromDate"
+							id="fromDate" placeholder="Data inizio" />
 
-					<c:choose>
-						<c:when test="${not empty item.id}">
-							<button class="button login">Modifica</button>
+						<c:if test="${not empty fromDateMessage}">
+							<div class="errorMessage" style="color: red;">
+								${fromDateMessage}
+							</div>
+						</c:if>
 
-						</c:when>
-						<c:otherwise>
-							<button class="button login">Inserisci</button>
-						</c:otherwise>
-					</c:choose>
-
+					</div>
 					
+					<div class="data n6">
 
+						<c:if test="${not empty okMessage}">
+							<div class="errorMessage" style="color: red;">
+								${okMessage}
+							</div>
+						</c:if>
+
+					</div>
+
+					<button class="button login">Salva</button>
 
 				</form:form>
 
@@ -130,37 +141,45 @@
 		<div class="inner">&nbsp;</div>
 
 		<div class="section2" style="background-color: #F8F8F8;">
-			<div class="inner">
-				<c:if test="${not empty item.id}">
+			<c:if test="${not empty item.id}">
+				<div class="inner">
 					<div class="data n5">
 						<span><a href="addImage.html?itemid=${item.id}">Aggiungi
 								immagini</a></span>
 					</div>
-				</c:if>
-			</div>
-			<div class="inner">
-				<table class="commonOverride registrationPage" style="border: 1px solid #F8F8F8 ">
-					<thead align="center">
-						<tr>
-							<th width="20%"><h3>Titolo</h3></th>
-							<th width="20%"><h3>Descrizione</h3></th>
-							<th width="50%"><h3>Anteprima</h3></th>
-							<th width="10%"><h3>Elimina</h3></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${images}" var="image">
+				</div>
+			</c:if>
+			<c:if test="${not empty images}">
+				<div class="inner">
+					<table class="commonOverride registrationPage"
+						style="border: 1px solid #F8F8F8">
+						<thead align="center">
 							<tr>
-								<td>${image.name}</td>
-								<td>${image.description}</td>
-								<td>antemprima</td>
-								<td><a href="deleteImage.html?imageid=${image.id}">Elimina</a></td>
+								<th width="20%"><h3>Titolosd</h3></th>
+								<th width="20%"><h3>Descrizione</h3></th>
+								<th width="50%"><h3>Anteprima</h3></th>
+								<th width="10%"><h3>Elimina</h3></th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach items="${images}" var="image">
+								<tr>
+									<td>${image.name}</td>
+									<td>${image.description}</td>
+									<c:url var="urlThumb" value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.thumbName}" />
+									<c:url var="url" value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.name}" />
+									<td>
+										<a href="${url}"><img
+										src="${urlThumb}" 
+										title="${image.description}" /></a></td>
+									<td><a href="deleteImage.html?imageid=${image.id}">Elimina</a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 
-			</div>
+				</div>
+				</c:if>
 		</div>
 
 	</div>

@@ -1,11 +1,14 @@
 package it.astaweb.model;
 
+import it.astaweb.utils.UserType;
+
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -25,6 +28,9 @@ public class User {
 	private Date lastLogin;
 	@Email
 	private String email;
+	@Column(name="id_type", columnDefinition="varchar")
+	private UserType type;
+	
 	public String getUsername() {
 		return username;
 	}

@@ -30,6 +30,7 @@ CREATE TABLE `student` (
 create table users (
 	username varchar(50) not null,
 	password varchar(50) not null,
+	id_type varchar(20) not null,
 	enabled bit(1) not null,	
 	name varchar (50),
 	last_login datetime ,
@@ -52,6 +53,15 @@ create table item (
 	base_auction_price DECIMAL(10,2) not null,
 	expiring_date datetime not null,
 	from_date datetime not null,
+	best_relaunch DECIMAL(10,2),
+	primary key (id)
+);
+
+create table relaunch (
+	id int unsigned not null auto_increment,
+	id_item int unsigned not null,
+	username varchar(100) not null,
+	date datetime not null,
 	primary key (id)
 );
 
@@ -78,6 +88,11 @@ create table configuration (
  */
 alter table item_image
 	add constraint image_fk_item
+	foreign key(id_item)
+	references item(id);
+	
+alter table relaunch
+	add constraint relaunch_fk_item
 	foreign key(id_item)
 	references item(id);
 	

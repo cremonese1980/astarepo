@@ -45,6 +45,10 @@ public class Item {
 	@NotNull
 	@Column(name="id_status", columnDefinition="varchar")
 	private ItemStatus status = ItemStatus.PRE_SELL;
+	@Column(name="best_relaunch")
+	private BigDecimal bestRelaunch;
+	@OneToMany(mappedBy="item",fetch=FetchType.LAZY)
+	private Set<Relaunch> relaunches = new HashSet<Relaunch>();
 	
 	public Integer getId() {
 		return id;
@@ -93,6 +97,18 @@ public class Item {
 	}
 	public void setStatus(ItemStatus status) {
 		this.status = status;
+	}
+	public BigDecimal getBestRelaunch() {
+		return bestRelaunch;
+	}
+	public void setBestRelaunch(BigDecimal bestRelaunch) {
+		this.bestRelaunch = bestRelaunch;
+	}
+	public Set<Relaunch> getRelaunches() {
+		return relaunches;
+	}
+	public void setRelaunches(Set<Relaunch> relaunches) {
+		this.relaunches = relaunches;
 	}
 
 	

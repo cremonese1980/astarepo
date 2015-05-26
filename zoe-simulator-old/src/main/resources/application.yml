@@ -1,0 +1,3 @@
+logging:
+    level:
+        kosmo.simulator.zoe.GreetingController: DEBUG

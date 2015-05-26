@@ -1,0 +1,5 @@
+test:
+    host: http://localhost:${local.server.port}
+
+    greeting:
+        URL: ${test.host}/greeting

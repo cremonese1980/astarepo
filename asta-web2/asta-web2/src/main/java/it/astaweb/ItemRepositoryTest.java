@@ -1,6 +1,7 @@
-package it.astaweb.repository;
+package it.astaweb;
 
 import it.astaweb.model.Item;
+import it.astaweb.repository.ItemRepository;
 
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -21,6 +22,7 @@ public class ItemRepositoryTest {
 		
 		
 		itemRepository = (ItemRepository)ac.getBean("itemRepository");
+		ac.close();
 		
 	}
 

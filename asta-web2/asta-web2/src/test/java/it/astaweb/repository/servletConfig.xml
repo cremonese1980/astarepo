@@ -65,6 +65,7 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
+	<import resource="jpaContext.xml"/>
 	
 
 </beans>

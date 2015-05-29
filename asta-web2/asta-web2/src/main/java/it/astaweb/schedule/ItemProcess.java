@@ -2,6 +2,7 @@ package it.astaweb.schedule;
 
 import it.astaweb.model.Item;
 import it.astaweb.service.AstaService;
+import it.astaweb.service.EmailService;
 import it.astaweb.utils.ItemStatus;
 
 import java.io.Serializable;
@@ -19,6 +20,9 @@ public class ItemProcess implements Serializable {
 	
 	@Autowired
 	AstaService astaService;
+	
+	@Autowired
+	EmailService emailService;
 
 	public ItemProcess() {
 //		System.out.println("EjemploSchedule construido");
@@ -43,8 +47,10 @@ public class ItemProcess implements Serializable {
 		System.out.println("Fine Oggetti in pre-vendita **********************************");
 	}
 	
-	@Scheduled(fixedRate=60000)
+	@Scheduled(fixedRate=20000)
 	public void soldout(){		
+		
+		emailService.send();
 		
 		List<Item> itemPreSell =  astaService.findAllItemByStatus(ItemStatus.ON_SELL);
 		

@@ -1,6 +1,11 @@
 
-
-Tabelle asta
+Aggiungere ore e minuti nel form inserimento oggetti. Default 20:30 per scadenza, 08:00 per inizio vendita
+Sfalzare i processi
+Processi per gestire stati item
+Pagina con elenco oggetti in vendita, con anteprima immagine, cliccabili per finire...
+Pagina rilancio oggetto
+Gestire gli invenduti
+Modulo email
 Tabella/servizio per stampare sempre online il totale raccolto fino a quel momento.
 
 Test in locale sezione admin
@@ -20,6 +25,7 @@ Cerca icona (più +) per aggiungere oggetti
 
 
 
+DONE Tabelle asta
 DONE Salvataggi immagini su disco e visualizzazione anteprima
 DONE Aggiungere data inizio asta agli oggetti
 DONE Aggiungere stato agli oggetti PRE_SELL, ON_SELL, SOLD_OUT

@@ -96,19 +96,8 @@
 						</c:if>
 						
 					</div>
+					
 					<div class="data n4">
-						<label for="expiringDate">Data scadenza (gg/MM/aaaa)</label>
-						<form:input type="text" class="form-control" path="expiringDate"
-							id="expiringDate" placeholder="Data scadenza" />
-
-						<c:if test="${not empty expiringDateMessage}">
-							<div class="errorMessage" style="color: red;">
-								${expiringDateMessage}
-							</div>
-						</c:if>
-
-					</div>
-					<div class="data n5">
 						<label for="fromDate">Data inizio (gg/MM/aaaa)</label>
 						<form:input type="text" class="form-control" path="fromDate"
 							id="fromDate" placeholder="Data inizio" />
@@ -121,11 +110,29 @@
 
 					</div>
 					
+					<div class="data n5">
+						<label for="expiringDate">Data scadenza (gg/MM/aaaa)</label>
+						<form:input type="text" class="form-control" path="expiringDate"
+							id="expiringDate" placeholder="Data scadenza" />
+
+						<c:if test="${not empty expiringDateMessage}">
+							<div class="errorMessage" style="color: red;">
+								${expiringDateMessage}
+							</div>
+						</c:if>
+
+					</div>
+					
 					<div class="data n6">
 
 						<c:if test="${not empty okMessage}">
 							<div class="errorMessage" style="color: red;">
 								${okMessage}
+							</div>
+						</c:if>
+						<c:if test="${not empty errorMessage}">
+							<div class="errorMessage" style="color: red;">
+								${errorMessage}
 							</div>
 						</c:if>
 

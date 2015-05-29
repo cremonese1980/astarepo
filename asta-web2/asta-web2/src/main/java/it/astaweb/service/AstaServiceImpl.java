@@ -4,6 +4,7 @@ import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
 import it.astaweb.repository.ItemImageRepository;
 import it.astaweb.repository.ItemRepository;
+import it.astaweb.utils.ItemStatus;
 
 import java.util.List;
 
@@ -90,6 +91,12 @@ public class AstaServiceImpl implements AstaService {
 	@Override
 	public ItemImage findImageById(Integer id) {
 		return itemImageRepository.findOne(id);
+	}
+
+	@Override
+	public List<Item>  findAllItemByStatus(ItemStatus status) {
+		return itemRepository.findAllByStatus(status);
+		
 	}
 
 }

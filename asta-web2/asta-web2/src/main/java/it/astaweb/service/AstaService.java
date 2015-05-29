@@ -1,13 +1,14 @@
 package it.astaweb.service;
 
-import java.util.List;
-
 import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
+import it.astaweb.utils.ItemStatus;
+
+import java.util.List;
 
 public interface AstaService {
 
-	Item saveItem(Item item);
+	Item saveItem(Item item) ;
 
 	Item findItemByName(String name);
 
@@ -15,11 +16,11 @@ public interface AstaService {
 
 	Item findItemByIdAndFetchImages(Integer id);
 
-	void deleteItem(Item item);
+	void deleteItem(Item item) ;
 
 	List<Item> findAllItem();
 
-	void updateItem(Item item);
+	void updateItem(Item item) ;
 
 	void addImage(ItemImage image);
 
@@ -27,8 +28,10 @@ public interface AstaService {
 
 	List<ItemImage> findAllImages();
 
-	void deleteItemImage(ItemImage itemImage);
+	void deleteItemImage(ItemImage itemImage) ;
 
 	ItemImage findImageById(Integer parseInt);
+
+	List<Item>  findAllItemByStatus(ItemStatus preSell);
 
 }

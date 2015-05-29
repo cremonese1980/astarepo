@@ -110,6 +110,13 @@ public class Item {
 	public void setRelaunches(Set<Relaunch> relaunches) {
 		this.relaunches = relaunches;
 	}
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", name=" + name + ", baseAuctionPrice="
+				+ baseAuctionPrice + ", expiringDate=" + expiringDate
+				+ ", fromDate=" + fromDate + ", status=" + status
+				+ ", bestRelaunch=" + bestRelaunch + "]";
+	}
 
 	
 }

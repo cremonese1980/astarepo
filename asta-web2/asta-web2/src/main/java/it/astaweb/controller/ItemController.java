@@ -5,11 +5,18 @@ import it.astaweb.model.ItemImage;
 import it.astaweb.model.User;
 import it.astaweb.service.AstaService;
 import it.astaweb.service.ImageService;
+import it.astaweb.service.PropertyService;
 import it.astaweb.service.UserService;
+import it.astaweb.utils.Constants;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
@@ -45,6 +52,10 @@ public class ItemController {
 	
 	@Autowired
 	private ImageService imageService;
+	
+	@Autowired
+	private PropertyService propertyService;
+	
 
 	@RequestMapping(value = "/insertItem", method = RequestMethod.GET)
 	public String insertItem(Model model) {
@@ -64,36 +75,96 @@ public class ItemController {
 	public String insertItem(@Valid @ModelAttribute("item") Item item,
 			BindingResult result, Model model) throws IOException {
 		if (result.hasErrors()) {
+			model.addAttribute("errorMessage", "Tutti i campi sono obbligatori e il formato data è gg/mm/aaaa");
 			return "insertItem";
 		}
 
-		/*
-		 * TODO aggiungere validazione
-		 */
 		String okMessage = "Oggetto salvato correttaemente";
 		if(item.getId()!=null){
 			okMessage = "Oggetto modficato correttaemente";
 		}
-		astaService.saveItem(item);
-		model.addAttribute("okMessage", okMessage);
+		
+		boolean error = false;
+		if (item.getBaseAuctionPrice()==null || item.getDescription()== null
+				|| item.getExpiringDate()==null || item.getFromDate() == null || item.getName()==null ||
+				item.getDescription().trim().equals("") || item.getName().trim().equals("")) {
+			model.addAttribute("errorMessage", "Tutti i campi sono obbligatori");
+			error = true;
+		}
+		
+	
+		if(validateDate(item, model)){			
+			astaService.saveItem(item);
+			model.addAttribute("okMessage", okMessage);
+		}
 
-		// if(userFound == null) {
-		// model.addAttribute("userMessage", "Utente sconosciuto, ritenta.");
-		// result.addError(new ObjectError("user.username",
-		// "Utente sconosciuto, ritenta"));
-		// return "loginAdmin";
-		// }
-		// if(!userFound.getPassword().equals(user.getPassword())){
-		// model.addAttribute("passwordMessage", "Password sbagliata, ritenta");
-		// result.addError(new ObjectError("user.password",
-		// "Password sbagliata, ritenta"));
-		// return "loginAdmin";
-		// }
 		List<Item> itemList = astaService.findAllItem();
 		model.addAttribute("itemlist", itemList);
 		List<ItemImage> images = astaService.findAllImagesByItem(item.getId());
 		model.addAttribute("images", images);
+		
 		return "insertItem";
+	}
+
+	private boolean validateDate(Item item, Model model) {
+		
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		
+		int minSellTime = Integer.parseInt(propertyService.getValue(Constants.PROPERTY_MIN_SELL_TIME_HOUR.getValue()));
+
+		boolean result = true;
+		String message = "";
+		
+		Calendar minExpiringDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("IT_it"));
+		minExpiringDateCalendar.add(Calendar.HOUR, minSellTime);
+		Date minExpiringDate = minExpiringDateCalendar.getTime();
+		
+		Calendar fromDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("IT_it"));
+		fromDateCalendar.setTime(item.getFromDate());
+		
+		Calendar toDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("IT_it"));
+		toDateCalendar.setTime(item.getExpiringDate());
+		
+		int diffInHour = (int) ((toDateCalendar.getTimeInMillis()-fromDateCalendar.getTimeInMillis())/(1000*60*60));
+		
+		try {
+			df.format(fromDateCalendar.getTime());
+			df.format(toDateCalendar.getTime());
+		} catch (Exception e) {
+			message = "Il formato data è gg/mm/aaaa. C'è pure scritto a fianco :)";
+			model.addAttribute("errorMessage", message);
+			return false;
+		}
+		
+		if(item.getExpiringDate().before(new Date())){
+			message = "Vuoi provare a vendere un oggetto che scade nel passato?";
+			model.addAttribute("errorMessage", message);
+			return false;
+		}
+		
+		if(item.getFromDate().after(item.getExpiringDate())){
+			message = "La data inizio asta non può essere successiva alla data scadenza. Ti pare?";
+			model.addAttribute("errorMessage", message);
+			return false;
+		}
+		
+		if(diffInHour<minSellTime){
+			message = "La durata minima dell'asta è di " + minSellTime/24 + " giorni.";
+			model.addAttribute("errorMessage", message);
+			return false;
+		}
+		
+		
+		
+		if(item.getExpiringDate().before(minExpiringDate)){
+			message = "La durata minima dell'asta è di " + minSellTime/24 + " giorni.";
+			model.addAttribute("errorMessage", message);
+			return false;
+		}
+		
+		
+		
+		return result;
 	}
 
 	@RequestMapping(value = "/modifyItem", method = RequestMethod.GET)

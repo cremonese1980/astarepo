@@ -203,7 +203,7 @@
 				<configuration>
 					<tomcatLoggingFile>tomcat_server.log</tomcatLoggingFile>
 					<port>5319</port>
-					<path>/app</path>
+					<path>/</path>
 					<systemProperties>
 						<server.property>alpha</server.property>
 					</systemProperties>

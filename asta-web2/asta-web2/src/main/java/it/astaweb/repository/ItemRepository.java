@@ -19,7 +19,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
   @Query("select * from Item ")
   List<Item> findAll();
   
-  @Query("select i from Item i JOIN FETCH i.images where i.id = (:id)")
+  @Query("select i from Item i LEFT JOIN FETCH i.images where i.id = (:id)")
   Item findByIdAndFetchImages(@Param("id") Integer id);
 
 

@@ -41,6 +41,7 @@ public class EmailService extends ApplicationObjectSupport {
 	private String startTtls;
 	private String from;
 	private String cc;
+	private String to;
 	private String smtpSocketFactory;
 	
 	@PostConstruct
@@ -55,22 +56,9 @@ public class EmailService extends ApplicationObjectSupport {
 		startTtls = propertyService.getValue(Constants.PROPERTY_MAIL_SMTP_STARTTTLS.getValue());
 		from = propertyService.getValue(Constants.PROPERTY_MAIL_SENDER_FROM.getValue());
 		cc = propertyService.getValue(Constants.PROPERTY_MAIL_SENDER_CC.getValue());
+		to = propertyService.getValue(Constants.PROPERTY_MAIL_SENDER_TO.getValue());
 		smtpSocketFactory = propertyService.getValue(Constants.PROPERTY_MAIL_SENDER_SMTP_SOCKETFACTORYCLASS.getValue());
 		
-		
-//		<property name="host" value="${mail.sender.host}"/>
-//        <property name="username" value="${mail.sender.username}"/>
-//        <property name="password" value="${mail.sender.password}"/>
-//        <property name="port" value="${mail.sender.port}"/>
-//        <property name="protocol" value="${mail.sender.protocol}"/>
-//        <property name="javaMailProperties">
-//            <props>
-//                <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
-//                <prop key="mail.smtp.starttls.enable">${mail.smtp.starttls.enable}</prop>
-//<!--                Per invio con GMAIL-->
-//                <prop key="mail.smtp.socketFactory.class">${mail.sender.smtp.socketFactory.class}</prop>
-//            </props>
-//        </property>
 	}
 
     public void sendEmail(String subject, String body, String[] to) {
@@ -102,11 +90,11 @@ public class EmailService extends ApplicationObjectSupport {
 	    
 	    try {
 	    	Session session = setupSession();
-		Message m = new MimeMessage(session);
-		m.setSentDate(new Date());
-		m.setSubject("AstaWeb - Subject - Test");
+		Message mailMessage = new MimeMessage(session);
+		mailMessage.setSentDate(new Date());
+		mailMessage.setSubject("AstaWeb - Subject - Test");
 		if (from != null)
-		    m.setFrom(new InternetAddress(from));
+		    mailMessage.setFrom(new InternetAddress(from));
 
 		Multipart mp = new MimeMultipart();
 		MimeBodyPart body = new MimeBodyPart();
@@ -122,10 +110,10 @@ public class EmailService extends ApplicationObjectSupport {
 //			mp.addBodyPart(atts);
 //		    }
 //		}
-		m.setContent(mp);
+		mailMessage.setContent(mp);
 
-		    m.addRecipient(Message.RecipientType.TO, new InternetAddress("gabriele.cremonese@gmail.com"));
-		    m.addRecipient(Message.RecipientType.TO, new InternetAddress("chevuoi@hotmail.com"));
+		    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("gabriele.cremonese@gmail.com"));
+		    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("chevuoi@hotmail.com"));
 
 //		if (cc != null) {
 //		    for (String a : cc) {
@@ -141,10 +129,9 @@ public class EmailService extends ApplicationObjectSupport {
 
 //		Transport.send(m);
 		    
-			Transport transport = session.getTransport("smtp");
-			// Enter your correct gmail UserID and Password (XXXApp Shah@gmail.com)
-			transport.connect("smtp.gmail.com", "astaweb.server", "r1l4nc10");
-			transport.sendMessage(m, m.getAllRecipients());
+			Transport transport = session.getTransport(protocol);
+			transport.connect(host, "astaweb.server", "r1l4nc10");
+			transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
 			transport.close();
 		    
 //		logger.debug("Email '" + subject + "' sent to " +
@@ -162,8 +149,6 @@ public class EmailService extends ApplicationObjectSupport {
 	    props.put("mail.smtp.host", host);
 	    props.put("mail.smtp.port", port );
 	    props.put("mail.smtp.timeout", "10000");
-	    if (from == null)
-		props.put("mail.smtp.from", propertyService.getValue("email.from"));
 	    
 	    Authenticator auth = null;
 		auth = new Authenticator()

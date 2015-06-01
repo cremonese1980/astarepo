@@ -15,6 +15,7 @@ public enum Constants {
 	PROPERTY_MAIL_SMTP_STARTTTLS("mail.smtp.starttls.enable"),
 	PROPERTY_MAIL_SENDER_FROM("mail.sender.from"),
 	PROPERTY_MAIL_SENDER_CC("mail.sender.cc"),
+	PROPERTY_MAIL_SENDER_TO("mail.sender.to"),
 	PROPERTY_MAIL_SENDER_SMTP_SOCKETFACTORYCLASS("mail.sender.smtp.socketFactory.class");
 	
 	

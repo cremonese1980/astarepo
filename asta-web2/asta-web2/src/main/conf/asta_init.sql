@@ -15,7 +15,8 @@ insert into configuration(name, value) values('mail.sender.password', 'r1l4nc10'
 insert into configuration(name, value) values('mail.smtp.auth', 'true');
 insert into configuration(name, value) values('mail.smtp.starttls.enable', 'true');
 insert into configuration(name, value) values('mail.sender.from', 'astaweb.server@gmail.com');
-insert into configuration(name, value) values('mail.sender.cc', 'cremonese1980@gmail.com,chevuoi@hotmail.com');
+insert into configuration(name, value) values('mail.sender.cc', '');
+insert into configuration(name, value) values('mail.sender.to', 'cremonese1980@gmail.com,chevuoi@hotmail.com');
 insert into configuration(name, value) values('mail.sender.smtp.socketFactory.class', 'javax.net.ssl.SSLSocketFactory');
 
 

@@ -6,7 +6,7 @@
 	<div class="inner">	
 		<span class="questions">Domande?</span>
 		<span class="phone">02 123456 <em>(9- 18, Lun - Ven)</em></span>		
-		<span class="mail"><a href="mailto:info@crewroom.it" style="color: #fff">info@crewroom.it</a></span>
+		<span class="mail"><a href="mailto:astaweb.server@gmail.com" style="color: #fff">astaweb.server@gmail.com</a></span>
 		<span class="clear"></span>
 	</div>
 </div>

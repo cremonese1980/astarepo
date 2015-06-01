@@ -4,6 +4,8 @@ import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
 import it.astaweb.utils.ItemStatus;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public interface AstaService {
@@ -33,5 +35,9 @@ public interface AstaService {
 	ItemImage findImageById(Integer parseInt);
 
 	List<Item>  findAllItemByStatus(ItemStatus preSell);
+	
+	BigDecimal getTotalOffers();
+
+	void relaunch(Item item, BigDecimal offer, Date now, String username);
 
 }

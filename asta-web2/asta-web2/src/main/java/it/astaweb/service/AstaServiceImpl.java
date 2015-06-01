@@ -2,12 +2,20 @@ package it.astaweb.service;
 
 import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
+import it.astaweb.model.Relaunch;
 import it.astaweb.repository.ItemImageRepository;
 import it.astaweb.repository.ItemRepository;
+import it.astaweb.repository.RelaunchRepository;
 import it.astaweb.utils.ItemStatus;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -16,12 +24,28 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("astaService")
 public class AstaServiceImpl implements AstaService {
+	
+	private static final Log LOG = LogFactory.getLog(AstaServiceImpl.class);
 
 	@Autowired(required = true)
 	private ItemRepository itemRepository;
 
 	@Autowired(required = true)
 	private ItemImageRepository itemImageRepository;
+	
+	@Autowired(required = true)
+	private RelaunchRepository relaunchRepository;
+	
+	private BigDecimal totalOffer;
+	
+	@PostConstruct
+	private void init(){
+		
+		totalOffer = itemRepository.getTotalOffer(); 				
+		totalOffer = totalOffer == null? new BigDecimal(0): totalOffer;
+		System.out.println("AstaService inizializzato con un total offer = € " + totalOffer.doubleValue());
+		LOG.info("AstaService inizializzato con un total offer = € " + totalOffer.doubleValue());
+	}
 
 	@Transactional
 	public Item saveItem(Item item) {
@@ -98,5 +122,34 @@ public class AstaServiceImpl implements AstaService {
 		return itemRepository.findAllByStatus(status);
 		
 	}
+
+	@Override
+	@Transactional
+	public synchronized void relaunch(Item item, BigDecimal offer, Date now, String username) {
+		
+		BigDecimal delta = offer.subtract(item.getBestRelaunch());
+		
+		item.setBestRelaunch(offer);
+		Relaunch relaunch = new Relaunch();
+		relaunch.setDate(now);
+		relaunch.setItem(item);
+		relaunch.setUsername(username);
+		
+		itemRepository.save(item);
+		relaunchRepository.save(relaunch);
+		
+		updateTotal(delta);
+		
+	}
+
+	@Override
+	public BigDecimal getTotalOffers() {
+		return totalOffer;
+	}
+	
+	private synchronized void updateTotal(BigDecimal delta){
+		totalOffer.add(delta);
+	}
+	
 
 }

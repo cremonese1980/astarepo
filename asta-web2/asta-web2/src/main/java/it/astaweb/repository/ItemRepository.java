@@ -3,6 +3,7 @@ package it.astaweb.repository;
 import it.astaweb.model.Item;
 import it.astaweb.utils.ItemStatus;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,6 +26,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
   @Query("from Item i where i.status = (:status)")
   List<Item>  findAllByStatus(@Param("status") ItemStatus status);
+  
+  @Query("select sum(bestRelaunch) from Item")
+  BigDecimal  getTotalOffer();
+
   
 }
 

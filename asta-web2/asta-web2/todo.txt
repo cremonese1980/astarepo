@@ -1,22 +1,20 @@
 
 Aggiungere ore e minuti nel form inserimento oggetti. Default 20:30 per scadenza, 08:00 per inizio vendita
-Sfalzare i processi
-Processi per gestire stati item
 Pagina con elenco oggetti in vendita, con anteprima immagine, cliccabili per finire...
 Pagina rilancio oggetto
-Gestire gli invenduti
-Modulo email
-Tabella/servizio per stampare sempre online il totale raccolto fino a quel momento.
+Aggiungere le varie mail di report e di passaggi stato item
+Check dimensioni file caricato
+Aggiungere validazione lato server per aggiunta/modifica oggetti
 
+Valutare se aggiungere lo stato ON_SELL_DISCOUNTED, che sarebbe lo stato degli invenduti, ribassando il prezzo
 Test in locale sezione admin
 
 
+
 Test live locale sezione admin
-Check dimensioni file caricato
 Aggiungere conferma javascript per eliminazione oggetto
 Test sicurezza, se utente non loggato non deve accedere alle pagine di modifica oggetti
 Validazione lunghezza campi testuali
-Aggiungere validazione lato server per aggiunta/modifica oggetti
 
 Cerca icona ingranaggi
 Cerca icona elimina
@@ -24,7 +22,11 @@ Cerca icona (più +) per aggiungere oggetti
 
 
 
-
+DONE Tabella/servizio per stampare sempre online il totale raccolto fino a quel momento.: senza tabella, ma con variabile in AstaServiceImpl
+DONE Modulo email
+DONE Gestire gli invenduti: vengono rimessi in vendita ribassati del 20%
+DONE Processi per gestire stati item
+DONE Sfalzare i processi: c'è un solo processo per cambiare stato all'ITEM
 DONE Tabelle asta
 DONE Salvataggi immagini su disco e visualizzazione anteprima
 DONE Aggiungere data inizio asta agli oggetti

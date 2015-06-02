@@ -1,15 +1,19 @@
 package it.astaweb.service;
 
+import it.astaweb.exceptions.ObjectExpiredException;
 import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
 import it.astaweb.model.Relaunch;
 import it.astaweb.repository.ItemImageRepository;
 import it.astaweb.repository.ItemRepository;
 import it.astaweb.repository.RelaunchRepository;
+import it.astaweb.utils.Constants;
 import it.astaweb.utils.ItemStatus;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -35,6 +39,9 @@ public class AstaServiceImpl implements AstaService {
 	
 	@Autowired(required = true)
 	private RelaunchRepository relaunchRepository;
+	
+	@Autowired
+	PropertyService propertyService;
 	
 	private BigDecimal totalOffer;
 	
@@ -125,21 +132,51 @@ public class AstaServiceImpl implements AstaService {
 
 	@Override
 	@Transactional
-	public synchronized void relaunch(Item item, BigDecimal offer, Date now, String username) {
+	public synchronized void relaunch(Item item, BigDecimal offer, Date now, String username) throws ObjectExpiredException {
 		
-		BigDecimal delta = offer.subtract(item.getBestRelaunch());
+		long diff = (now.getTime() - item.getExpiringDate().getTime())/1000;
+		//Se l'oggetto è scaduto, cambio lo stato sul db. Il metodo è sincronizzato, e il processo non cambia stato se l'oggetto è scaduto da meno di 30 secondi.
+		if(diff<0){
+			setExpired(item);
+			throw new ObjectExpiredException();
+		}
 		
+		BigDecimal delta = offer.subtract(item.getBestRelaunch());		
 		item.setBestRelaunch(offer);
 		Relaunch relaunch = new Relaunch();
 		relaunch.setDate(now);
 		relaunch.setItem(item);
 		relaunch.setUsername(username);
 		
+		//Se il rilancio è avvenuto negli ultimi 3 minuti, l'asta viene protratta di ulteriori 3 minuti.
+		long postpone = Long.parseLong(propertyService.getValue(Constants.PROPERTY_RELAUNCH_POSTPONE_SECONDS.getValue()));
+		if(diff<= postpone){
+			Calendar calendar = new GregorianCalendar();
+			calendar.setTime(item.getExpiringDate());
+			calendar.add(Calendar.SECOND, (int)postpone);
+			item.setExpiringDate(calendar.getTime());
+			System.out.println("Scadenza oggeto " + item  + " prolungata di 3 minuti");
+		}
+		
 		itemRepository.save(item);
 		relaunchRepository.save(relaunch);
 		
 		updateTotal(delta);
 		
+	}
+
+	@Override
+	public synchronized  void setExpired(Item item) {
+		LOG.info("L'oggetto " + item + " è appena scaduto...........");
+		if(item.getBestRelaunch()!=null && item.getBestRelaunch().compareTo(item.getBaseAuctionPrice())>=0){
+			LOG.info("...........Venduto!");
+			item.setStatus(ItemStatus.SOLD_OUT);
+		}else{
+			LOG.info("...........Non venduto... :( \nAbbassiamo il prezzo del 20%");
+			item.setStatus(ItemStatus.PRE_SELL);
+			item.setBaseAuctionPrice(item.getBaseAuctionPrice().multiply(new BigDecimal(0.8)));
+		}
+		updateItem(item);
 	}
 
 	@Override

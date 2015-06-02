@@ -1,5 +1,6 @@
 package it.astaweb.service;
 
+import it.astaweb.exceptions.ObjectExpiredException;
 import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
 import it.astaweb.utils.ItemStatus;
@@ -38,6 +39,8 @@ public interface AstaService {
 	
 	BigDecimal getTotalOffers();
 
-	void relaunch(Item item, BigDecimal offer, Date now, String username);
+	void relaunch(Item item, BigDecimal offer, Date now, String username) throws ObjectExpiredException;
+
+	void setExpired(Item item);
 
 }

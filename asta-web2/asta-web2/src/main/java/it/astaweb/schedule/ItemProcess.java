@@ -3,10 +3,10 @@ package it.astaweb.schedule;
 import it.astaweb.model.Item;
 import it.astaweb.service.AstaService;
 import it.astaweb.service.EmailService;
+import it.astaweb.service.PropertyService;
 import it.astaweb.utils.ItemStatus;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +29,9 @@ public class ItemProcess implements Serializable {
 	
 	@Autowired
 	EmailService emailService;
+	
+	@Autowired
+	PropertyService propertyService;
 
 	public ItemProcess() {
 	}
@@ -57,17 +60,15 @@ public class ItemProcess implements Serializable {
 		for (Iterator<Item> iterator = itemOnSell.iterator(); iterator.hasNext();) {
 			Item item = iterator.next();
 			LOG.info(item);
-			if(item.getExpiringDate().before(new Date())){
-				LOG.info("L'oggetto " + item + " è appena scaduto...........");
-				if(item.getBestRelaunch()!=null && item.getBestRelaunch().compareTo(item.getBaseAuctionPrice())>=0){
-					LOG.info("...........Venduto!");
-					item.setStatus(ItemStatus.SOLD_OUT);
-				}else{
-					LOG.info("...........Non venduto... :( \nAbbassiamo il prezzo del 10%");
-					item.setStatus(ItemStatus.PRE_SELL);
-					item.setBaseAuctionPrice(item.getBaseAuctionPrice().multiply(new BigDecimal(0.8)));
+			Date now = new Date();
+			if(item.getExpiringDate().before(now)){
+				long diff = (now.getTime() - item.getExpiringDate().getTime())/1000;
+				//Se la differenza è inferiore a 30 secondi, per evitare conflitti con eventuali rilanci, lascio perdere
+				if(diff<=30){
+					LOG.info("L'oggetto " + item + " è scaduto da meno di 30 secondi, lo lascio in vendita per evitare sovrapposizioni coi rilanci");
+					continue;
 				}
-				astaService.updateItem(item);
+				astaService.setExpired(item);
 			}
 			
 		}

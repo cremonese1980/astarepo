@@ -178,7 +178,7 @@
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<warName>asta-web2</warName>
+					<warName>app</warName>
 				</configuration>
 			</plugin>
 			<plugin>

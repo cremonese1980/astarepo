@@ -7,6 +7,7 @@ import it.astaweb.service.AstaService;
 import it.astaweb.service.ImageService;
 import it.astaweb.service.PropertyService;
 import it.astaweb.service.UserService;
+import it.astaweb.utils.CalendarUtils;
 import it.astaweb.utils.Constants;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -108,7 +110,7 @@ public class ItemController {
 
 	private boolean validateDate(Item item, Model model) {
 		
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
 		int minSellTime = Integer.parseInt(propertyService.getValue(Constants.PROPERTY_MIN_SELL_TIME_HOUR.getValue()));
 
@@ -116,6 +118,7 @@ public class ItemController {
 		String message = "";
 		
 		Calendar minExpiringDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("IT_it"));
+		minExpiringDateCalendar.setTime(CalendarUtils.currentTimeInItaly());
 		minExpiringDateCalendar.add(Calendar.HOUR, minSellTime);
 		Date minExpiringDate = minExpiringDateCalendar.getTime();
 		
@@ -136,7 +139,7 @@ public class ItemController {
 			return false;
 		}
 		
-		if(item.getExpiringDate().before(new Date())){
+		if(item.getExpiringDate().before(CalendarUtils.currentTimeInItaly())){
 			message = "Vuoi provare a vendere un oggetto che scade nel passato?";
 			model.addAttribute("errorMessage", message);
 			return false;
@@ -223,7 +226,7 @@ public class ItemController {
 	
 	@RequestMapping(value = "/addImage", method = RequestMethod.GET)
 	public String addImage(@RequestParam Map<String, String> params, Model model) {
-
+		System.out.println("Add image GET");
 		User loggedUser = (User) model.asMap().get("user");
 		if (loggedUser == null) {
 			return "redirect:index.html";
@@ -243,6 +246,7 @@ public class ItemController {
 	public String addImage(@Valid @ModelAttribute("itemImage") ItemImage itemImage,
 			BindingResult result, @RequestParam(value = "uploadImage", required = false) MultipartFile uploadImage, Model model) 
 					 {
+		System.out.println("Add image POST");
 		if (result.hasErrors()) {
 			return "insertItem";
 		}
@@ -271,7 +275,7 @@ public class ItemController {
 			return "addImage";
 			
 		}
-		
+		System.out.println("Sto per aggiungere l'immagine");
 		astaService.addImage(itemImage);
 		try {
 			imageService.saveImage(itemImage, uploadImage);
@@ -313,5 +317,6 @@ public class ItemController {
 		}
 		return true;
 	}
+	
 
 }

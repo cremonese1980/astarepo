@@ -43,4 +43,6 @@ public interface AstaService {
 
 	void setExpired(Item item);
 
+	List<Item> findAllItemByStatusJoinImages(ItemStatus status);
+
 }

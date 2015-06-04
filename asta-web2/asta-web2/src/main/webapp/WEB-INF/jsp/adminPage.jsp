@@ -22,7 +22,7 @@
 <%@ include file="includeJavascript.jsp"%>
 
 
-<title>Asta Online</title>
+<title>Ciao Rocco</title>
 
 </head>
 
@@ -74,11 +74,11 @@
 								</td>
 								<td>
 									<fmt:formatDate value="${item.expiringDate}" 
-									pattern="dd/MM/yyyy hh:mm:ss"/>
+									pattern="dd/MM/yyyy HH:mm:ss"/>
 								</td>
 								<td>
 									<fmt:formatDate value="${item.fromDate}" 
-									pattern="dd/MM/yyyy hh:mm:ss"/>
+									pattern="dd/MM/yyyy HH:mm:ss"/>
 								</td>
 								<td>
 									${item.status.value}

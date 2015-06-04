@@ -21,7 +21,7 @@
 	<%@ include file="includeJavascript.jsp" %>
 	
 	
-	<title>Asta Online</title>
+	<title>Ciao Rocco</title>
 	
 </head>
 
@@ -49,52 +49,7 @@
 	<div id="wrapperMain">		
 		<div class="inner support banner">
 		</div>
-			<span>Partecipa all'<strong>asta</strong>!</span>
-			<em>Scegli un prodotto ${contextPath}</em>	
 			
-			<%-- ################################### CAROUSEL SLIDER ##################################### --%>
-			<script type="text/javascript">
-				var num = 0, scrollPartner = {};
-				var setNum = function() {
-					var wWidth = $(window).width();
-					num = (wWidth>=620) ? Math.floor((wWidth - 150 )/191) : Math.floor((wWidth - 80 )/101);
-					num = (num>5) ? 5 : num;
-				};
-				$(document).ready(function() {			
-					setNum();
-					scrollPartner = $(".support .carousel").scroller({
-						scrollDirection: "horizontal",
-		                scrollByElement: { tag: "li", showedNum: num, scrollNum: num, active: true }
-					}).data("scroller");
-					$(window).resize(function() {
-						setNum();
-						scrollPartner.options.scrollByElement.showedNum = num;
-						scrollPartner.options.scrollByElement.scrollNum = num;
-						scrollPartner.refreshScroller();
-					});			
-				});
-			</script>	
-			<c:set var="hpBanners" value="${itemlist}"/>
-			<div class="carousel-container">
-				<div class="carousel">
-					<ul>
-						<c:set var="slotCount" value="0" />
-						<c:set var="carousel"><fmt:message key="public.carousel.order" /></c:set>
-						<c:forEach items="${itemlist}" var="item">
-									<li>
-<%-- 										<c:set var="url" value="${f:getAffiliateSiteURL(dashboardService,hpBanners[slotCount])}" /> --%>
-<%-- 										<c:url var="logoUrl" value="${onesite.logo}"/> --%>
-<%-- 										<a href="${url}/lotto.htm"><img src="${logoUrl}" alt="${onesite.partnerName}" title="${onesite.partnerName}"/></a> --%>
-<%-- 										<c:set var="slotCount" value="${slotCount+1}" /> --%>
-											${item.name}
-									</li>
-<!-- 									<li> -->
-<%-- 										<a href='<fmt:message key="public.carousel.${item}" />' target="_blank"><img src="${web}${domainInfoService.imgFolder}/carousel/${item}.png" /></a> --%>
-<!-- 									</li> -->
-						</c:forEach>
-					</ul>
-				</div>
-			</div>	
 		
 	</div>
 

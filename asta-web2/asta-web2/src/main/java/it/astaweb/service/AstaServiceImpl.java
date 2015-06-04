@@ -129,6 +129,12 @@ public class AstaServiceImpl implements AstaService {
 		return itemRepository.findAllByStatus(status);
 		
 	}
+	
+	@Override
+	public List<Item>  findAllItemByStatusJoinImages(ItemStatus status) {
+		return itemRepository.findAllByStatusJoinImages(status);
+		
+	}
 
 	@Override
 	@Transactional

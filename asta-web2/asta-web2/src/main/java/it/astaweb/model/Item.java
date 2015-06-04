@@ -2,6 +2,7 @@ package it.astaweb.model;
 
 import it.astaweb.utils.ItemStatus;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -21,7 +22,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "item")
-public class Item {
+public class Item implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7937266920408887712L;
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -33,11 +38,11 @@ public class Item {
 	@Column(name="base_auction_price")
 	private BigDecimal baseAuctionPrice;
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@Column(name="expiring_date")
 	private Date expiringDate;
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@Column(name="from_date")
 	private Date fromDate;
 	@OneToMany(mappedBy="item",fetch=FetchType.LAZY)
@@ -117,6 +122,6 @@ public class Item {
 				+ ", fromDate=" + fromDate + ", status=" + status
 				+ ", bestRelaunch=" + bestRelaunch + "]";
 	}
-
+	
 	
 }

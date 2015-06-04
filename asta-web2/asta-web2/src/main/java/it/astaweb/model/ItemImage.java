@@ -1,5 +1,7 @@
 package it.astaweb.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +15,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "item_image")
-public class ItemImage {
+public class ItemImage implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2198764365786823144L;
 	@Id
 	@GeneratedValue
 	private Integer id;

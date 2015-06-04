@@ -1,4 +1,4 @@
-use astadb;
+use cremo80_astadb;
 
 insert into item(name,description,base_auction_price, expiring_date) values ('casco', 'caschetto lavoro', 10.00,  curdate());
 

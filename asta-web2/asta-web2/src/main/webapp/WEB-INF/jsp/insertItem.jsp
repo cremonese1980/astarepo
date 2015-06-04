@@ -22,7 +22,7 @@
 <%@ include file="includeJavascript.jsp"%>
 
 
-<title>Asta Online</title>
+<title>Ciao Rocco</title>
 
 </head>
 
@@ -100,7 +100,9 @@
 					<div class="data n4">
 						<label for="fromDate">Data inizio (gg/MM/aaaa)</label>
 						<form:input type="text" class="form-control" path="fromDate"
-							id="fromDate" placeholder="Data inizio" />
+							id="fromDate" placeholder="gg/mm/aaaa HH:mm:ss" />
+<%-- 							<form:input type="text" class="form-control" path="fromDateTime" --%>
+<%-- 							id="fromDateTime" placeholder="HH:mm:ss" /> --%>
 
 						<c:if test="${not empty fromDateMessage}">
 							<div class="errorMessage" style="color: red;">
@@ -113,7 +115,9 @@
 					<div class="data n5">
 						<label for="expiringDate">Data scadenza (gg/MM/aaaa)</label>
 						<form:input type="text" class="form-control" path="expiringDate"
-							id="expiringDate" placeholder="Data scadenza" />
+							id="expiringDate" placeholder="gg/mm/aaaa HH:mm:ss" />
+<%-- 						<form:input type="text" class="form-control" path="expiringDateTime" --%>
+<%-- 							id="expiringDateTime" placeholder="HH:mm:ss" /> --%>
 
 						<c:if test="${not empty expiringDateMessage}">
 							<div class="errorMessage" style="color: red;">

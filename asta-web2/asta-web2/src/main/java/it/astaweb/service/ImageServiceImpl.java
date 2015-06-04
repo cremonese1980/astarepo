@@ -74,9 +74,10 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	public ItemImage saveImage(ItemImage itemImage, MultipartFile uploadImage) throws IllegalStateException, IOException {
 		LOG.info("Saving Image in base disk path: " + BASE_PATH);
+		System.out.println("Saving Image in base disk path: " + BASE_PATH);
 
 		File image = writeImage(itemImage, uploadImage, IMG_ORIGINAL);
-		File imageThumb = writeImage(itemImage, uploadImage, IMG_THUMB);;
+		File imageThumb = writeImageThumb(image, itemImage, IMG_THUMB);;
 		
 		itemImage.setName(image.getName());
 		itemImage.setThumbName(imageThumb.getName());
@@ -129,8 +130,11 @@ public class ImageServiceImpl implements ImageService {
 	 */
 	private File writeImage(ItemImage itemImage, MultipartFile uploadImage, int type) throws IllegalStateException, IOException {
 		
-		File temp = File.createTempFile("temp_" + System.currentTimeMillis(), ".jpg");
+//		File temp = File.createTempFile("temp_" + System.currentTimeMillis(), ".jpg");
+		File temp = new File(BASE_PATH+ File.separator + "temp_" + System.currentTimeMillis() + ".jpg");
+		System.out.println("Temp file creato: " + temp.getName() + " nel path " + temp.getAbsolutePath());
 		uploadImage.transferTo(temp);
+		System.out.println("File temporaneo scritto" );
 		
 		String path = buildTemplatePath(itemImage, type);
 		
@@ -146,12 +150,35 @@ public class ImageServiceImpl implements ImageService {
 		}else{
 			resizeImageJpg = originalImage;
 		}
+		System.out.println("Sto per scrivere il file: " + image.getAbsolutePath());
 		ImageIO.write(resizeImageJpg, "jpg", image);
+		System.out.println("File scritto" );
 		
-		temp.delete();
+		temp.deleteOnExit();
 		
 		return image;
 	}
+	
+	private File writeImageThumb(File original, ItemImage itemImage, int type) throws IllegalStateException, IOException {
+		
+		String path = buildTemplatePath(itemImage, type);
+		
+		buildItemFolder(itemImage);
+		
+		File image = new File(path);
+		BufferedImage originalImage = ImageIO.read(original);
+		BufferedImage resizeImageJpg = null;
+		
+		int imageType = originalImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage.getType();	 
+		resizeImageJpg = resizeImage(originalImage, imageType);
+		
+		System.out.println("Sto per scrivere il file: " + image.getAbsolutePath());
+		ImageIO.write(resizeImageJpg, "jpg", image);
+		System.out.println("File scritto" );
+		
+		return image;
+	}
+
 
 
 	protected String buildTemplatePath(ItemImage itemImage, int type) {

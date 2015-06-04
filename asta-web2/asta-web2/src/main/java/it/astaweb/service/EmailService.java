@@ -2,6 +2,7 @@ package it.astaweb.service;
 
 
 
+import it.astaweb.utils.CalendarUtils;
 import it.astaweb.utils.Constants;
 
 import java.util.Arrays;
@@ -91,7 +92,7 @@ public class EmailService extends ApplicationObjectSupport {
 	    try {
 	    	Session session = setupSession();
 		Message mailMessage = new MimeMessage(session);
-		mailMessage.setSentDate(new Date());
+		mailMessage.setSentDate(CalendarUtils.currentTimeInItaly());
 		mailMessage.setSubject("AstaWeb - Subject - Test");
 		if (from != null)
 		    mailMessage.setFrom(new InternetAddress(from));

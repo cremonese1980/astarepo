@@ -14,8 +14,8 @@
 		<div class="inner estimated isDesktop"></div>
 	<div class="inner">
 		<div class="socialShare">
-			<a class="facebook" href='linkFace' target="_blank">&#xF09A;</a>
-			<a class="twitter" href='link tw' target="_blank">&#xF099;</a>    
+<!-- 			<a class="facebook" href='linkFace' target="_blank">&#xF09A;</a> -->
+<!-- 			<a class="twitter" href='link tw' target="_blank">&#xF099;</a>     -->
 		</div>	
 		<div class="links">
 			<c:url var="url" value="/index.html" /> 

@@ -1,5 +1,4 @@
 
-Aggiungere ore e minuti nel form inserimento oggetti. Default 20:30 per scadenza, 08:00 per inizio vendita
 Pagina con elenco oggetti in vendita, con anteprima immagine, cliccabili per finire...
 Pagina rilancio oggetto
 Aggiungere le varie mail di report e di passaggi stato item
@@ -22,6 +21,7 @@ Cerca icona (più +) per aggiungere oggetti
 
 
 
+DONE Aggiungere ore e minuti nel form inserimento oggetti.
 DONE Tabella/servizio per stampare sempre online il totale raccolto fino a quel momento.: senza tabella, ma con variabile in AstaServiceImpl
 DONE Modulo email
 DONE Gestire gli invenduti: vengono rimessi in vendita ribassati del 20%

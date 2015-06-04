@@ -1,5 +1,7 @@
 package it.astaweb.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -8,7 +10,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "authorities")
-public class Authorities {
+public class Authorities implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4895649099627175942L;
 	@Id
 	@NotEmpty
 	private String username;

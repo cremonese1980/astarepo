@@ -9,9 +9,9 @@
 -- create database
 --
 
-drop database if exists astadb;
+drop database if exists cremo80_astadb;
 
-create database astadb default character set utf8;
+create database cremo80_astadb default character set utf8;
 
 
 
@@ -19,18 +19,18 @@ create database astadb default character set utf8;
 -- create user
 --
 
-drop user 'asta_own'@'%';
-drop user 'asta_usr'@'%';
+drop user 'cremo80_asta_own'@'%';
+drop user 'cremo80_asta_usr'@'%';
 
-create user 'asta_own'@'%' identified by 'asta_123';
-create user 'asta_usr'@'%' identified by 'asta_123';
+create user 'cremo80_asta_own'@'%' identified by 'asta_123';
+create user 'cremo80_asta_usr'@'%' identified by 'asta_123';
 
 grant all privileges
-	on astadb.*
-	to 'asta_own'@'%'
+	on cremo80_astadb.*
+	to 'cremo80_asta_own'@'%'
 	with grant option;
 grant select,insert,update,delete
-	on astadb.*
-	to 'asta_usr'@'%';
+	on cremo80_astadb.*
+	to 'cremo80_asta_usr'@'%';
 
 flush privileges;

@@ -7,6 +7,7 @@ import it.astaweb.model.Item;
 import it.astaweb.model.User;
 import it.astaweb.service.AstaService;
 import it.astaweb.service.UserService;
+import it.astaweb.utils.CalendarUtils;
 
 import javax.validation.Valid;
 
@@ -59,7 +60,7 @@ public class AdminController {
           result.addError(new ObjectError("user.password", "Password sbagliata, ritenta"));
           return "loginAdmin";
       }
-      userFound.setLastLogin(new Date());
+      userFound.setLastLogin(CalendarUtils.currentTimeInItaly());
       userService.update(userFound);
       List<Item> itemList = astaService.findAllItem();        
       model.addAttribute("itemlist", itemList);    

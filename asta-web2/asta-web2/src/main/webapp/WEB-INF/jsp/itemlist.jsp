@@ -1,71 +1,115 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<!doctype html>
+
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login Success</title>
-<link href="assets/css/bootstrap-united.css" rel="stylesheet" />
+
+<%-------------------------------------------------- TITLE --------------------------------------------------------%>
+
+<meta name="keywords" content="asta,benefica" />
+<meta name="description" content="Asta benefica per..." />
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width">
+
+<%-------------------------------------------------- INCLUDE CSS --------------------------------------------------------%>
+<%@ include file="includeCss.jsp"%>
+
+<%-------------------------------------------------- INCLUDE JAVASCRIPT --------------------------------------------------------%>
+<%@ include file="includeJavascript.jsp"%>
+
+
+<title>Ciao Rocco</title>
+
 </head>
-<body>
-	<script src="jquery-1.8.3.js">
-		
-	</script>
-	<script src="bootstrap/js/bootstrap.js">
-		
-	</script>
-	<div class="navbar navbar-default">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-responsive-collapse">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-		</div>
-		<div class="navbar-collapse collapse navbar-responsive-collapse">
-			<form class="navbar-form navbar-right">
-				<input type="text" class="form-control" placeholder="Search">
-			</form>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/StudentEnrollmentWithSpring">Home</a></li>
-				<li><a href="signup.html">Signup</a></li>
-				<li class="active"><a href="login.html">Login</a></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown">Explore<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Contact us</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Further Actions</a></li>
-					</ul></li>
-			</ul>
-		</div>
-		<!-- /.nav-collapse -->
+
+<body class="commonOverride becomeFundraiser support">
+
+
+	<%-------------------------------------------------- HEADER --------------------------------------------------------%>
+	<div id="wrapperHeader">
+		<jsp:include page="header.jsp" />
 	</div>
-	<!--
-<legend>Student Enrollment Login Success</legend>
--->
-	<div class="panel panel-success">
-		<div class="panel-heading">
-			<h3 class="panel-title">Student Enrollment Login success</h3>
-			<c:forEach items="${itemlist}" var="item">
-				${item.name}
-			</c:forEach>
-			
-			
+
+
+	<div id="wrapperMain">
+
+		<div class="pageTitle">
+			<span class="inner">Oggetti in vendita</span>
 		</div>
-		<div class="panel-body">
-			<div class="alert alert-dismissable alert-success">
-				<button type="button" class="close" data-dismiss="alert">×</button>
-				<strong>Well done!</strong> You successfully logged-into the system.
-				Now you can explore the complete features!
+
+		<div class="section1" style="background-color: #F8F8F8;">
+			<div class="inner">
+				<table class="commonOverride registrationPage" >
+					<thead align="center">
+						<tr>
+							<th width="18%"><h3>Articolo</h3></th>
+							<th width="50%"><h3>Descrizione</h3></th>
+							<th width="10%"><h3>Base d'asta</h3></th>
+							<th width="10%"><h3>Inizio</h3></th>
+							<th width="10%"><h3>Scadenza</h3></th>
+							<th width="10%"><h3>Anteprima</h3></th>
+							<th width="10%"><h3>Rilancia!</h3></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${itemlist}" var="item">
+							<tr>
+								<td>
+									${item.name}
+								</td>
+								<td>
+									${item.description}
+								</td>
+								<td>
+								<fmt:formatNumber value=" ${item.baseAuctionPrice}" 
+								currencyCode="EUR" type="currency" maxFractionDigits="2"/> 
+								</td>
+								<td>
+									<fmt:formatDate value="${item.fromDate}" 
+									pattern="dd/MM/yyyy HH:mm:ss"/>
+								</td>
+								<td>
+									<fmt:formatDate value="${item.expiringDate}" 
+									pattern="dd/MM/yyyy HH:mm:ss"/>
+								</td>
+
+								<td>
+<%-- 									<c:if test="${not empty item.images}"> --%>
+<%-- 										<c:forEach items="${item.images}" var="image" varStatus="status"> --%>
+<%-- 											<c:if test="${0 == status.index}"> --%>
+<%-- 												<c:url var="urlThumb" --%>
+<%-- 													value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.thumbName}" /> --%>
+<%-- 												<c:url var="url" --%>
+<%-- 													value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.name}" /> --%>
+<%-- 												<a href="${url}"><img src="${urlThumb}" --%>
+<%-- 														title="${image.description}" /></a> --%>
+<%-- 											</c:if> --%>
+<%-- 										</c:forEach> --%>
+<%-- 									</c:if> --%>
+								</td>
+								<c:url var="urlIcon"
+										value="img/public/auction_ico2.png" />
+								<td><a href="realunchItem.html?itemid=${item.id}"><img src="${urlIcon}"/></a></td>
+
+
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+
 			</div>
 		</div>
+
 	</div>
-	<div></div>
-	<div></div>
-	<a class="btn btn-primary" href="<spring:url value="login.html"/>">Login
-		as different user?</a>
+
+	<%-------------------------------------------------- FOOTER --------------------------------------------------------%>
+	<div id="wrapperFooter">
+		<jsp:include page="footer.jsp" />
+	</div>
 </body>
+
 </html>

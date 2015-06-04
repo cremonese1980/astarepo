@@ -17,7 +17,8 @@ public enum Constants {
 	PROPERTY_MAIL_SENDER_CC("mail.sender.cc"),
 	PROPERTY_MAIL_SENDER_TO("mail.sender.to"),
 	PROPERTY_MAIL_SENDER_SMTP_SOCKETFACTORYCLASS("mail.sender.smtp.socketFactory.class"),
-	PROPERTY_RELAUNCH_POSTPONE_SECONDS("relaunch.postpone.seconds");
+	PROPERTY_RELAUNCH_POSTPONE_SECONDS("relaunch.postpone.seconds"), 
+	PROPERTY_SECRET_WORDS("secret.words");
 	
 	
 	

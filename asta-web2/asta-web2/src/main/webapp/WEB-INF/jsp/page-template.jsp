@@ -21,7 +21,7 @@
 	<%@ include file="includeJavascript.jsp" %>
 	
 	
-	<title>Asta Online!</title>
+	<title>Ciao Rocco!</title>
 	
 </head>
 

@@ -4,6 +4,7 @@ import it.astaweb.model.Item;
 import it.astaweb.service.AstaService;
 import it.astaweb.service.EmailService;
 import it.astaweb.service.PropertyService;
+import it.astaweb.utils.CalendarUtils;
 import it.astaweb.utils.ItemStatus;
 
 import java.io.Serializable;
@@ -45,7 +46,7 @@ public class ItemProcess implements Serializable {
 		for (Iterator<Item> iterator = itemPreSell.iterator(); iterator.hasNext();) {
 			Item item = iterator.next();
 			LOG.info(item);
-			if(item.getFromDate().before(new Date())){
+			if(item.getFromDate().before(CalendarUtils.currentTimeInItaly())){
 				LOG.info("L'oggetto " + item + " è appena stato messo in vendita");
 				item.setStatus(ItemStatus.ON_SELL);
 				astaService.updateItem(item);
@@ -60,7 +61,7 @@ public class ItemProcess implements Serializable {
 		for (Iterator<Item> iterator = itemOnSell.iterator(); iterator.hasNext();) {
 			Item item = iterator.next();
 			LOG.info(item);
-			Date now = new Date();
+			Date now = CalendarUtils.currentTimeInItaly();
 			if(item.getExpiringDate().before(now)){
 				long diff = (now.getTime() - item.getExpiringDate().getTime())/1000;
 				//Se la differenza è inferiore a 30 secondi, per evitare conflitti con eventuali rilanci, lascio perdere

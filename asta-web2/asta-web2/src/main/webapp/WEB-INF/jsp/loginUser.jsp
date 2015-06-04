@@ -29,43 +29,65 @@
 <body class="commonOverride becomeFundraiser support">
 
 
+
 	<%-------------------------------------------------- HEADER --------------------------------------------------------%>
 	<div id="wrapperHeader">
 		<jsp:include page="header.jsp" />
 	</div>
 
-
 	<div id="wrapperMain">
 
 		<div class="pageTitle">
-			<span class="inner">Gestione properties</span>
+			<span class="inner">Login Amministrazione</span>
 		</div>
-
 
 		<div class="section1" style="background-color: #F8F8F8;">
 			<div class="inner registrationPage">
-			
-				<form:form id="myForm" method="post" action="updateProperty.html"
-					 commandName="configuration">
 
+				<form:form id="myForm" method="post" action="loginUser.html"
+					commandName="player">
 					<div class="data n1">
-						<label for="name">Key</label>
-						<form:input type="text" class="form-control" path="name" id="name"
-							placeholder="Key" />
-
+						<label for="name">Nome</label>
+						<form:input type="text" class="form-control" path="name"
+							id="name" placeholder="Nome" />
+						
+						<c:if test="${not empty nameMessage}">
+							<div class="errorMessage" style="color: red;">
+								${nameMessage}
+							</div>
+						</c:if>
+						
 					</div>
 					<div class="data n2">
-						<label for="description">Value</label>
-						<form:input class="form-control" path="value"
-							id="value" placeholder="Value" />
+						<label for="username">Cognome</label>
+						<form:input type="text" class="form-control" path="lastName"
+							id="lastName" placeholder="Cognome" />
+						
+						<c:if test="${not empty lastNameMessage}">
+							<div class="errorMessage" style="color: red;">
+								${lastNameMessage}
+							</div>
+						</c:if>
+						
+					</div>
+					<div class="data n3">
+						<label for="password">Parola d'ordine</label>
+						<form:input type="password" class="form-control" path="password"
+							id="password" placeholder="Password" />
+
+						<c:if test="${not empty passwordMessage}">
+							<div class="errorMessage" style="color: red;">
+								${passwordMessage}
+							</div>
+						</c:if>
 
 					</div>
-					
-					<button class="button login">Update</button>
-
+						
+					<button class="button login">Gioca!</button>
 
 
 				</form:form>
+
 			</div>
 		</div>
 

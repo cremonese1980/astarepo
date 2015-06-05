@@ -35,7 +35,9 @@
 	        days,
 	        hours,
 	        minutes,
-	        seconds;
+	        seconds,
+	        text,
+	        lastWord;
 	    function timer() {
 	        // get the number of seconds that have elapsed since 
 	        // startTimer() was called
@@ -43,15 +45,48 @@
 
 	        // does the same job as parseInt truncates the float
 	        days = (diff / 86400) | 0;
-	        hours =((diff- days*86400) / 3600) | 0;
-	        minutes = ((diff - hours*3600) /60) | 0;
+			hours =((diff- days*86400) / 3600) | 0;
+	        minutes = ((diff - hours*3600 - days*86400) /60) | 0 ;
 	        seconds = (diff % 60) | 0;
 
+			text = "";
+// 	        lastWord = " secondi";
+	        if(days>0){
+	        	text = days + " giorni"
+	        }
+// 	        if(hours>0){
+// 	        	 lastWord = " ore";
+// 	        }
+// 	        if(minutes>0){
+// 	        	lastWord = " minuti";
+// 	        }else{
+// 	        	lastWord = " secondi";
+// 	        }
+	        
+	        
 	        minutes = minutes < 10 ? "0" + minutes : minutes;
 	        seconds = seconds < 10 ? "0" + seconds : seconds;
 	        hours = hours < 10 ? "0" + hours : hours;
-
-	        display.textContent = days +  " " + hours + ":" + minutes + ":" + seconds; 
+	        
+	        if(hours=="00"){
+	        	hours ="";
+	        }else{
+	        	hours = hours + "h:"
+	        }
+	        if(minutes=="00"){
+	        	minutes ="";
+	        }else{
+	        	minutes = minutes + "m:"
+	        }
+	        if(seconds=="00"){
+	        	seconds ="Asta terminata!";
+	        }else{
+	        	seconds = seconds + "s:"
+	        }
+	        
+	        
+	        text = text +  " " + hours +  minutes +  seconds ;
+	        display.textContent = text;  
 
 	        if (diff <= 0) {
 	            // add one second so that the count down starts at the full duration
@@ -65,7 +100,7 @@
 	}
 
 	window.onload = function () {
-	    var fiveMinutes = 5 * 24 *60 * 60,
+	    var fiveMinutes = ${expiringSeconds},
 	        display = document.querySelector('#time');
 	    startTimer(fiveMinutes, display);
 	};
@@ -93,8 +128,8 @@
 					<form:hidden path="item.id" />
 					<table>
  					
- 					<tr>
-							<td colspan="2"><label>L'asta si chiude in <span id="time"></span></label></td>
+ 						<tr>
+							<td colspan="2"><h2>L'asta si chiude tra <span id="time"></span></h2></td>
 						</tr>
 						<tr>
 							<td>Oggetto</td>
@@ -116,15 +151,22 @@
 						</tr>
 						<tr>
 							<td>Miglior Rilancio</td>
-							<td>&euro; <fmt:formatNumber value="${item.bestRelaunch}"
-									maxFractionDigits="2" />
+							<td><c:choose>
+							<c:when test="${not empty bestRelaunch.username}">
+								&euro; <fmt:formatNumber value="${item.bestRelaunch}"
+										maxFractionDigits="2" />
 								(${bestRelaunch.username} <fmt:formatDate
-									value="${bestRelaunch.date}" pattern="dd/MM/yyyy HH:mm:ss" />)
-							</td>
+										value="${bestRelaunch.date}" pattern="dd/MM/yyyy HH:mm:ss" />)
+								</c:when>
+								<c:otherwise>
+									Nessun rilancio, il tuo può essere il primo!
+								</c:otherwise>
+								</c:choose>
+								</td>
 						</tr>
 						<tr>
 							<td >
-									<label for="name">Offerta</label>
+									La tua Offerta
 									
 
 							</td>
@@ -160,18 +202,9 @@
 				<div class="inner">
 					<table class="commonOverride registrationPage"
 						style="border: 1px solid #F8F8F8">
-						<thead align="center">
-							<tr>
-								<th width="20%"><h3>Titolo</h3></th>
-								<th width="20%"><h3>Descrizione</h3></th>
-								<th width="50%"><h3>Anteprima</h3></th>
-							</tr>
-						</thead>
 						<tbody>
 							<c:forEach items="${item.images}" var="image">
 								<tr>
-									<td>${image.name}</td>
-									<td>${image.description}</td>
 									<c:url var="urlThumb" value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.thumbName}" />
 									<c:url var="url" value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.name}" />
 									<td>

@@ -2,7 +2,7 @@
 -- Initialize objetcs for database 'gpdDB'
 -- Execute by using 'gpd_own' user
 -- ==================================================================
-
+ mysql --host=mysql1001.mochahost.com --user=cremo80_asta_own --password=asta_123 cremo80_astadb
 
 use cremo80_astadb;
 

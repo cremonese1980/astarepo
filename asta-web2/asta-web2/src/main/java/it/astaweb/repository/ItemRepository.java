@@ -26,13 +26,13 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	@Query("from Item i where i.status = (:status) order by expiringDate asc")
 	List<Item> findAllByStatus(@Param("status") ItemStatus status);
 
-	@Query("from Item i JOIN FETCH i.images img where i.status = (:status) order by i.expiringDate asc")
+	@Query("select distinct i from Item i JOIN FETCH i.images img where i.status = (:status) order by i.expiringDate asc")
 	List<Item> findAllByStatusJoinImages(@Param("status") ItemStatus status);
 
 	@Query("select sum(bestRelaunch) from Item")
 	BigDecimal getTotalOffer();
 
-	@Query("select i from Item i LEFT JOIN FETCH i.images LEFT JOIN FETCH i.relaunches where i.id = (:id)")
+	@Query("select distinct i  from Item i LEFT JOIN FETCH i.images LEFT JOIN FETCH i.relaunches where i.id = (:id)")
 	Item findByIdAndFetchImagesFetchRelaunches(@Param("id") Integer id);
 
 }

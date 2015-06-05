@@ -43,6 +43,8 @@
 		<property name="username" value="cremo80_asta_usr" />
 		<property name="password" value="asta_123" />
 	</bean>
+	
+	
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />

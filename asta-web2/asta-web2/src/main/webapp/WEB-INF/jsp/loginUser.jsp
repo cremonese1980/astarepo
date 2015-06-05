@@ -38,7 +38,10 @@
 	<div id="wrapperMain">
 
 		<div class="pageTitle">
-			<span class="inner">Login Amministrazione</span>
+			<span class="inner">Iserisci i tuoi dati</span>
+		</div>
+		<div class="inner">
+			Si prega gentilmente di inserire nome e cognome reali, e la parola segreta ricevuta.
 		</div>
 
 		<div class="section1" style="background-color: #F8F8F8;">

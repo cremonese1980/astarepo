@@ -155,6 +155,11 @@ public class AstaController {
 		Relaunch relaunch = new Relaunch();
 		relaunch.setItem(item);
 		relaunch.setUsername(username);
+		
+		Long expiringSeconds = (item.getExpiringDate().getTime() - CalendarUtils.currentTimeInItaly().getTime())/1000;
+		if(expiringSeconds<=0){
+			expiringSeconds = 0L;
+		}
 
 		model.addAttribute("item", item);
 		model.addAttribute("player", loggedPlayer);
@@ -162,6 +167,7 @@ public class AstaController {
 		model.addAttribute("relaunch", relaunch);
 		model.addAttribute("bestRelaunch", bestRelaunch);
 		model.addAttribute("relaunches", relaunches);
+		model.addAttribute("expiringSeconds", expiringSeconds);
 
 		return "relaunchItem";
 	}
@@ -217,11 +223,11 @@ public class AstaController {
   
 	public static void main(String[] args) {
 		
-		int diff = 5*24*60*60 - 50;
+		int diff = 5*24*60*60 - (7*60*60) - 50*60;
 		
 		int days = (diff / 86400) | 0;
 		int hours =((diff- days*86400) / 3600) | 0;
-        int minutes = ((diff - hours*3600) /60) | 0 ;
+        int minutes = ((diff - hours*3600 - days*86400) /60) | 0 ;
         int seconds = (diff % 60) | 0;
         
         System.out.println("diff " + diff);

@@ -52,7 +52,10 @@
 			text = "";
 // 	        lastWord = " secondi";
 	        if(days>0){
-	        	text = days + " giorni"
+	        	text = days + " giorni";
+	        	if(days==1){
+	        		text = days + " giorno";
+	        	}
 	        }
 // 	        if(hours>0){
 // 	        	 lastWord = " ore";
@@ -81,7 +84,7 @@
 	        if(seconds=="00"){
 	        	seconds ="Asta terminata!";
 	        }else{
-	        	seconds = seconds + "s:"
+	        	seconds = seconds + "s"
 	        }
 	        
 	        
@@ -141,8 +144,10 @@
 						</tr>
 						<tr>
 							<td>Base d'asta</td>
-							<td>&euro; <fmt:formatNumber value="${item.baseAuctionPrice}"
-									  maxFractionDigits="2" /></td>
+							<td>
+								&euro; <fmt:formatNumber value="${item.baseAuctionPrice}"
+									  maxFractionDigits="2" />
+							</td>
 						</tr>
 						<tr>
 							<td>Scadenza</td>
@@ -203,16 +208,16 @@
 					<table class="commonOverride registrationPage"
 						style="border: 1px solid #F8F8F8">
 						<tbody>
-							<c:forEach items="${item.images}" var="image">
 								<tr>
-									<c:url var="urlThumb" value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.thumbName}" />
-									<c:url var="url" value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.name}" />
-									<td>
-										<a href="${url}"><img
-										src="${urlThumb}" 
-										title="${image.description}" /></a></td>
+									<c:forEach items="${item.images}" var="image">
+											<c:url var="urlThumb" value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.thumbName}" />
+											<c:url var="url" value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.name}" />
+											<td>
+												<a href="${url}"><img
+												src="${urlThumb}" 
+												title="${image.description}" /></a></td>
+									</c:forEach>
 								</tr>
-							</c:forEach>
 						</tbody>
 					</table>
 

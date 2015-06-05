@@ -47,8 +47,9 @@
 					<thead align="center">
 						<tr>
 							<th width="18%"><h3>Articolo</h3></th>
-							<th width="50%"><h3>Descrizione</h3></th>
+							<th width="30%"><h3>Descrizione</h3></th>
 							<th width="10%"><h3>Base d'asta</h3></th>
+							<th width="10%"><h3>Miglior offerta</h3></th>
 							<th width="10%"><h3>Scadenza</h3></th>
 							<th width="10%"><h3>Anteprima</h3></th>
 							<th width="10%"><h3>Rilancia!</h3></th>
@@ -63,9 +64,19 @@
 								<td>
 									${item.description}
 								</td>
-								<td>
+								<td>&euro;
 								<fmt:formatNumber value="${item.baseAuctionPrice}" 
-								currencyCode="EUR" type="currency" maxFractionDigits="2"/> 
+								 maxFractionDigits="2"/> 
+								</td>
+								<td><c:choose>
+										<c:when test="${not empty item.bestRelaunch}">
+											&euro; <fmt:formatNumber value="${item.bestRelaunch}"
+										maxFractionDigits="2" />
+										</c:when>
+										<c:otherwise>
+											Nessuna offerta
+										</c:otherwise>
+									</c:choose> 
 								</td>
 								<td>
 									<fmt:formatDate value="${item.expiringDate}" 

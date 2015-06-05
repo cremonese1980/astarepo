@@ -2,7 +2,6 @@ package it.astaweb.controller;
 
 import it.astaweb.exceptions.ObjectExpiredException;
 import it.astaweb.model.Item;
-import it.astaweb.model.ItemImage;
 import it.astaweb.model.Player;
 import it.astaweb.model.Relaunch;
 import it.astaweb.model.User;
@@ -16,7 +15,7 @@ import it.astaweb.utils.ItemStatus;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +32,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @SessionAttributes({"user", "player"})
@@ -131,6 +129,7 @@ public class AstaController {
 
 		User loggedUser = (User) model.asMap().get("user");
 		Player loggedPlayer = (Player) model.asMap().get("player");
+		Item item = (Item)model.asMap().get("item");
 
 		if (loggedPlayer == null || loggedUser == null) {
 			return "redirect:loginUser.html";
@@ -143,7 +142,8 @@ public class AstaController {
 							loggedPlayer
 							.getName() + " " + loggedPlayer.getLastName(): null;
 
-		Item item = astaService.findItemByIdAndFetchImagesFetchRelaunches(Integer
+							
+		item = item!=null? item: astaService.findItemByIdAndFetchImagesFetchRelaunches(Integer
 				.parseInt((String) params.get("itemid")));
 		
 		List<Relaunch> relaunches = new ArrayList<Relaunch>();
@@ -190,17 +190,9 @@ public class AstaController {
 		
 		Item item = astaService.findItemByIdAndFetchImages(relaunch.getItem().getId());
 		relaunch.setItem(item);
-		/*
-		 * TODO controlli
-		 */
 		
-		relaunch.setDate(CalendarUtils.currentTimeInItaly());
-		try {
-			astaService.relaunch(relaunch);
-		} catch (ObjectExpiredException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Date now = CalendarUtils.currentTimeInItaly();
+		relaunch.setDate(now);
 		
 		Relaunch newRelaunch = new Relaunch();
 		newRelaunch.setItem(relaunch.getItem());
@@ -210,13 +202,54 @@ public class AstaController {
 		model.addAttribute("player", loggedPlayer);
 		model.addAttribute("user", loggedUser);
 		model.addAttribute("newRelaunch", newRelaunch);
+		
+		if(!validateRelaunch(relaunch, model)){
+			return "relaunchItem";
+		}
+		
+		try {
+			astaService.relaunch(relaunch);
+		} catch (ObjectExpiredException e) {
+			model.addAttribute("relaunchMessage", e.getMessage());
+			return "relaunchItem";
+		}
+		
+		
 
 
 		return "redirect:relaunchItem.html?itemid=" + relaunch.getItem().getId();
 	}
 
   
-  private void readWords(){
+  private boolean validateRelaunch(Relaunch relaunch, Model model) {
+		
+	  if(relaunch.getDate().getTime()>relaunch.getItem().getExpiringDate().getTime()){
+		  model.addAttribute("relaunchMessage", "Asta finita!");
+		  return false;
+	  }
+	  if(relaunch.getAmount()==null || relaunch.getAmount().longValue() < relaunch.getItem().getBaseAuctionPrice().longValue()){
+		  model.addAttribute("relaunchMessage", "L'offerta minima è di € " + relaunch.getItem().getBaseAuctionPrice().longValue());
+		  return false;
+	  }
+	  
+	  if(relaunch.getItem().getBestRelaunch()!=null && relaunch.getItem().getBestRelaunch().longValue()<=0){
+		  
+		  if(relaunch.getAmount().longValue() < 1 + relaunch.getItem().getBestRelaunch().longValue()){
+			  model.addAttribute("relaunchMessage",
+					  "Il rilancio minimo è di € 1 rispetto all'offerta corrente di  "
+							  + relaunch.getItem().getBestRelaunch()
+							  .longValue());
+			  return false;
+		  }
+	  }
+	  
+	  
+	  
+	  return true;
+		
+	}
+
+private void readWords(){
 	  secretWords = Arrays.asList(propertyService.getValue(Constants.PROPERTY_SECRET_WORDS.getValue()).split(","));
 	  System.out.println("Parole segrete: " + secretWords);
   }

@@ -53,8 +53,8 @@
 							<th width="10%"><h3>Nome</h3></th>
 							<th width="50%"><h3>Descrizione</h3></th>
 							<th width="10%"><h3>Base d'asta</h3></th>
-							<th width="10%"><h3>Scadenza</h3></th>
 							<th width="10%"><h3>Inizio</h3></th>
+							<th width="10%"><h3>Scadenza</h3></th>
 							<th width="10%"><h3>Stato</h3></th>
 							<th width="10%"><h3>Azioni</h3></th>
 						</tr>
@@ -73,11 +73,11 @@
 								currencyCode="EUR" type="currency" maxFractionDigits="2"/> 
 								</td>
 								<td>
-									<fmt:formatDate value="${item.expiringDate}" 
+									<fmt:formatDate value="${item.fromDate}" 
 									pattern="dd/MM/yyyy HH:mm:ss"/>
 								</td>
 								<td>
-									<fmt:formatDate value="${item.fromDate}" 
+									<fmt:formatDate value="${item.expiringDate}" 
 									pattern="dd/MM/yyyy HH:mm:ss"/>
 								</td>
 								<td>

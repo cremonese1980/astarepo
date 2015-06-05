@@ -14,25 +14,25 @@ import org.springframework.stereotype.Repository;
 @Repository("itemRepository")
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-  @Query("select i from Item i where i.name = :name")
-  Item findByName(@Param("name") String name);
-  
-  @Query("select * from Item ")
-  List<Item> findAll();
-  
-  @Query("select i from Item i LEFT JOIN FETCH i.images where i.id = (:id)")
-  Item findByIdAndFetchImages(@Param("id") Integer id);
+	@Query("select i from Item i where i.name = :name")
+	Item findByName(@Param("name") String name);
 
+	@Query("select * from Item ")
+	List<Item> findAll();
 
-  @Query("from Item i where i.status = (:status) order by expiringDate asc")
-  List<Item>  findAllByStatus(@Param("status") ItemStatus status);
-  
-  @Query("from Item i JOIN FETCH i.images img where i.status = (:status) order by i.expiringDate asc")
-  List<Item>  findAllByStatusJoinImages(@Param("status") ItemStatus status);
-  
-  @Query("select sum(bestRelaunch) from Item")
-  BigDecimal  getTotalOffer();
+	@Query("select i from Item i LEFT JOIN FETCH i.images where i.id = (:id)")
+	Item findByIdAndFetchImages(@Param("id") Integer id);
 
-  
+	@Query("from Item i where i.status = (:status) order by expiringDate asc")
+	List<Item> findAllByStatus(@Param("status") ItemStatus status);
+
+	@Query("from Item i JOIN FETCH i.images img where i.status = (:status) order by i.expiringDate asc")
+	List<Item> findAllByStatusJoinImages(@Param("status") ItemStatus status);
+
+	@Query("select sum(bestRelaunch) from Item")
+	BigDecimal getTotalOffer();
+
+	@Query("select i from Item i LEFT JOIN FETCH i.images LEFT JOIN FETCH i.relaunches where i.id = (:id)")
+	Item findByIdAndFetchImagesFetchRelaunches(@Param("id") Integer id);
+
 }
-

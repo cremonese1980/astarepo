@@ -17,10 +17,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.metamodel.StaticMetamodel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -138,33 +140,29 @@ public class AstaServiceImpl implements AstaService {
 
 	@Override
 	@Transactional
-	public synchronized void relaunch(Item item, BigDecimal offer, Date now, String username) throws ObjectExpiredException {
+	public synchronized void relaunch(Relaunch relaunch) throws ObjectExpiredException {
 		
-		long diff = (now.getTime() - item.getExpiringDate().getTime())/1000;
+		long diff = (relaunch.getItem().getExpiringDate().getTime() - relaunch.getDate().getTime())/1000;
 		//Se l'oggetto è scaduto, cambio lo stato sul db. Il metodo è sincronizzato, e il processo non cambia stato se l'oggetto è scaduto da meno di 30 secondi.
 		if(diff<0){
-			setExpired(item);
+			setExpired(relaunch.getItem());
 			throw new ObjectExpiredException();
 		}
 		
-		BigDecimal delta = offer.subtract(item.getBestRelaunch());		
-		item.setBestRelaunch(offer);
-		Relaunch relaunch = new Relaunch();
-		relaunch.setDate(now);
-		relaunch.setItem(item);
-		relaunch.setUsername(username);
+		BigDecimal delta = relaunch.getItem().getBestRelaunch()!=null? relaunch.getAmount().subtract(relaunch.getItem().getBestRelaunch()):relaunch.getAmount();		
+		relaunch.getItem().setBestRelaunch(relaunch.getAmount());
 		
 		//Se il rilancio è avvenuto negli ultimi 3 minuti, l'asta viene protratta di ulteriori 3 minuti.
 		long postpone = Long.parseLong(propertyService.getValue(Constants.PROPERTY_RELAUNCH_POSTPONE_SECONDS.getValue()));
 		if(diff<= postpone){
 			Calendar calendar = new GregorianCalendar();
-			calendar.setTime(item.getExpiringDate());
+			calendar.setTime(relaunch.getItem().getExpiringDate());
 			calendar.add(Calendar.SECOND, (int)postpone);
-			item.setExpiringDate(calendar.getTime());
-			System.out.println("Scadenza oggeto " + item  + " prolungata di 3 minuti");
+			relaunch.getItem().setExpiringDate(calendar.getTime());
+			System.out.println("Scadenza oggeto " + relaunch.getItem()  + " prolungata di 3 minuti");
 		}
 		
-		itemRepository.save(item);
+		itemRepository.save(relaunch.getItem());
 		relaunchRepository.save(relaunch);
 		
 		updateTotal(delta);
@@ -191,7 +189,12 @@ public class AstaServiceImpl implements AstaService {
 	}
 	
 	private synchronized void updateTotal(BigDecimal delta){
-		totalOffer.add(delta);
+		totalOffer = totalOffer.add(delta);
+	}
+
+	@Override
+	public Item findItemByIdAndFetchImagesFetchRelaunches(Integer id) {
+		return itemRepository.findByIdAndFetchImagesFetchRelaunches(id);
 	}
 	
 

@@ -3,9 +3,9 @@ package it.astaweb.utils;
 
 public enum ItemStatus {
 	
-	PRE_SELL("Da Vendere'"),
-	ON_SELL("In Vendita'"),
-	SOLD_OUT("Venduto'");
+	PRE_SELL("Da Vendere"),
+	ON_SELL("In Vendita"),
+	SOLD_OUT("Venduto");
 	
 	private final String value;
 	

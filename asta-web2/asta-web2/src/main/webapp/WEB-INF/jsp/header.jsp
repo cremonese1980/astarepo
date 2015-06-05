@@ -5,6 +5,13 @@
 
 <div class="section1">
 	<div class="inner">
+		<div class="welcomeUser">
+			<c:choose>
+				<c:when test="${not empty user.name}">Ciao ${user.name}!</c:when>
+				<c:otherwise><c:if test="${not empty player.name}">Ciao ${player.name}!</c:if></c:otherwise>
+			</c:choose>
+		</div>
+		
 		<div class="links">
 			<a href="index.html">Home |</a>
 			<a href="loginAdmin.html">Admin |</a>
@@ -16,6 +23,8 @@
 
 <div class="section2">
 	<div class="inner">
-<!-- 		<a href="http://www.crewroom.it/" target="_blank"><img width="20%" src="http://www.crewroom.it/images/logo.jpg" alt="Crew Room" /></a> -->
+		<div class="welcomeUser">
+			Totale raccolto &euro;: ${astaService.totalOffers}
+		</div>
 	</div>
 </div>

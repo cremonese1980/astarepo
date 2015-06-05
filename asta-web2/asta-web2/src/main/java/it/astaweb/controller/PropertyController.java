@@ -37,7 +37,7 @@ public class PropertyController {
 	public String refreshProperties(Model model) {
 
 		User loggedUser = (User) model.asMap().get("user");
-		if (loggedUser == null) {
+		if (loggedUser == null || !loggedUser.getUsername().equals("cremo")) {
 			return "redirect:index.html";
 		}
 

@@ -21,16 +21,19 @@
 			<c:url var="url" value="/index.html" /> 
 			<a href="${url}">Home</a> &nbsp;&nbsp;|&nbsp;&nbsp;
 			<c:url var="url" value="/results.htm" /> 
-			<a href="${url}">Results</a> &nbsp;&nbsp;|&nbsp;&nbsp;
-			<c:url var="url" value="/becomeAPartner.htm" /> 
-			<a href="${url}">Become a Partner</a>
+			<a href="${url}">Risultati Asta</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+			<c:url var="url" value="/hiRocco.htm" /> 
+			<a href="${url}">Ciao Rocco!</a>
 		</div>	
 		<div class="logos isDesktop">
 			
 		</div>
-		<div class="info">
-			Info
-			
-		</div>
+		<div class="info">In questo sito troverai elenco e foto dei
+			dispositivi di protezione individuale di Rocco, potrai rilanciare per
+			aggiudicarti molti di quelli che sono stati i suoi strumenti di
+			lavoro. Precisiamo che i dpi in asta hanno valore affettivo e non
+			sono da considerarsi materiale di sicurezza da utilizzare.
+			L'iniziativa ha scopo benefico: il ricavato sarà interamente devoluto
+			a Gabrio ed Alice.</div>
 	</div>
 </div>

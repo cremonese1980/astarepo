@@ -257,7 +257,12 @@ public class ItemController {
 		}
 		boolean error = false;
 		if (!validateImage(uploadImage)) {
-			model.addAttribute("uploadImageMessage", "L'immagine deve essere una JPG, di dimensioni inferiori a 2 MB");
+			model.addAttribute(
+					"uploadImageMessage",
+					"L'immagine deve essere una JPG, di dimensioni inferiori a"
+							+ Long.parseLong(propertyService
+									.getValue(Constants.PROPERTY_NAME_MAX_UPLOAD_SIZE
+											.getValue()))/1000000 + " MB");
 			error = true;
 		}
 		if (itemImage.getName()==null || itemImage.getName().trim().equals("")) {
@@ -310,9 +315,10 @@ public class ItemController {
 	}
 	
 	private boolean validateImage(MultipartFile image) {
+		long maxSize = Long.parseLong(propertyService.getValue(Constants.PROPERTY_NAME_MAX_UPLOAD_SIZE.getValue()));
 		if (image==null || image.getSize()<=0 ||  image.getContentType()==null
 				|| image.getContentType().trim().equals("") || !image.getContentType().equals("image/jpeg")
-				|| image.getSize()>1999999) {
+				|| image.getSize()>maxSize) {
 			return false;
 		}
 		return true;

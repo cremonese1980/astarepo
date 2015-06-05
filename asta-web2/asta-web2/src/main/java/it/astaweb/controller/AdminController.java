@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import it.astaweb.model.Item;
+import it.astaweb.model.Player;
 import it.astaweb.model.User;
 import it.astaweb.service.AstaService;
 import it.astaweb.service.UserService;
@@ -39,6 +40,13 @@ public class AdminController {
 
   @RequestMapping(value="/loginAdmin", method=RequestMethod.GET)
   public String loginAdmin(Model model) {
+	  
+	  User loggedUser =  (User)model.asMap().get("user");
+	  if(loggedUser!=null){
+		  model.addAttribute("user", loggedUser);
+    	  return "redirect:adminPage.html";
+      }
+	  
       User user = new User();        
       model.addAttribute("user", user);     
       return "loginAdmin";
@@ -63,7 +71,8 @@ public class AdminController {
       userFound.setLastLogin(CalendarUtils.currentTimeInItaly());
       userService.update(userFound);
       List<Item> itemList = astaService.findAllItem();        
-      model.addAttribute("itemlist", itemList);    
+      model.addAttribute("itemlist", itemList);   
+      model.addAttribute("user", userFound);
       return "adminPage";
   }
   
@@ -71,7 +80,7 @@ public class AdminController {
   @RequestMapping(value="/adminPage", method=RequestMethod.GET)
   public String adminPage(Model model) {
       
-	  User loggedUser =  (User)model.asMap().get("user");;
+	  User loggedUser =  (User)model.asMap().get("user");
       
       if(loggedUser==null){
     	  return "redirect:index.html";

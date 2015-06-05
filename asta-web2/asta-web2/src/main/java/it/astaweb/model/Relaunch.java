@@ -1,5 +1,6 @@
 package it.astaweb.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -9,14 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "relaunch")
-public class Relaunch {
+public class Relaunch implements Comparable<Relaunch>{
 	
 	
 	@Id
@@ -27,9 +27,9 @@ public class Relaunch {
 	@ManyToOne(cascade={CascadeType.MERGE})
 	@JoinColumn(name="id_item")
 	private Item item;
-	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date date;
+	private BigDecimal amount;
 	
 	public Integer getId() {
 		return id;
@@ -54,6 +54,16 @@ public class Relaunch {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public BigDecimal getAmount() {
+		return amount;
+	}
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+	@Override
+	public int compareTo(Relaunch o) {
+		return o.amount.compareTo(this.amount);
 	}
 
 }

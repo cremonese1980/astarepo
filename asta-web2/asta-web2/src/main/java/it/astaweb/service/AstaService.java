@@ -3,6 +3,7 @@ package it.astaweb.service;
 import it.astaweb.exceptions.ObjectExpiredException;
 import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
+import it.astaweb.model.Relaunch;
 import it.astaweb.utils.ItemStatus;
 
 import java.math.BigDecimal;
@@ -39,10 +40,12 @@ public interface AstaService {
 	
 	BigDecimal getTotalOffers();
 
-	void relaunch(Item item, BigDecimal offer, Date now, String username) throws ObjectExpiredException;
+	void relaunch(Relaunch relaunch) throws ObjectExpiredException;
 
 	void setExpired(Item item);
 
 	List<Item> findAllItemByStatusJoinImages(ItemStatus status);
+
+	Item findItemByIdAndFetchImagesFetchRelaunches(Integer id);
 
 }

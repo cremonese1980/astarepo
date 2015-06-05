@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,6 +22,8 @@ public class User {
 	@NotEmpty
 	private String password;
 	private String name;
+	@Column(name="last_name")
+	private String lastName;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name="last_login")
 	private Date lastLogin;
@@ -60,6 +61,18 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public UserType getType() {
+		return type;
+	}
+	public void setType(UserType type) {
+		this.type = type;
 	}
 	
 	

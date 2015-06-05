@@ -33,6 +33,7 @@ create table users (
 	id_type varchar(20) not null,
 	enabled bit(1) not null,	
 	name varchar (50),
+	last_name varchar (50),
 	last_login datetime ,
 	email varchar(100) not null,
 	primary key (username)
@@ -59,6 +60,7 @@ create table item (
 
 create table relaunch (
 	id int unsigned not null auto_increment,
+	amount DECIMAL(10,2),
 	id_item int unsigned not null,
 	username varchar(100) not null,
 	date datetime not null,

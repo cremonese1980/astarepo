@@ -5,6 +5,16 @@ public class Player {
 	private String name;
 	private String password;
 	private String lastName;
+	
+	public Player() {
+		
+	}
+
+	public Player(User loggedUser) {
+		name=loggedUser.getName();
+		lastName=loggedUser.getLastName();
+		password=loggedUser.getPassword();
+	}
 
 	public String getName() {
 		return name;

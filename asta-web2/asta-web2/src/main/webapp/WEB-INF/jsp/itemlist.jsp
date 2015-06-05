@@ -49,7 +49,6 @@
 							<th width="18%"><h3>Articolo</h3></th>
 							<th width="50%"><h3>Descrizione</h3></th>
 							<th width="10%"><h3>Base d'asta</h3></th>
-							<th width="10%"><h3>Inizio</h3></th>
 							<th width="10%"><h3>Scadenza</h3></th>
 							<th width="10%"><h3>Anteprima</h3></th>
 							<th width="10%"><h3>Rilancia!</h3></th>
@@ -65,12 +64,8 @@
 									${item.description}
 								</td>
 								<td>
-								<fmt:formatNumber value=" ${item.baseAuctionPrice}" 
+								<fmt:formatNumber value="${item.baseAuctionPrice}" 
 								currencyCode="EUR" type="currency" maxFractionDigits="2"/> 
-								</td>
-								<td>
-									<fmt:formatDate value="${item.fromDate}" 
-									pattern="dd/MM/yyyy HH:mm:ss"/>
 								</td>
 								<td>
 									<fmt:formatDate value="${item.expiringDate}" 
@@ -78,22 +73,22 @@
 								</td>
 
 								<td>
-<%-- 									<c:if test="${not empty item.images}"> --%>
-<%-- 										<c:forEach items="${item.images}" var="image" varStatus="status"> --%>
-<%-- 											<c:if test="${0 == status.index}"> --%>
-<%-- 												<c:url var="urlThumb" --%>
-<%-- 													value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.thumbName}" /> --%>
-<%-- 												<c:url var="url" --%>
-<%-- 													value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.name}" /> --%>
-<%-- 												<a href="${url}"><img src="${urlThumb}" --%>
-<%-- 														title="${image.description}" /></a> --%>
-<%-- 											</c:if> --%>
-<%-- 										</c:forEach> --%>
-<%-- 									</c:if> --%>
+									<c:if test="${not empty item.images}">
+										<c:forEach items="${item.images}" var="image" varStatus="status">
+											<c:if test="${0 == status.index}">
+												<c:url var="urlThumb"
+												value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.thumbName}" /> 
+ 												<c:url var="url"
+ 													value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.name}" /> 
+ 												<a href="${url}"><img src="${urlThumb}" 
+ 														title="${image.description}" /></a> 
+ 											</c:if> 
+ 										</c:forEach>
+ 									</c:if> 
 								</td>
 								<c:url var="urlIcon"
 										value="img/public/auction_ico2.png" />
-								<td><a href="realunchItem.html?itemid=${item.id}"><img src="${urlIcon}"/></a></td>
+								<td><a href="relaunchItem.html?itemid=${item.id}"><img src="${urlIcon}"/></a></td>
 
 
 							</tr>

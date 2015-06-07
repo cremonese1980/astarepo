@@ -2,15 +2,14 @@ package it.astaweb.service;
 
 
 
+import it.astaweb.model.Item;
+import it.astaweb.model.Relaunch;
 import it.astaweb.utils.CalendarUtils;
 import it.astaweb.utils.Constants;
+import it.astaweb.utils.ItemStatus;
 
-import java.util.Arrays;
-import java.util.Date;
 import java.util.Properties;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
 import javax.annotation.PostConstruct;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -84,22 +83,22 @@ public class EmailService extends ApplicationObjectSupport {
 	    } else
 		cc = ccext;
 
-		send();
+		send(subject, body);
     }
     
-    	public void send() {
+    	public void send(String subjectText, String bodyText) {
 	    
 	    try {
 	    	Session session = setupSession();
 		Message mailMessage = new MimeMessage(session);
 		mailMessage.setSentDate(CalendarUtils.currentTimeInItaly());
-		mailMessage.setSubject("AstaWeb - Subject - Test");
+		mailMessage.setSubject(subjectText);
 		if (from != null)
 		    mailMessage.setFrom(new InternetAddress(from));
 
 		Multipart mp = new MimeMultipart();
 		MimeBodyPart body = new MimeBodyPart();
-		body.setContent("corpo mail automatica di prova", "text/html");
+		body.setContent(bodyText, "text/html");
 		mp.addBodyPart(body);
 
 //		if (attachments != null) {
@@ -112,9 +111,15 @@ public class EmailService extends ApplicationObjectSupport {
 //		    }
 //		}
 		mailMessage.setContent(mp);
+		
+		String[] mailTo = this.to.split(",");
+		
+		for (int i = 0; i < mailTo.length; i++) {
+			 mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(mailTo[i]));
+		}
 
-		    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("gabriele.cremonese@gmail.com"));
-		    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("chevuoi@hotmail.com"));
+//		    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("gabriele.cremonese@gmail.com"));
+//		    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("chevuoi@hotmail.com"));
 
 //		if (cc != null) {
 //		    for (String a : cc) {
@@ -172,6 +177,35 @@ public class EmailService extends ApplicationObjectSupport {
 		session.setDebug(true);
 	    
 	    return session;
+	}
+
+	public void sendOnSell(Item item) {
+		String subject = "L'articolo " + item.getName() + " è appena stao messo in vendita";
+		String body = "Ciao!\nL'articolo " + item.getName() + " è appena stato messo in vendita."
+				+ "\nDescrizione: " + item.getDescription()
+				+ "\nData inizio: " + item.getFromDate() + 
+				"\nData fine asta: " + item.getExpiringDate() +
+				"\nPrezzo base €: " + item.getBaseAuctionPrice()
+				;
+		send(subject, body);
+		
+	}
+
+	public void sendExpired(Item item, Relaunch relaunch) {
+		String subject = "L'articolo " + item.getName() + " è appena scaduto";
+		String body = "Ciao!\nL'articolo " + item.getName() + " è appena scaduto."
+				+ "\nDescrizione: " + item.getDescription() +
+				"\nData fine asta: " + item.getExpiringDate() +
+				"\nPrezzo base €: " + item.getBaseAuctionPrice()
+				;
+		if(item.getStatus()==ItemStatus.SOLD_OUT){
+			body+="\nVenduto per €" + item.getBestRelaunch() ;
+			body+=" a " + relaunch.getUsername()+ "per € " + relaunch.getAmount() +
+					" alle " + relaunch.getDate();
+		}else{
+			body+= "\n Purtroppo è rimasto invenduto...";
+		}
+		send(subject, body);
 	}
     
 }

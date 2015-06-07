@@ -126,7 +126,7 @@
 							<th width="10%"><h3>Rilancia!</h3></th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody align="center">
 						<c:forEach items="${itemlist}" var="item" varStatus="itemStatus">
 							<c:choose>
 								<c:when test="${itemStatus.index % 2 == 1}">

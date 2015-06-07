@@ -1,10 +1,12 @@
 package it.astaweb.schedule;
 
 import it.astaweb.model.Item;
+import it.astaweb.model.Relaunch;
 import it.astaweb.service.AstaService;
 import it.astaweb.service.EmailService;
 import it.astaweb.service.PropertyService;
 import it.astaweb.utils.CalendarUtils;
+import it.astaweb.utils.Constants;
 import it.astaweb.utils.ItemStatus;
 
 import java.io.Serializable;
@@ -24,6 +26,7 @@ public class ItemProcess implements Serializable {
 	private static final long serialVersionUID = 1321092592770467192L;
 	
 	private static final Log LOG = LogFactory.getLog(ItemProcess.class);
+
 	
 	@Autowired
 	AstaService astaService;
@@ -50,6 +53,11 @@ public class ItemProcess implements Serializable {
 				LOG.info("L'oggetto " + item + " è appena stato messo in vendita");
 				item.setStatus(ItemStatus.ON_SELL);
 				astaService.updateItem(item);
+				try {
+					emailService.sendOnSell(item);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
 			}
 			
 		}
@@ -66,10 +74,17 @@ public class ItemProcess implements Serializable {
 				long diff = (now.getTime() - item.getExpiringDate().getTime())/1000;
 				//Se la differenza è inferiore a 30 secondi, per evitare conflitti con eventuali rilanci, lascio perdere
 				if(diff<=30){
-					LOG.info("L'oggetto " + item + " è scaduto da meno di 30 secondi, lo lascio in vendita per evitare sovrapposizioni coi rilanci");
+					System.out.println("L'oggetto " + item + " è scaduto da meno di 30 secondi, lo lascio in vendita per evitare sovrapposizioni coi rilanci");
 					continue;
 				}
 				astaService.setExpired(item);
+				try {
+					Relaunch bestRelaunch = astaService.getBestRelaunch(item);
+					emailService.sendExpired(item, bestRelaunch );
+					
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
 			}
 			
 		}

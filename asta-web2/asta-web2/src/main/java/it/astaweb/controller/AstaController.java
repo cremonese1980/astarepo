@@ -219,7 +219,7 @@ public class AstaController {
   private boolean validateRelaunch(Relaunch relaunch, Model model) {
 		
 	  if(relaunch.getDate().getTime()>relaunch.getItem().getExpiringDate().getTime()){
-		  model.addAttribute("relaunchMessage", "Asta finita!");
+		  model.addAttribute("relaunchMessage", "Asta terminata!");
 		  return false;
 	  }
 	  if(relaunch.getAmount()==null || relaunch.getAmount().longValue() < relaunch.getItem().getBaseAuctionPrice().longValue()){

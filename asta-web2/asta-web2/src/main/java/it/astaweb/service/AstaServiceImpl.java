@@ -197,6 +197,11 @@ public class AstaServiceImpl implements AstaService {
 	public Item findItemByIdAndFetchImagesFetchRelaunches(Integer id) {
 		return itemRepository.findByIdAndFetchImagesFetchRelaunches(id);
 	}
+
+	@Override
+	public Relaunch getBestRelaunch(Item item) {
+		return relaunchRepository.getRelaunchesByItem(item.getId()).get(0);
+	}
 	
 
 }

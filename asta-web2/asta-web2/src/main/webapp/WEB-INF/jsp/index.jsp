@@ -5,7 +5,10 @@
 
 <html>
 <head>
-	
+
+	<link rel="icon" 
+      type="image/png" 
+      href="../../favicon5.ico" />
 	<%-------------------------------------------------- TITLE --------------------------------------------------------%>
 	
 	<meta name="keywords" content="asta,benefica" />

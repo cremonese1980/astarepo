@@ -48,4 +48,6 @@ public interface AstaService {
 
 	Item findItemByIdAndFetchImagesFetchRelaunches(Integer id);
 
+	Relaunch getBestRelaunch(Item item);
+
 }

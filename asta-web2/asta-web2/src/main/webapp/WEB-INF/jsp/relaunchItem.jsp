@@ -6,6 +6,9 @@
 
 <html>
 <head>
+<link rel="icon" 
+      type="image/png" 
+      href="../../favicon5.ico" />
 
 <%-------------------------------------------------- TITLE --------------------------------------------------------%>
 
@@ -114,7 +117,7 @@
 	        minutes = ((diff - hours*3600 - days*86400) /60) | 0 ;
 	        seconds = (diff % 60) | 0;
 
-			text = "";
+			text = "L'asta si chiude tra ";
 	        if(days>0){
 	        	text = days + " giorni";
 	        	if(days==1){
@@ -136,13 +139,22 @@
 	        }else{
 	        	minutes = minutes + "m:"
 	        }
+	        
+	        var finish = false;
+	        
 	        if(diff <= 0){
-	        	seconds ="Asta terminata!";
+	        	finish = true;
 	        }else{
 	        	seconds = seconds + "s"
 	        }
 	        
+	        
 	        text = text +  " " + hours +  minutes +  seconds ;
+	        
+	        if(finish){
+	        	text  = "Asta terminata!";
+	        	
+	        }
 
 // 	        if (diff <= 0) {
 // 	            // add one second so that the count down starts at the full duration
@@ -187,7 +199,15 @@
 					<table>
  					
  						<tr>
-							<td colspan="2"><h2>L'asta si chiude tra <span id="time"></span></h2></td>
+							<td colspan="2"><h2><span id="time"/></h2></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="font-weight: bold;">Se il rilancio avviene negli ultimi 3 minuti, l'orario di fine
+							 asta verrà prolungato di ulteriori 3 minuti, per consentire a chiunque di 
+							 poter rilanciare.</td>
+						
+						</tr>
+						<tr><td><br/></td>
 						</tr>
 						<tr>
 							<td>Oggetto</td>

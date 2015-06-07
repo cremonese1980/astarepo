@@ -1,4 +1,7 @@
 
+Aggiungi messaggio evidente che inidica si tratti di una fase di test, con data inizio e data fine.
+Aggiungi messaggio ASTA FINITA, si aggiudica l'oggetto Marco De marchi (ad esempio)
+Aggiungi il bottone "OSSERVA" per ricevere email di notifica se qualcuno fa un'offerta.
 Aggiungere le varie mail di report e di passaggi stato item
 Check dimensioni file caricato
 Aggiungere validazione lato server per aggiunta/modifica oggetti a seconda dello stato

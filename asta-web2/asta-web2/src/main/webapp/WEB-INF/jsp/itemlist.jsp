@@ -114,7 +114,7 @@
 
 		<div class="section1" style="background-color: #F8F8F8;">
 			<div class="inner">
-				<table class="commonOverride registrationPage" >
+				<table class="commonOverride registrationPage" style="width:100%">
 					<thead align="center">
 						<tr>
 							<th width="18%"><h3>Articolo</h3></th>
@@ -127,10 +127,18 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${itemlist}" var="item">
-							<tr>
-								<td>
+						<c:forEach items="${itemlist}" var="item" varStatus="itemStatus">
+							<c:choose>
+								<c:when test="${itemStatus.index % 2 == 1}">
+									<tr>
+								</c:when>
+								<c:otherwise>
+									<tr style="background-color:#DDDDDD">
+								</c:otherwise>
+								</c:choose>
+								<td><b>
 									${item.name}
+									</b>
 								</td>
 								<td>
 									${item.description}

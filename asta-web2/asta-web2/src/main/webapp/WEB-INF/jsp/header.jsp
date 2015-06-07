@@ -36,7 +36,7 @@
 <div class="section2">
 	<div class="inner">
 		<div class="welcomeUser">
-			Totale raccolto &euro;: ${astaService.totalOffers}
+			Totale raccolto &euro; ${astaService.totalOffers}
 		</div>
 	</div>
 	

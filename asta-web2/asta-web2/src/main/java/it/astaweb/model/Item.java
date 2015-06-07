@@ -32,7 +32,6 @@ public class Item implements Serializable{
 	private Integer id;
 	@NotEmpty
 	private String name;
-	@NotEmpty
 	private String description;
 	@NotNull
 	@Column(name="base_auction_price")

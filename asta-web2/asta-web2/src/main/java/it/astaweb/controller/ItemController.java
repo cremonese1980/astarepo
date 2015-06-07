@@ -9,6 +9,7 @@ import it.astaweb.service.PropertyService;
 import it.astaweb.service.UserService;
 import it.astaweb.utils.CalendarUtils;
 import it.astaweb.utils.Constants;
+import it.astaweb.utils.UserType;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -63,7 +64,7 @@ public class ItemController {
 	public String insertItem(Model model) {
 
 		User loggedUser = (User) model.asMap().get("user");
-		if (loggedUser == null) {
+		if (loggedUser == null || loggedUser.getType()==UserType.USER) {
 			return "redirect:index.html";
 		}
 
@@ -87,10 +88,10 @@ public class ItemController {
 		}
 		
 		boolean error = false;
-		if (item.getBaseAuctionPrice()==null || item.getDescription()== null
+		if (item.getBaseAuctionPrice()==null 
 				|| item.getExpiringDate()==null || item.getFromDate() == null || item.getName()==null ||
-				item.getDescription().trim().equals("") || item.getName().trim().equals("")) {
-			model.addAttribute("errorMessage", "Tutti i campi sono obbligatori");
+				 item.getName().trim().equals("")) {
+			model.addAttribute("errorMessage", "Tutti i campi sono obbligatori, tranne la descrizione");
 			error = true;
 		}
 		
@@ -175,7 +176,7 @@ public class ItemController {
 
 		User loggedUser = (User) model.asMap().get("user");
 
-		if (loggedUser == null) {
+		if (loggedUser == null || loggedUser.getType()==UserType.USER) {
 			return "redirect:index.html";
 		}
 
@@ -213,11 +214,11 @@ public class ItemController {
 
 		User loggedUser = (User) model.asMap().get("user");
 
-		if (loggedUser == null) {
+		if (loggedUser == null || loggedUser.getType()==UserType.USER) {
 			return "redirect:index.html";
 		}
 
-		Item item = astaService.findItemByIdAndFetchImages(Integer.parseInt((String)params.get("itemid")));
+		Item item = astaService.findItemByIdAndFetchImagesFetchRelaunches(Integer.parseInt((String)params.get("itemid")));
 		astaService.deleteItem(item);
 		List<Item> itemList = astaService.findAllItem();
 		model.addAttribute("itemlist", itemList);
@@ -228,7 +229,7 @@ public class ItemController {
 	public String addImage(@RequestParam Map<String, String> params, Model model) {
 		System.out.println("Add image GET");
 		User loggedUser = (User) model.asMap().get("user");
-		if (loggedUser == null) {
+		if (loggedUser == null || loggedUser.getType()==UserType.USER) {
 			return "redirect:index.html";
 		}
 
@@ -269,10 +270,10 @@ public class ItemController {
 			model.addAttribute("nameMessage", "Titolo immagine obbligatorio");
 			error = true;
 		}
-		if (itemImage.getDescription()==null || itemImage.getDescription().trim().equals("")) {
-			model.addAttribute("descriptionMessage", "Descrizione immagine obbligatoria");
-			error = true;
-		}
+//		if (itemImage.getDescription()==null || itemImage.getDescription().trim().equals("")) {
+//			model.addAttribute("descriptionMessage", "Descrizione immagine obbligatoria");
+//			error = true;
+//		}
 
 		model.addAttribute("item", itemImage.getItem());
 		
@@ -304,7 +305,7 @@ public class ItemController {
 
 		User loggedUser = (User) model.asMap().get("user");
 
-		if (loggedUser == null) {
+		if (loggedUser == null || loggedUser.getType()==UserType.USER) {
 			return "redirect:index.html";
 		}
 

@@ -48,7 +48,7 @@
 			<div class="inner registrationPage">
 
 				<form:form id="myForm" method="post" action="loginUser.html"
-					commandName="player">
+					commandName="user">
 					<div class="data n1">
 						<label for="name">Nome</label>
 						<form:input type="text" class="form-control" path="name"

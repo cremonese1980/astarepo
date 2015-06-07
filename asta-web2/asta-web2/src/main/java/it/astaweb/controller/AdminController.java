@@ -1,14 +1,13 @@
 package it.astaweb.controller;
 
-import java.util.Date;
-import java.util.List;
-
 import it.astaweb.model.Item;
-import it.astaweb.model.Player;
 import it.astaweb.model.User;
 import it.astaweb.service.AstaService;
 import it.astaweb.service.UserService;
 import it.astaweb.utils.CalendarUtils;
+import it.astaweb.utils.UserType;
+
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -42,13 +41,15 @@ public class AdminController {
   public String loginAdmin(Model model) {
 	  
 	  User loggedUser =  (User)model.asMap().get("user");
-	  if(loggedUser!=null){
+	  if(loggedUser!=null && loggedUser.getType()!=UserType.USER){
 		  model.addAttribute("user", loggedUser);
     	  return "redirect:adminPage.html";
       }
 	  
-      User user = new User();        
-      model.addAttribute("user", user);     
+	  if(loggedUser==null){
+		  loggedUser = new User();
+	  }
+      model.addAttribute("user", loggedUser);     
       return "loginAdmin";
   }
 
@@ -82,8 +83,8 @@ public class AdminController {
       
 	  User loggedUser =  (User)model.asMap().get("user");
       
-      if(loggedUser==null){
-    	  return "redirect:index.html";
+      if(loggedUser==null || loggedUser.getType() == UserType.USER){
+    	  return "redirect:loginAdmin.html";
       }
       List<Item> itemList = astaService.findAllItem();        
       model.addAttribute("itemlist", itemList);    

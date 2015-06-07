@@ -1,13 +1,12 @@
 
-Pagina con elenco oggetti in vendita, con anteprima immagine, cliccabili per finire...
-Pagina rilancio oggetto
 Aggiungere le varie mail di report e di passaggi stato item
 Check dimensioni file caricato
-Aggiungere validazione lato server per aggiunta/modifica oggetti
+Aggiungere validazione lato server per aggiunta/modifica oggetti a seconda dello stato
 Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro per l'oggetto yy
 Bottone per aggiornare pagina rilancio, oppure ajax per autoaggiornarsi
 Aggiungere galleria immagini nella pagina rilancio
 Aggiungere apertura immagini in div modale nella pagina elenco
+Inibisci rilanci troppo esosi
 
 Valutare se aggiungere lo stato ON_SELL_DISCOUNTED, che sarebbe lo stato degli invenduti, ribassando il prezzo
 Test in locale sezione admin
@@ -25,6 +24,7 @@ Cerca icona (più +) per aggiungere oggetti
 
 
 
+DONE Pagina con elenco oggetti in vendita, con anteprima immagine, cliccabili per finire...Pagina rilancio oggetto
 DONE Aggiungere ore e minuti nel form inserimento oggetti.
 DONE Tabella/servizio per stampare sempre online il totale raccolto fino a quel momento.: senza tabella, ma con variabile in AstaServiceImpl
 DONE Modulo email

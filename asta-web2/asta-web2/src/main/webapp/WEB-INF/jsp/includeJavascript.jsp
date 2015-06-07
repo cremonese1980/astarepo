@@ -5,6 +5,10 @@
 <script src="js/jquery.base.forms-min.js?"></script>
 
 
+<!-- Magnific Popup core JS file -->
+<script src="js/jquery.magnific-popup.js"></script>
+
+
 <%-- CountDownObject --%>
 <script>
 	$.countdown = function () {

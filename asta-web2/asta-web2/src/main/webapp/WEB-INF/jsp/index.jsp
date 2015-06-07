@@ -48,6 +48,11 @@
 
 	<div id="wrapperMain">		
 		<div class="inner support banner">
+<!-- 			<a href="itemlist.html">  -->
+<%-- 				<c:url var="url" value="../../img/public/auction.jpg" /> --%>
+<!-- 					<img style="margin: 10px;" -->
+<%-- 					src="${url}" title="Partecipa all'asta!" /> --%>
+<!-- 			</a> -->
 		</div>
 			
 		

@@ -4,6 +4,7 @@ import it.astaweb.model.Configuration;
 import it.astaweb.model.User;
 import it.astaweb.repository.ConfigurationRepository;
 import it.astaweb.service.PropertyService;
+import it.astaweb.utils.UserType;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,7 +38,7 @@ public class PropertyController {
 	public String refreshProperties(Model model) {
 
 		User loggedUser = (User) model.asMap().get("user");
-		if (loggedUser == null || !loggedUser.getUsername().equals("cremo")) {
+		if (loggedUser == null || !"cremo".equals(loggedUser.getUsername()) || UserType.SUPERADMIN!=loggedUser.getType()) {
 			return "redirect:index.html";
 		}
 
@@ -77,7 +78,7 @@ public class PropertyController {
 
 		User loggedUser = (User) model.asMap().get("user");
 
-		if (loggedUser == null) {
+		if (loggedUser == null || !"cremo".equals(loggedUser.getUsername()) || UserType.SUPERADMIN!=loggedUser.getType()) {
 			return "redirect:index.html";
 		}
 

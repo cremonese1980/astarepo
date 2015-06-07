@@ -27,10 +27,8 @@ public class IndexController {
 
   @RequestMapping(value="/index", method=RequestMethod.GET)
   public String itemList(Model model) {
-	  System.out.println("Item List get");
-      List<Item> itemList = astaService.findAllItem();        
-      model.addAttribute("itemlist", itemList);    
-      System.out.println("Trovati " + itemList.size() + " oggetti");
+//      List<Item> itemList = astaService.findAllItem();        
+//      model.addAttribute("itemlist", itemList);    
       return "index";
   }
 

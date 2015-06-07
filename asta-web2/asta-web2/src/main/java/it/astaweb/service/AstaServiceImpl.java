@@ -105,6 +105,7 @@ public class AstaServiceImpl implements AstaService {
 	@Override
 	public void deleteItem(Item item) {
 		itemImageRepository.delete(item.getImages());
+		relaunchRepository.delete(item.getRelaunches());
 		itemRepository.delete(item.getId());
 		
 	}

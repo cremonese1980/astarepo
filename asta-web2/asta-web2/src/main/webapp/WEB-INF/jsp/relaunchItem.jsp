@@ -21,6 +21,71 @@
 <%-------------------------------------------------- INCLUDE JAVASCRIPT --------------------------------------------------------%>
 <%@ include file="includeJavascript.jsp"%>
 
+<style> 
+  
+
+.modalDialog {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+
+.modalDialog:target {
+	opacity:1;
+	pointer-events: auto;
+}
+
+.modalDialog > div {
+	width: 800px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	margin-top:30px;
+	border-radius: 10px;
+	background: #fff;
+	background: -moz-linear-gradient(#fff, #999);
+	background: -webkit-linear-gradient(#fff, #999);
+	background: -o-linear-gradient(#fff, #999);
+}
+
+
+
+.close {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.close:hover { background: #00d9ff; }
+
+
+
+
+  </style>
 
 <title>Ciao Rocco</title>
 
@@ -50,52 +115,42 @@
 	        seconds = (diff % 60) | 0;
 
 			text = "";
-// 	        lastWord = " secondi";
 	        if(days>0){
 	        	text = days + " giorni";
 	        	if(days==1){
 	        		text = days + " giorno";
 	        	}
 	        }
-// 	        if(hours>0){
-// 	        	 lastWord = " ore";
-// 	        }
-// 	        if(minutes>0){
-// 	        	lastWord = " minuti";
-// 	        }else{
-// 	        	lastWord = " secondi";
-// 	        }
-	        
 	        
 	        minutes = minutes < 10 ? "0" + minutes : minutes;
 	        seconds = seconds < 10 ? "0" + seconds : seconds;
 	        hours = hours < 10 ? "0" + hours : hours;
 	        
-	        if(hours=="00"){
+	        if(diff<3600){
 	        	hours ="";
 	        }else{
 	        	hours = hours + "h:"
 	        }
-	        if(minutes=="00"){
+	        if(diff<60){
 	        	minutes ="";
 	        }else{
 	        	minutes = minutes + "m:"
 	        }
-	        if(seconds=="00"){
+	        if(diff <= 0){
 	        	seconds ="Asta terminata!";
 	        }else{
 	        	seconds = seconds + "s"
 	        }
 	        
-	        
 	        text = text +  " " + hours +  minutes +  seconds ;
-	        display.textContent = text;  
 
-	        if (diff <= 0) {
-	            // add one second so that the count down starts at the full duration
-	            // example 05:00 not 04:59
-	            start = Date.now() + 1000;
-	        }
+// 	        if (diff <= 0) {
+// 	            // add one second so that the count down starts at the full duration
+// 	            // example 05:00 not 04:59
+// // 	            start = Date.now() + 1000;
+// 	        	text = "Asta terminata!";
+// 	        }
+	        display.textContent = text;  
 	    };
 	    // we don't want to wait a full second before the timer starts
 	    timer();
@@ -158,7 +213,7 @@
 							<td>Miglior Rilancio</td>
 							<td><c:choose>
 							<c:when test="${not empty bestRelaunch.username}">
-								&euro; <fmt:formatNumber value="${item.bestRelaunch}"
+								&euro; <fmt:formatNumber value="${bestRelaunch.amount}"
 										maxFractionDigits="2" />
 								(${bestRelaunch.username} <fmt:formatDate
 										value="${bestRelaunch.date}" pattern="dd/MM/yyyy HH:mm:ss" />)
@@ -209,13 +264,19 @@
 						style="border: 1px solid #F8F8F8">
 						<tbody>
 								<tr>
-									<c:forEach items="${item.images}" var="image">
+									<c:forEach items="${item.images}" var="image" varStatus="status">
 											<c:url var="urlThumb" value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.thumbName}" />
 											<c:url var="url" value="image.html?imageid=${image.id}&itemid=${image.item.id}&imagename=${image.name}" />
-											<td>
-												<a href="${url}"><img
-												src="${urlThumb}" 
-												title="${image.description}" /></a></td>
+												<a href="#openModal${status.index}"><img style="margin:10px;" src="${urlThumb}" 
+ 														title="${image.description}" /></a>
+												<div id="openModal${status.index}" class="modalDialog">
+													<div>
+														<a  href="#close" title="Close" class="close">X</a>
+														<img style="max-width: 800px; max-height: 500px" src="${url}" 
+ 														title="${image.description}" />
+													</div>
+												</div>
+											</td>
 									</c:forEach>
 								</tr>
 						</tbody>

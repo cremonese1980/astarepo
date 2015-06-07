@@ -17,7 +17,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "users")
 public class User {
 	@Id
-	@NotEmpty
 	private String username;
 	@NotEmpty
 	private String password;
@@ -30,7 +29,7 @@ public class User {
 	@Email
 	private String email;
 	@Column(name="id_type", columnDefinition="varchar")
-	private UserType type;
+	private UserType type = UserType.USER;
 	
 	public String getUsername() {
 		return username;

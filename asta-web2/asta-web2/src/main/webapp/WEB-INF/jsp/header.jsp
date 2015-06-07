@@ -1,21 +1,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<style>
 
+
+.sectionNews {
+  
+  border: 1px dotted #DDDDDD;
+  float: right;
+  margin: 20px;
+  margin-right: 150px;
+  width: 300px;
+  height: 130px;
+}
+
+	 
+}
+</style>
 
 <div class="section1">
 	<div class="inner">
 		<div class="welcomeUser">
-			<c:choose>
-				<c:when test="${not empty user.name}">Ciao ${user.name}!</c:when>
-				<c:otherwise><c:if test="${not empty player.name}">Ciao ${player.name}!</c:if></c:otherwise>
-			</c:choose>
+				<c:if test="${not empty user.name}">Ciao ${user.name}!</c:if>
 		</div>
 		
 		<div class="links">
+			<a style="font-size:12px" href="loginAdmin.html">Admin</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="index.html">Home |</a>
-			<a href="loginAdmin.html">Admin |</a>
-			<a href="itemlist.html">Asta</a>
+			<a href="itemlist.html"> Asta</a>
 		</div>
 		<div style="clear:both;"></div>
 	</div>
@@ -26,5 +38,8 @@
 		<div class="welcomeUser">
 			Totale raccolto &euro;: ${astaService.totalOffers}
 		</div>
+	</div>
+	
+	<div class="sectionNews">
 	</div>
 </div>

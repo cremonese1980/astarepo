@@ -229,12 +229,15 @@ public class ImageServiceImpl implements ImageService {
 			return originalImage;
 		}
 		
-		int sideRealtivelyGreater = ((double) originalImage.getWidth())	/ IMG_MAX_WIDTH > 
-		((double) originalImage.getHeight()) / IMG_MAX_HEIGHT ? WIDTH_RELATIVELY_GREATER
-			: HEIGHT_RELATIVELY_GREATER;
-		float ratio = sideRealtivelyGreater == WIDTH_RELATIVELY_GREATER ? (originalImage
-				.getWidth()) / IMG_MAX_WIDTH
-				: (originalImage.getHeight()) / IMG_MAX_HEIGHT;
+//		int sideRealtivelyGreater = ((double) originalImage.getWidth())	/ IMG_MAX_WIDTH > 
+//		((double) originalImage.getHeight()) / IMG_MAX_HEIGHT ? WIDTH_RELATIVELY_GREATER
+//			: HEIGHT_RELATIVELY_GREATER;
+//		
+//		float ratio = sideRealtivelyGreater == WIDTH_RELATIVELY_GREATER ? (originalImage
+//				.getWidth()) / IMG_MAX_WIDTH
+//				: (originalImage.getHeight()) / IMG_MAX_HEIGHT;
+
+		float ratio = (originalImage.getHeight()) / IMG_MAX_HEIGHT;
 		
 		int newWidth = (int)(originalImage.getWidth()/ratio);
 		int newHeight = (int)(originalImage.getHeight()/ratio);

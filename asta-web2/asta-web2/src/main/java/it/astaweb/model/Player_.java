@@ -1,16 +1,16 @@
 package it.astaweb.model;
 
-public class Player {
+public class Player_ {
 
 	private String name;
 	private String password;
 	private String lastName;
 	
-	public Player() {
+	public Player_() {
 		
 	}
 
-	public Player(User loggedUser) {
+	public Player_(User loggedUser) {
 		name=loggedUser.getName();
 		lastName=loggedUser.getLastName();
 		password=loggedUser.getPassword();

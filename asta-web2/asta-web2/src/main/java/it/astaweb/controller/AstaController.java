@@ -2,7 +2,6 @@ package it.astaweb.controller;
 
 import it.astaweb.exceptions.ObjectExpiredException;
 import it.astaweb.model.Item;
-import it.astaweb.model.Player;
 import it.astaweb.model.Relaunch;
 import it.astaweb.model.User;
 import it.astaweb.service.AstaService;
@@ -34,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes({"user", "player"})
+@SessionAttributes({"user",})
 public class AstaController {
 
   @Autowired(required=true)
@@ -57,48 +56,46 @@ public class AstaController {
   public String loginUser(Model model) {
 	  
 	  User loggedUser =  (User)model.asMap().get("user");
-	  if(loggedUser!=null){
-		  Player player = new Player(loggedUser);
-		  model.addAttribute("player", player);
+	  if(loggedUser!=null && loggedUser.getName()!=null && !loggedUser.getName().trim().equals("")){
+		  model.addAttribute("user", loggedUser);
     	  return "redirect:itemlist.html";
       }
-	  
-      Player player = new Player();        
-      model.addAttribute("player", player);     
+	  loggedUser = new User();
+      model.addAttribute("user", loggedUser);     
       return "loginUser";
   }
 
   @RequestMapping(value="/loginUser", method=RequestMethod.POST)
-  public String loginUser(@Valid @ModelAttribute("player") Player player, BindingResult result, Model model) {        
+  public String loginUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {        
       if(result.hasErrors()) {
           return "loginUser";
       } 
-      if(player.getName() == null || player.getName().trim().equals("")) {
+      if(user.getName() == null || user.getName().trim().equals("")) {
           model.addAttribute("nameMessage", "Inerisci il tuo nome!");
           return "loginUser";
       } 
-      if(player.getLastName() == null || player.getLastName().trim().equals("")){
+      if(user.getLastName() == null || user.getLastName().trim().equals("")){
           model.addAttribute("lastNameMessage", "Inerisci il tuo cognome!");
           return "loginUser";
       }
-      if(player.getPassword() == null || player.getPassword().trim().equals("")){
+      if(user.getPassword() == null || user.getPassword().trim().equals("")){
           model.addAttribute("passwordMessage", "Inerisci la parola d'ordine!");
           return "loginUser";
       }
       readWords();
       
-      if(!secretWords.contains(player.getPassword().trim().toLowerCase())){
+      if(!secretWords.contains(user.getPassword().trim().toLowerCase())){
     	  model.addAttribute("passwordMessage", "Parola d'ordine sbagliata, contatta astaweb.server@gmail.com");
           return "loginUser";
       }
       
-      player.setLastName(player.getLastName().trim());
-      player.setName(player.getName().trim());
-      player.setPassword(player.getPassword().trim().toLowerCase());
+      user.setLastName(user.getLastName().trim());
+      user.setName(user.getName().trim());
+      user.setPassword(user.getPassword().trim().toLowerCase());
       
       List<Item> itemList = astaService.findAllItemByStatusJoinImages(ItemStatus.ON_SELL);        
       model.addAttribute("itemlist", itemList);
-      model.addAttribute("player", player);  
+      model.addAttribute("user", user);  
       return "itemlist";
   }
 
@@ -106,14 +103,12 @@ public class AstaController {
   public String itemList(Model model) {
 	  
 	  User loggedUser =  (User)model.asMap().get("user");
-	  Player loggedPlayer = (Player) model.asMap().get("player");
 	  
-	  if(loggedPlayer==null || loggedUser==null){
+	  if(loggedUser==null || loggedUser.getName()==null || loggedUser.getName().trim().equals("")){
 		  return "redirect:loginUser.html";
 	  }
       List<Item> itemList = astaService.findAllItemByStatusJoinImages(ItemStatus.ON_SELL);        
       model.addAttribute("itemlist", itemList);
-      model.addAttribute("player", loggedPlayer);
       model.addAttribute("user", loggedUser);
       return "itemlist";
   }
@@ -128,19 +123,14 @@ public class AstaController {
 	public String itemPage(@RequestParam Map<String, String> params, Model model) {
 
 		User loggedUser = (User) model.asMap().get("user");
-		Player loggedPlayer = (Player) model.asMap().get("player");
 		Item item = (Item)model.asMap().get("item");
 
-		if (loggedPlayer == null || loggedUser == null) {
+		if (loggedUser==null || loggedUser.getName()==null || loggedUser.getName().trim().equals("")) {
 			return "redirect:loginUser.html";
 		}
-		String username = loggedUser != null
+		String username = loggedUser != null && loggedUser.getName()!=null
 				&& !loggedUser.getName().trim().equals("") ? loggedUser
-				.getName() + " " + loggedUser.getLastName() : 
-					loggedPlayer != null
-					&& !loggedPlayer.getName().trim().equals("")? 
-							loggedPlayer
-							.getName() + " " + loggedPlayer.getLastName(): null;
+				.getName() + " " + loggedUser.getLastName() : null;
 
 							
 		item = item!=null? item: astaService.findItemByIdAndFetchImagesFetchRelaunches(Integer
@@ -162,7 +152,6 @@ public class AstaController {
 		}
 
 		model.addAttribute("item", item);
-		model.addAttribute("player", loggedPlayer);
 		model.addAttribute("user", loggedUser);
 		model.addAttribute("relaunch", relaunch);
 		model.addAttribute("bestRelaunch", bestRelaunch);
@@ -182,13 +171,12 @@ public class AstaController {
 		}
 
 		User loggedUser = (User) model.asMap().get("user");
-		Player loggedPlayer = (Player) model.asMap().get("player");
 
-		if (loggedPlayer == null || loggedUser == null) {
+		if (loggedUser==null || loggedUser.getName()==null || loggedUser.getName().trim().equals("")) {
 			return "redirect:loginUser.html";
 		}
 		
-		Item item = astaService.findItemByIdAndFetchImages(relaunch.getItem().getId());
+		Item item = astaService.findItemByIdAndFetchImagesFetchRelaunches(relaunch.getItem().getId());
 		relaunch.setItem(item);
 		
 		Date now = CalendarUtils.currentTimeInItaly();
@@ -197,11 +185,17 @@ public class AstaController {
 		Relaunch newRelaunch = new Relaunch();
 		newRelaunch.setItem(relaunch.getItem());
 		newRelaunch.setUsername(relaunch.getUsername());
+		
+		List<Relaunch> relaunches = new ArrayList<Relaunch>();
+		relaunches.addAll(item.getRelaunches());
+		
+		Collections.sort(relaunches);
+		Relaunch bestRelaunch = relaunches.isEmpty()? new Relaunch(): relaunches.get(0);
 
 		model.addAttribute("item", relaunch.getItem());
-		model.addAttribute("player", loggedPlayer);
 		model.addAttribute("user", loggedUser);
 		model.addAttribute("newRelaunch", newRelaunch);
+		model.addAttribute("bestRelaunch", bestRelaunch);
 		
 		if(!validateRelaunch(relaunch, model)){
 			return "relaunchItem";
@@ -209,6 +203,7 @@ public class AstaController {
 		
 		try {
 			astaService.relaunch(relaunch);
+			model.addAttribute("bestRelaunch", relaunch);
 		} catch (ObjectExpiredException e) {
 			model.addAttribute("relaunchMessage", e.getMessage());
 			return "relaunchItem";
@@ -228,15 +223,15 @@ public class AstaController {
 		  return false;
 	  }
 	  if(relaunch.getAmount()==null || relaunch.getAmount().longValue() < relaunch.getItem().getBaseAuctionPrice().longValue()){
-		  model.addAttribute("relaunchMessage", "L'offerta minima è di € " + relaunch.getItem().getBaseAuctionPrice().longValue());
+		  model.addAttribute("relaunchMessage", "L'offerta minima è di &euro; " + relaunch.getItem().getBaseAuctionPrice().longValue());
 		  return false;
 	  }
 	  
-	  if(relaunch.getItem().getBestRelaunch()!=null && relaunch.getItem().getBestRelaunch().longValue()<=0){
+	  if(relaunch.getItem().getBestRelaunch()!=null){
 		  
 		  if(relaunch.getAmount().longValue() < 1 + relaunch.getItem().getBestRelaunch().longValue()){
 			  model.addAttribute("relaunchMessage",
-					  "Il rilancio minimo è di € 1 rispetto all'offerta corrente di  "
+					  "Il rilancio minimo è di &euro; 1 in più rispetto all'offerta corrente di &euro;  "
 							  + relaunch.getItem().getBestRelaunch()
 							  .longValue());
 			  return false;

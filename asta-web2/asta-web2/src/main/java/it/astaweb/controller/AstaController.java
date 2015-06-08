@@ -157,6 +157,11 @@ public class AstaController {
 		model.addAttribute("bestRelaunch", bestRelaunch);
 		model.addAttribute("relaunches", relaunches);
 		model.addAttribute("expiringSeconds", expiringSeconds);
+		
+		String relaunchMessage = (String) params.get("relaunchMessage");
+		if(relaunchMessage !=  null && !relaunchMessage.trim().equals("")){
+			model.addAttribute("relaunchMessage", "Formato non valido. Usa il punto come separatore dei decimali");
+		}
 
 		return "relaunchItem";
 	}
@@ -167,7 +172,7 @@ public class AstaController {
 			BindingResult result, Model model) 
 					 {
 		if (result.hasErrors()) {
-			return "relaunchItem";
+			return "redirect:relaunchItem.html?itemid=" + relaunch.getItem().getId() + "&relaunchMessage=formatException";
 		}
 
 		User loggedUser = (User) model.asMap().get("user");

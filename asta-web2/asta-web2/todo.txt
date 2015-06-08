@@ -10,7 +10,6 @@ Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro 
 Check dimensioni file caricato
 Aggiungere validazione lato server per aggiunta/modifica oggetti a seconda dello stato
 Bottone per aggiornare pagina rilancio, oppure ajax per autoaggiornarsi
-Aggiungere galleria immagini nella pagina rilancio
 Inibisci rilanci troppo esosi
 
 Valutare se aggiungere lo stato ON_SELL_DISCOUNTED, che sarebbe lo stato degli invenduti, ribassando il prezzo
@@ -20,7 +19,6 @@ Test in locale sezione admin
 
 Test live locale sezione admin
 Aggiungere conferma javascript per eliminazione oggetto
-Test sicurezza, se utente non loggato non deve accedere alle pagine di modifica oggetti
 Validazione lunghezza campi testuali
 
 Cerca icona ingranaggi
@@ -29,6 +27,8 @@ Cerca icona (più +) per aggiungere oggetti
 
 
 
+DONE Test sicurezza, se utente non loggato non deve accedere alle pagine di modifica oggetti
+DONE Aggiungere galleria immagini nella pagina rilancio
 DONE Aggiungere apertura immagini in div modale nella pagina elenco
 DONE Pagina con elenco oggetti in vendita, con anteprima immagine, cliccabili per finire...Pagina rilancio oggetto
 DONE Aggiungere ore e minuti nel form inserimento oggetti.

@@ -30,7 +30,7 @@
 				<entry key="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 				<entry key="hibernate.hbm2ddl.auto" value="validate" />
 				<entry key="hibernate.format_sql" value="true" />
-				<entry key="hibernate.show_sql" value="true" />
+				<entry key="hibernate.show_sql" value="false" />
 			</map>
 		</property>
 	</bean>
@@ -38,8 +38,8 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-<!-- 		<property name="url" value="jdbc:mysql://mysql1001.mochahost.com:3306/cremo80_astadb" /> -->
-		<property name="url" value="jdbc:mysql://localhost:3306/cremo80_astadb" />
+		<property name="url" value="jdbc:mysql://mysql1001.mochahost.com:3306/cremo80_astadb" />
+<!-- 		<property name="url" value="jdbc:mysql://localhost:3306/cremo80_astadb" /> -->
 		<property name="username" value="cremo80_asta_usr" />
 		<property name="password" value="asta_123" />
 	</bean>

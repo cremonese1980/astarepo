@@ -5,10 +5,10 @@
 <!doctype html>
 
 <html>
-<link rel="icon" 
-      type="image/png" 
-      href="../../favicon5.ico" />
 <head>
+<c:url var="urlIcon" value="http://www.ciaorocco.it/app/favicon5.ico" />
+<link rel="icon" type="image/x-icon" href="${urlIcon}" />
+<link rel="shortcut icon" href="${urlIcon}" type="image/x-icon"> 
 
 <%-------------------------------------------------- TITLE --------------------------------------------------------%>
 

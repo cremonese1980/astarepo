@@ -16,7 +16,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -26,6 +25,8 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +44,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ItemController {
 
 	private static final Log LOG = LogFactory.getLog(ItemController.class);
+	private static final Logger logger = LogManager.getLogger(ItemController.class);
 
 	@Autowired(required = true)
 	private UserService userService;
@@ -228,6 +230,7 @@ public class ItemController {
 	@RequestMapping(value = "/addImage", method = RequestMethod.GET)
 	public String addImage(@RequestParam Map<String, String> params, Model model) {
 		System.out.println("Add image GET");
+		logger.info("Add image get");
 		User loggedUser = (User) model.asMap().get("user");
 		if (loggedUser == null || loggedUser.getType()==UserType.USER) {
 			return "redirect:index.html";
@@ -248,6 +251,7 @@ public class ItemController {
 			BindingResult result, @RequestParam(value = "uploadImage", required = false) MultipartFile uploadImage, Model model) 
 					 {
 		System.out.println("Add image POST");
+		logger.info("Add image POST");
 		if (result.hasErrors()) {
 			return "insertItem";
 		}
@@ -281,7 +285,8 @@ public class ItemController {
 			return "addImage";
 			
 		}
-		System.out.println("Sto per aggiungere l'immagine");
+		System.out.println("ItemController - Sto per aggiungere l'immagine");
+		logger.info("Sto per aggiungere l'immagine");
 		astaService.addImage(itemImage);
 		try {
 			imageService.saveImage(itemImage, uploadImage);

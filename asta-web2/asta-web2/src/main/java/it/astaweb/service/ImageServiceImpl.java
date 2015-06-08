@@ -18,6 +18,8 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageServiceImpl implements ImageService {
 	
 	private static final Log LOG = LogFactory.getLog(ImageServiceImpl.class);
+	private static final Logger logger = LogManager.getLogger(ImageServiceImpl.class);
 	
 	private static final int IMG_ORIGINAL = 1;
 	private static final int IMG_THUMB = 2;
@@ -73,7 +76,7 @@ public class ImageServiceImpl implements ImageService {
 	
 	@Override
 	public ItemImage saveImage(ItemImage itemImage, MultipartFile uploadImage) throws IllegalStateException, IOException {
-		LOG.info("Saving Image in base disk path: " + BASE_PATH);
+		logger.info("Saving Image in base disk path: " + BASE_PATH);
 		System.out.println("Saving Image in base disk path: " + BASE_PATH);
 
 		File image = writeImage(itemImage, uploadImage, IMG_ORIGINAL);

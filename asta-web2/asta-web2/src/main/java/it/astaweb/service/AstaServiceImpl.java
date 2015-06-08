@@ -7,6 +7,7 @@ import it.astaweb.model.Relaunch;
 import it.astaweb.repository.ItemImageRepository;
 import it.astaweb.repository.ItemRepository;
 import it.astaweb.repository.RelaunchRepository;
+import it.astaweb.utils.CalendarUtils;
 import it.astaweb.utils.Constants;
 import it.astaweb.utils.ItemStatus;
 
@@ -178,8 +179,10 @@ public class AstaServiceImpl implements AstaService {
 			item.setStatus(ItemStatus.SOLD_OUT);
 		}else{
 			LOG.info("...........Non venduto... :( \nAbbassiamo il prezzo del 20%");
-			item.setStatus(ItemStatus.PRE_SELL);
+			item.setStatus(ItemStatus.ON_SELL);
 			item.setBaseAuctionPrice(item.getBaseAuctionPrice().multiply(new BigDecimal(0.8)));
+			int minSellTime = Integer.parseInt(propertyService.getValue(Constants.PROPERTY_MIN_SELL_TIME_HOUR.getValue()));
+			item.setExpiringDate(CalendarUtils.currentTimeInItalyAddHour(minSellTime));
 		}
 		updateItem(item);
 	}

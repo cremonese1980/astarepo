@@ -11,6 +11,12 @@ public class CalendarUtils {
 	
 	public static Date currentTimeInItaly(){
 		
+		return currentCalendarInItaly().getTime();
+		
+	}
+	
+	public static Calendar currentCalendarInItaly(){
+		
 		
 		Calendar calendarItalian = new GregorianCalendar();
 		calendarItalian.setTimeZone(timeZoneRome);
@@ -23,13 +29,19 @@ public class CalendarUtils {
 				calendarItalian.get(Calendar.MINUTE),
 				calendarItalian.get(Calendar.SECOND));
 		
-		return calendar.getTime();
+		return calendar;
 		
 		
 	}
 	
 	public static void main(String[] args) {
 		System.out.println(CalendarUtils.currentTimeInItaly());
+	}
+
+	public static Date currentTimeInItalyAddHour(int minSellTime) {
+		Calendar calendar = currentCalendarInItaly();
+		calendar.add(Calendar.HOUR, minSellTime);
+		return calendar.getTime();
 	}
 
 }

@@ -49,7 +49,8 @@ public class ItemProcess implements Serializable {
 		for (Iterator<Item> iterator = itemPreSell.iterator(); iterator.hasNext();) {
 			Item item = iterator.next();
 			LOG.info(item);
-			if(item.getFromDate().before(CalendarUtils.currentTimeInItaly())){
+			if(item.getFromDate().before(CalendarUtils.currentTimeInItaly()) &&
+					item.getExpiringDate().after(CalendarUtils.currentTimeInItaly())){
 				LOG.info("L'oggetto " + item + " è appena stato messo in vendita");
 				item.setStatus(ItemStatus.ON_SELL);
 				astaService.updateItem(item);

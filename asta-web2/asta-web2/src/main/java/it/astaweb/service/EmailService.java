@@ -193,7 +193,7 @@ public class EmailService extends ApplicationObjectSupport {
 
 	public void sendExpired(Item item, Relaunch relaunch) {
 		String subject = "L'articolo " + item.getName() + " è appena scaduto";
-		String body = "Ciao!\nL'articolo " + item.getName() + " è appena scaduto."
+		String body = "Ciao!<br/>L'articolo " + item.getName() + " è appena scaduto."
 				+ "\nDescrizione: " + item.getDescription() +
 				"\nData fine asta: " + item.getExpiringDate() +
 				"\nPrezzo base €: " + item.getBaseAuctionPrice()

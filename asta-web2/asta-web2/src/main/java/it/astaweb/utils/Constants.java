@@ -18,12 +18,11 @@ public enum Constants {
 	PROPERTY_MAIL_SENDER_TO("mail.sender.to"),
 	PROPERTY_MAIL_SENDER_SMTP_SOCKETFACTORYCLASS("mail.sender.smtp.socketFactory.class"),
 	PROPERTY_RELAUNCH_POSTPONE_SECONDS("relaunch.postpone.seconds"), 
-	PROPERTY_SECRET_WORDS("secret.words"), 
+	PROPERTY_SECRET_WORDS("secret.words"),
+	PROPERTY_RELAUNCH_MAX_ABS("relaunch.max.abs"),
+	PROPERTY_RELAUNCH_MAX_REL("relaunch.max.rel"),
 	EMAIL_ONSELL_SUBJECT(""), 
 	EMAIL_ONSELL_BODY("");
-	
-	
-	
 	
 	private final String value;
 	

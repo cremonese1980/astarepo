@@ -50,7 +50,7 @@
 
 		<div class="section1" style="background-color: #F8F8F8;">
 			<div class="inner">
-				<table class="commonOverride registrationPage" >
+				<table class="commonOverride registrationPage" style="width:100%">
 					<thead align="center">
 						<tr>
 							<th width="10%"><h3>Nome</h3></th>
@@ -71,9 +71,9 @@
 								<td>
 									${item.description}
 								</td>
-								<td>
+								<td>&euro;
 								<fmt:formatNumber value="${item.baseAuctionPrice}" 
-								currencyCode="EUR" type="currency" maxFractionDigits="2"/> 
+								 maxFractionDigits="2"/> 
 								</td>
 								<td>
 									<fmt:formatDate value="${item.fromDate}" 

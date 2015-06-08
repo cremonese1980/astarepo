@@ -189,6 +189,12 @@
 		</div>
 		
 		<div class="section1" style="background-color: #F8F8F8;">
+			<c:if test="${not empty astaService.testPhaseMessage}">
+				<div class="inner" style="background-color:#DDDDDD;">
+					<b>${astaService.testPhaseMessage}</b>
+				</div>
+			</c:if>
+			
 			<div class="inner registrationPage">
 
 				<form:form id="myForm" method="post" action="relaunchItem.html"

@@ -12,18 +12,18 @@ import it.astaweb.utils.Constants;
 import it.astaweb.utils.ItemStatus;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.metamodel.StaticMetamodel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -33,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AstaServiceImpl implements AstaService {
 	
 	private static final Log LOG = LogFactory.getLog(AstaServiceImpl.class);
+	private static final String DATE_PATTERN = "dd/MM/yyyy HH:mm:ss";
 
 	@Autowired(required = true)
 	private ItemRepository itemRepository;
@@ -204,6 +205,23 @@ public class AstaServiceImpl implements AstaService {
 	@Override
 	public Relaunch getBestRelaunch(Item item) {
 		return relaunchRepository.getRelaunchesByItem(item.getId()).get(0);
+	}
+
+	@Override
+	public String getTestPhaseMessage() {
+		
+		DateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
+		
+		Date now = CalendarUtils.currentTimeInItaly();
+		Calendar calendar = new GregorianCalendar();
+		calendar.set(2015, Calendar.JUNE, 16, 21, 0,0);
+		
+		if(now.before(calendar.getTime())){
+			return "Fase di test senza nessun valore, se non quello di un prezioso aiuto, " +
+					"che terminerà in data " + dateFormat.format(calendar.getTime()) + ". Grazie!";
+		}
+		
+		return "";
 	}
 	
 

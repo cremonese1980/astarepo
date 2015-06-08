@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("itemlist")
+@SessionAttributes("user")
 public class IndexController {
 
   @Autowired(required=true)

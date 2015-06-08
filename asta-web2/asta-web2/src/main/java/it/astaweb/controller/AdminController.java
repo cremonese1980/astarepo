@@ -77,6 +77,16 @@ public class AdminController {
       return "adminPage";
   }
   
+  @RequestMapping(value="/logout", method=RequestMethod.GET)
+  public String logout(Model model) {
+	  
+	  User loggedUser =  (User)model.asMap().get("user");
+	  System.out.println("Logout user " + loggedUser);
+	  loggedUser = new User();	  
+      model.addAttribute("user", loggedUser);     
+      return "index";
+  }
+  
   
   @RequestMapping(value="/adminPage", method=RequestMethod.GET)
   public String adminPage(Model model) {

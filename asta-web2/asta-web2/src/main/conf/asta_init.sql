@@ -6,8 +6,12 @@ insert into users(username, password, enabled, name, last_name, email, id_type) 
 insert into configuration(name, value) values ('max.upload.size', '2999999');
 insert into configuration(name, value) values('base.directory', '/home/cremo80/asta/store/img');
 insert into configuration(name, value) values('min.sell.time.hour', '168');
-insert into configuration(name, value) values('relaunch.postpone.seconds', '180');
 insert into configuration(name, value) values('live.env', 'true');
+insert into configuration(name, value) values('secret.words', 'birra,fiorentina,g4br13l3,cazzola,frittella');
+
+insert into configuration(name, value) values('relaunch.postpone.seconds', '180');
+insert into configuration(name, value) values('relaunch.max.abs', '50');
+insert into configuration(name, value) values('relaunch.max.rel', '3');
 
 insert into configuration(name, value) values('mail.sender.host', 'smtp.gmail.com');
 insert into configuration(name, value) values('mail.sender.port', '465');
@@ -20,7 +24,6 @@ insert into configuration(name, value) values('mail.sender.from', 'astaweb.serve
 insert into configuration(name, value) values('mail.sender.cc', '');
 insert into configuration(name, value) values('mail.sender.to', 'cremonese1980@gmail.com,chevuoi@hotmail.com');
 insert into configuration(name, value) values('mail.sender.smtp.socketFactory.class', 'javax.net.ssl.SSLSocketFactory');
-insert into configuration(name, value) values('secret.words', 'birra,fiorentina,g4br13l3,cazzola,frittella');
 
 delete from item_image;
 delete from relaunch;

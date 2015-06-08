@@ -1,10 +1,9 @@
 
-Aggiungi messaggio evidente che inidica si tratti di una fase di test, con data inizio e data fine.
 Aggiungi messaggio ASTA FINITA, si aggiudica l'oggetto Marco De marchi (ad esempio)
-Inibisci rilanci troppo esosi
 Aggiungere le varie mail di report
 
 Aggiungi il bottone "OSSERVA" per ricevere email di notifica se qualcuno fa un'offerta.
+Aggiungi offerta automatica con tetto massimo (come hattrick)
 Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro per l'oggetto yy
 
 Check dimensioni file caricato
@@ -26,6 +25,10 @@ Cerca icona (più +) per aggiungere oggetti
 
 
 
+DONE Formattare valuta euro nelle mail (due decimali)
+DONE Inibisci rilanci troppo esosi
+DONE Aggiungi messaggio evidente che inidica si tratti di una fase di test, con data inizio e data fine.
+DONE Aggiungi bottone logout
 DONE Aggiungere le varie mail di passaggi stato item
 DONE Risultati asta, ciao rocco e bacheca fake
 DONE Validazione client side del tipo di dato inserito. Numero etc

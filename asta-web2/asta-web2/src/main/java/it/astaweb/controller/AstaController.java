@@ -11,6 +11,7 @@ import it.astaweb.utils.CalendarUtils;
 import it.astaweb.utils.Constants;
 import it.astaweb.utils.ItemStatus;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -251,11 +252,38 @@ public class AstaController {
 		  if(relaunch.getAmount().longValue() < 1 + relaunch.getItem().getBestRelaunch().longValue()){
 			  model.addAttribute("relaunchMessage",
 					  "Il rilancio minimo è di &euro; 1 in più rispetto all'offerta corrente di &euro;  "
-							  + relaunch.getItem().getBestRelaunch()
-							  .longValue());
+							  + relaunch.getItem().getBestRelaunch());
 			  return false;
 		  }
 	  }
+		BigDecimal current = relaunch.getItem().getBestRelaunch() != null ? relaunch
+				.getItem().getBestRelaunch() : relaunch.getItem()
+				.getBaseAuctionPrice();
+		BigDecimal maxAbs = new BigDecimal(
+				propertyService.getValue(Constants.PROPERTY_RELAUNCH_MAX_ABS
+						.getValue()));
+		if (relaunch.getAmount().compareTo(maxAbs.add(current)) >= 1) {
+			model.addAttribute(
+					"relaunchMessage",
+					"Il rilancio massimo è di &euro; "
+							+ maxAbs
+							+ " in più rispetto all'offerta corrente di &euro;  "
+							+ relaunch.getItem().getBestRelaunch());
+			return false;
+		}
+
+		BigDecimal maxRel = new BigDecimal(
+				propertyService.getValue(Constants.PROPERTY_RELAUNCH_MAX_REL
+						.getValue()));
+		if (relaunch.getAmount().compareTo(maxRel.multiply(current)) >= 1) {
+			model.addAttribute(
+					"relaunchMessage",
+					"Il rilancio massimo è di "
+							+ maxRel
+							+ " volte superiore rispetto all'offerta corrente di &euro;  "
+							+ relaunch.getItem().getBestRelaunch());
+			return false;
+		}
 	  
 	  
 	  

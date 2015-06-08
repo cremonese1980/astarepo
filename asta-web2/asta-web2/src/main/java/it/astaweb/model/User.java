@@ -73,6 +73,12 @@ public class User {
 	public void setType(UserType type) {
 		this.type = type;
 	}
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password
+				+ ", name=" + name + ", lastName=" + lastName + ", type="
+				+ type + "]";
+	}
 	
 	
 	

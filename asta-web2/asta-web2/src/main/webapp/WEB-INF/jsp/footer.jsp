@@ -20,9 +20,9 @@
 		<div class="links">
 			<c:url var="url" value="/index.html" /> 
 			<a href="${url}">Home</a> &nbsp;&nbsp;|&nbsp;&nbsp;
-			<c:url var="url" value="/results.htm" /> 
+			<c:url var="url" value="/results.html" /> 
 			<a href="${url}">Risultati Asta</a> &nbsp;&nbsp;|&nbsp;&nbsp;
-			<c:url var="url" value="/hiRocco.htm" /> 
+			<c:url var="url" value="/hello.html" /> 
 			<a href="${url}">Ciao Rocco!</a>
 		</div>	
 		<div class="logos isDesktop">

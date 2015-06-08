@@ -5,6 +5,7 @@ import java.util.List;
 import it.astaweb.model.Item;
 import it.astaweb.model.Student;
 import it.astaweb.model.StudentLogin;
+import it.astaweb.model.User;
 import it.astaweb.service.AstaService;
 
 import javax.validation.Valid;
@@ -27,8 +28,6 @@ public class IndexController {
 
   @RequestMapping(value="/index", method=RequestMethod.GET)
   public String itemList(Model model) {
-//      List<Item> itemList = astaService.findAllItem();        
-//      model.addAttribute("itemlist", itemList);    
       return "index";
   }
 
@@ -36,39 +35,22 @@ public class IndexController {
   public String itemList(@Valid @ModelAttribute("item") Item item, BindingResult result, Model model) {   
 	  
 	  
-//      if(result.hasErrors()) {
           return "index";
-//      } 
-//      else if(astaService.findByUserName(student.getUserName())) {
-//          model.addAttribute("message", "User Name exists. Try another user name");
-//          return "signup";
-//      } else {
-//    	  astaService.save(student);
-//          model.addAttribute("message", "Saved student details");
-//          return "redirect:login.html";
-//      }
   }
 
-//  @RequestMapping(value="/login", method=RequestMethod.GET)
-//  public String login(Model model) {          
-//      StudentLogin studentLogin = new StudentLogin();     
-//      model.addAttribute("studentLogin", studentLogin);
-//      return "login";
-//  }
-//
-//  @RequestMapping(value="/login", method=RequestMethod.POST)
-//  public String login(@Valid @ModelAttribute("studentLogin") StudentLogin studentLogin, BindingResult result) {
-////      if (result.hasErrors()) {
-//          return "login";
-////      } 
-////      else {
-////          boolean found = astaService.findByLogin(studentLogin.getUserName(), studentLogin.getPassword());
-////          if (found) {                
-////              return "success";
-////          } else {                
-////              return "failure";
-////          }
-////      }
-//
-//  }
+  @RequestMapping(value="/hello", method=RequestMethod.GET)
+  public String hello(Model model) {          
+      return "hello";
+  }
+  
+  @RequestMapping(value="/wall", method=RequestMethod.GET)
+  public String wall(Model model) {      
+	  User loggedUser =  (User)model.asMap().get("user");
+	  
+	  if(loggedUser==null || loggedUser.getName()==null || loggedUser.getName().trim().equals("")){
+		  return "redirect:loginUser.html";
+	  }
+      return "wall";
+  }
+
 }

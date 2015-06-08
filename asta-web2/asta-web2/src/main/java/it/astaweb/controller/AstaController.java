@@ -219,6 +219,20 @@ public class AstaController {
 
 		return "redirect:relaunchItem.html?itemid=" + relaunch.getItem().getId();
 	}
+	
+	 @RequestMapping(value="/results", method=RequestMethod.GET)
+	  public String results(Model model) {
+		  
+		  User loggedUser =  (User)model.asMap().get("user");
+		  
+		  if(loggedUser==null || loggedUser.getName()==null || loggedUser.getName().trim().equals("")){
+			  return "redirect:loginUser.html";
+		  }
+	      List<Item> itemList = astaService.findAllItemByStatusJoinImages(ItemStatus.SOLD_OUT);        
+	      model.addAttribute("itemlist", itemList);
+	      model.addAttribute("user", loggedUser);
+	      return "results";
+	  }
 
   
   private boolean validateRelaunch(Relaunch relaunch, Model model) {

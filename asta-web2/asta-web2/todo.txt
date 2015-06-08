@@ -1,16 +1,15 @@
 
-Risultati asta, ciao rocco e bacheca fake
-Validazione client side del tipo di dato inserito. Numero etc
-Aggiungere le varie mail di report e di passaggi stato item
 Aggiungi messaggio evidente che inidica si tratti di una fase di test, con data inizio e data fine.
 Aggiungi messaggio ASTA FINITA, si aggiudica l'oggetto Marco De marchi (ad esempio)
+Inibisci rilanci troppo esosi
+Aggiungere le varie mail di report
+
 Aggiungi il bottone "OSSERVA" per ricevere email di notifica se qualcuno fa un'offerta.
 Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro per l'oggetto yy
 
 Check dimensioni file caricato
 Aggiungere validazione lato server per aggiunta/modifica oggetti a seconda dello stato
 Bottone per aggiornare pagina rilancio, oppure ajax per autoaggiornarsi
-Inibisci rilanci troppo esosi
 
 Valutare se aggiungere lo stato ON_SELL_DISCOUNTED, che sarebbe lo stato degli invenduti, ribassando il prezzo
 Test in locale sezione admin
@@ -27,6 +26,9 @@ Cerca icona (più +) per aggiungere oggetti
 
 
 
+DONE Aggiungere le varie mail di passaggi stato item
+DONE Risultati asta, ciao rocco e bacheca fake
+DONE Validazione client side del tipo di dato inserito. Numero etc
 DONE Test sicurezza, se utente non loggato non deve accedere alle pagine di modifica oggetti
 DONE Aggiungere galleria immagini nella pagina rilancio
 DONE Aggiungere apertura immagini in div modale nella pagina elenco
@@ -43,3 +45,36 @@ DONE Aggiungere data inizio asta agli oggetti
 DONE Aggiungere stato agli oggetti PRE_SELL, ON_SELL, SOLD_OUT
 DONE list documento google
 DONE Servlet per aggiornare ConfigurationService
+
+
+
+Ciao!
+Mi fai un piacere, se hai qualche minuto?
+
+Sto facendo un piacere ad una amica, un sito per allestire un'asta privata. Una cosa molto semplice, e avrei bisogno che qualche gentilissimo volontario si presti per utilizzarlo, a scopo di test.
+
+Contesto: è un'asta privata, tra circa 150/200 colleghi di lavoro di un ragazzo che purtroppo è venuto a mancare.
+Lo scopo è vendere ai colleghi le attrezzature che utilizzava, per devolvere il ricavato alla sua compagna e ai suoi figli.
+
+Ok.. lasciando perdere il contesto un po' triste... lo scopo è allestire un'asta di test, con una decina di articoli in vendita.
+Da domani, martedì 9 alle 21:00 circa, fino a martedì 16 alle 21:00 circa. Una settimana esatta. Poi penso di lanciare il sito con l'asta vera e propria intorno al 25 di luglio.
+A parte la home page, e la pagina (che devo ancora fare) dedicata a lui, il resto del sito non dovrebbe essere accessibile senza conoscere la parola d'ordine.
+Dato che non è un'asta vera, e che non ci sono dei veri pagamenti, è meglio evitare che sconosciuti che ci finiscono per caso possano rilanciare a cazzo perché tanto i soldi sono solo virtuali.
+Purtroppo sono scarso con l'aspetto grafico, inoltre non ho assolutamente tempo, quindi se lo apri col cellulare, fa un po' schifo.
+
+Se vuoi partecipare ti chiedo alcuni piaceri:
+* Usare i tuoi dati reali. Tranquillo tanto nessuno, tranne gli amici a cui sto chiedendo, potrà vedere il contenuto del sito.
+* Effettuare rilanci verosimili. Non è che siccome è un test, offri un milione di euro per una corda :)
+* Di segnalarmi eventuali bug, malfunzionamenti e/o miglioramenti che ritieni dovrei apportare.
+* Ci sono alcune pagine che devo ancora fare, questo lo so. Più che altro lo scopo è verificare che funzioni bene l'asta e i rilanci, specialamente quando l'oggetto sta per scadere.
+
+Durante questa settimana aggiungerò delle funzionalità, tipo la possibilità di "osservare" un oggetto, ricevendo email di notifica nel momento in cui qualche altro utente effettua un rilancio.
+
+In pratica dovresti far finta di essere un rigger (i tecnici che si arrampicano) e di essere interessato a qualche articolo.
+
+Il link ADMIN è riservato a me per inserimento oggetti e gestione sito.
+Il link ASTA ti porta alla pagina degli oggetti in vendita.
+Parola segreta: frittella
+
+Bene, grazie :)
+

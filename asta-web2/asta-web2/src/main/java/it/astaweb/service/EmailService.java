@@ -8,6 +8,8 @@ import it.astaweb.utils.CalendarUtils;
 import it.astaweb.utils.Constants;
 import it.astaweb.utils.ItemStatus;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
@@ -28,6 +30,9 @@ import org.springframework.stereotype.Service;
 
 @Service("emailService")
 public class EmailService extends ApplicationObjectSupport {
+	
+	private static final String DATE_PATTERN = "dd/MM/yyyy HH:mm:ss";
+	private static DateFormat dateFormat;
 	
 	@Autowired
     private PropertyService propertyService;
@@ -58,6 +63,8 @@ public class EmailService extends ApplicationObjectSupport {
 		cc = propertyService.getValue(Constants.PROPERTY_MAIL_SENDER_CC.getValue());
 		to = propertyService.getValue(Constants.PROPERTY_MAIL_SENDER_TO.getValue());
 		smtpSocketFactory = propertyService.getValue(Constants.PROPERTY_MAIL_SENDER_SMTP_SOCKETFACTORYCLASS.getValue());
+		
+		dateFormat = new SimpleDateFormat(DATE_PATTERN);
 		
 	}
 
@@ -181,11 +188,12 @@ public class EmailService extends ApplicationObjectSupport {
 
 	public void sendOnSell(Item item) {
 		String subject = "L'articolo " + item.getName() + " è appena stao messo in vendita";
-		String body = "Ciao!\nL'articolo " + item.getName() + " è appena stato messo in vendita."
-				+ "\nDescrizione: " + item.getDescription()
-				+ "\nData inizio: " + item.getFromDate() + 
-				"\nData fine asta: " + item.getExpiringDate() +
-				"\nPrezzo base €: " + item.getBaseAuctionPrice()
+		String body = "Ciao!<br/><br/>L'articolo " + item.getName() + " è appena stato messo in vendita.<br/>"
+				+ "Descrizione: " + item.getDescription()
+				+ "<br/>Data inizio asta: " + dateFormat.format(item.getFromDate()) + 
+				"<br/>Data fine asta: " + dateFormat.format(item.getExpiringDate()) +
+				"<br/>Prezzo base &euro;: " + item.getBaseAuctionPrice()+
+				"<br/><br/>Normali saluti,<br/>Il tuo Servente"
 				;
 		send(subject, body);
 		
@@ -193,18 +201,20 @@ public class EmailService extends ApplicationObjectSupport {
 
 	public void sendExpired(Item item, Relaunch relaunch) {
 		String subject = "L'articolo " + item.getName() + " è appena scaduto";
-		String body = "Ciao!<br/>L'articolo " + item.getName() + " è appena scaduto."
-				+ "\nDescrizione: " + item.getDescription() +
-				"\nData fine asta: " + item.getExpiringDate() +
-				"\nPrezzo base €: " + item.getBaseAuctionPrice()
+		String body = "Ciao!<br/><br/>L'articolo " + item.getName() + " è appena scaduto."
+				+ "<br/>Descrizione: " + item.getDescription() +
+				"<br/>Data fine asta: " + dateFormat.format(item.getExpiringDate())  +
+				"<br/>Prezzo base &euro;: " + item.getBaseAuctionPrice()
 				;
 		if(item.getStatus()==ItemStatus.SOLD_OUT){
-			body+="\nVenduto per €" + item.getBestRelaunch() ;
-			body+=" a " + relaunch.getUsername()+ "per € " + relaunch.getAmount() +
-					" alle " + relaunch.getDate();
+			body+="<br/><br/><b>Venduto per &euro; " + item.getBestRelaunch() + "</b>";
+			body+="<br/>a " + relaunch.getUsername() +
+					" con rilancio in data " + dateFormat.format(relaunch.getDate());
 		}else{
-			body+= "\n Purtroppo è rimasto invenduto...";
+			body+= "<br/><br/>Purtroppo è rimasto invenduto, ma non disperiamo, l'ho appena rimesso in vendita ad un prezzo inferiore del 20% rispetto alla base d'asta";
 		}
+		
+		body+="<br/><br/>Normali saluti,<br/>Il tuo Servente";
 		send(subject, body);
 	}
     

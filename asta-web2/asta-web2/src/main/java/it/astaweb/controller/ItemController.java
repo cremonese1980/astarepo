@@ -89,12 +89,10 @@ public class ItemController {
 			okMessage = "Oggetto modficato correttaemente";
 		}
 		
-		boolean error = false;
 		if (item.getBaseAuctionPrice()==null 
 				|| item.getExpiringDate()==null || item.getFromDate() == null || item.getName()==null ||
 				 item.getName().trim().equals("")) {
 			model.addAttribute("errorMessage", "Tutti i campi sono obbligatori, tranne la descrizione");
-			error = true;
 		}
 		
 	

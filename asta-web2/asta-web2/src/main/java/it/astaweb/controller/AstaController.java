@@ -76,13 +76,36 @@ public class AstaController {
 	  System.out.println("itemid " + itemid);
 	  
 	  String observeMessage = observeService.sendCode(itemid, email);
+	  String statusCode = observeMessage.equals("ok") ? observeMessage : "ko";
 	  observeMessage = observeMessage.equals("ok") ? "Codice Verifica inviato a " + email : observeMessage;
 	  
 	  model.addAttribute("statusMessage", observeMessage);
-	  model.addAttribute("statusCode", "ok");
+	  model.addAttribute("statusCode", statusCode);
 	  
       return "sendCode";
   }
+  
+  @RequestMapping(value="/observeItem", method=RequestMethod.GET)
+ 	public String observeItem(@RequestParam Map<String, String> params, Model model) {
+
+ 		 String email = (String) params.get("email");
+ 		 String itemid = (String) params.get("itemid");
+ 		 String code = (String) params.get("code");
+ 		  
+ 		 System.out.println("Verificando il codice  " + code + " per l'email " + email + " per l'item con id  " + itemid);
+ 		  System.out.println("email " + email);
+ 		  System.out.println("itemid " + itemid);
+ 		
+ 		String observeMessage = observeService.observe(itemid, email, code);
+ 		String statusCode = observeMessage.equals("ok") ? observeMessage : "ko";
+ 		observeMessage = observeMessage.equals("ok") ? "Da ora riceverai le notifiche riguardo questo articolo": observeMessage;
+
+ 		model.addAttribute("statusMessage", observeMessage);
+ 		model.addAttribute("statusCode", statusCode);
+
+ 		return "sendCode";
+ 	}
+  
   
   @RequestMapping(value="/loginUser", method=RequestMethod.GET)
   public String loginUser(Model model) {
@@ -264,25 +287,7 @@ public class AstaController {
 	      return "results";
 	  }
 
-	 @RequestMapping(value="/observeItem", method=RequestMethod.POST)
-	public String observeItem(
-			@Valid @ModelAttribute("userObserver") UserObserver userObserver,
-			BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			return "relaunchItem";
-		}
-
-		System.out.println("Mail: " + userObserver.getUser().getEmail());
-		
-		String observeMessage = observeService.observe(userObserver.getItem().getId().toString(), userObserver.getUser().getEmail(), userObserver.getVerificationCode());
-		observeMessage = observeMessage.equals("ok") ? "Da ora riceverai le notifiche riguardo questo articolo": observeMessage;
-
-		model.addAttribute("user", userObserver.getUser());
-		model.addAttribute("userObserver", userObserver);
-		model.addAttribute("observeMessage", observeMessage);
-
-		return "redirect:relaunchItem.html?itemid=" + userObserver.getItem().getId();
-	}
+	
 	 
   
   private boolean validateRelaunch(Relaunch relaunch, Model model) {

@@ -54,7 +54,9 @@ public class ObserveServiceImpl implements ObserveService{
 		String result = "ok";
 		
 		try {
+			System.out.println("inviando codice di verifica " + code);
 			emailService.sendCode(astaService.findItemById(Integer.parseInt(iditem)),email,code);
+			System.out.println("inviato codice di verifica " + code);
 			toVerifyCodes.put(email, code);
 			
 		} catch (Exception e) {

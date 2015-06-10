@@ -162,37 +162,86 @@ function sendCode()
 
 	var emailAddress = document.getElementById('email').value;
 	var itemid = document.getElementById('itemid').value;
-var xmlhttp;    
-if (emailAddress=="")
-  {
-  document.getElementById("txtHint").innerHTML="Inserisci un indirizzo email";
-  return;
-  }
-if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {// code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-xmlhttp.onreadystatechange=function()
-  {
-  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    {
-    document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
-    document.getElementById('btnObserve').style.display = "block";
-    document.getElementById('btnSendCode').style.display = "none";
-    document.getElementById('boxVerificationCode').style.display = "block";
-    
-    }
-  else{
-	  document.getElementById("txtHint").innerHTML= "Riprova più tardi";
-  }
-  }
-document.getElementById("txtHint").innerHTML= "Invio in corso......";
-xmlhttp.open("GET","sendCode.html?email="+emailAddress+"&itemid="+itemid,false);
-xmlhttp.send();
+	var xmlhttp;    
+	if (emailAddress==""){
+  		document.getElementById("txtHint").innerHTML="Inserisci un indirizzo email";
+  		return;
+  	}
+	if (window.XMLHttpRequest)
+  	{// code for IE7+, Firefox, Chrome, Opera, Safari
+  	xmlhttp=new XMLHttpRequest();
+  	}
+	else
+  	{// code for IE6, IE5
+  		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  	}
+	xmlhttp.onreadystatechange=function()
+  	{	
+  		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    	{
+    		document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+    		var statusCode = document.getElementById('statusCode').value;
+    		if(statusCode=="ok"){
+			    document.getElementById('btnObserve').style.display = "block";
+			    document.getElementById('btnSendCode').style.display = "none";
+			    document.getElementById('boxVerificationCode').style.display = "block";
+			    document.getElementById('email').readOnly = 'readOnly';
+		    }
+  			else{
+			  document.getElementById("txtHint").innerHTML= xmlhttp.responseText;
+		  }
+    	}
+  	}
+	document.getElementById("txtHint").innerHTML= "Invio email in corso......";
+	xmlhttp.open("GET","sendCode.html?email="+emailAddress+"&itemid="+itemid,false);
+	xmlhttp.send();
+}
+
+/*
+ * OBSERVE ITEM
+ */
+function observeItem()
+{
+
+	var emailAddress = document.getElementById('email').value;
+	var verificationCode = document.getElementById('verificationCode').value;
+	var itemid = document.getElementById('itemid').value;
+	var xmlhttp;    
+ 
+	 if (verificationCode=="")
+	 {
+		 document.getElementById("txtHint").innerHTML="Inserisci il codice di verifica ricevuto";
+		 return;
+	 }
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	 	 xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	xmlhttp.onreadystatechange=function()
+	  {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		    {
+			    document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+			    var statusCode = document.getElementById('statusCode').value;
+			    if(statusCode=="ok"){
+				    document.getElementById('btnObserve').style.display = "none";
+				    document.getElementById('closeDialog').style.display = "block";
+				    document.getElementById('verificationCode').readOnly = 'readOnly';
+			// 	    document.getElementById('btnSendCode').style.display = "none";
+			// 	    document.getElementById('boxVerificationCode').style.display = "block";
+			    }
+			  else{
+				  document.getElementById("txtHint").innerHTML= xmlhttp.responseText;
+			  }
+		    }
+	  }
+	document.getElementById("txtHint").innerHTML= "Verificando il codice......";
+	xmlhttp.open("GET","observeItem.html?email="+emailAddress+"&itemid="+itemid+"&code="+verificationCode,false);
+	xmlhttp.send();
 }
 </script>
 
@@ -304,6 +353,7 @@ xmlhttp.send();
 			
 
 			<div id="openModalObserve" class="modalDialogObserve">
+				<div>
 					<a href="#closeObserve" title="Close" class="closeObserve">X</a>
 					<h2>Osserva Oggetto</h2>
 					<form:form id="myFormModal" method="post" action="observeItem.html"
@@ -321,23 +371,23 @@ xmlhttp.send();
 						<form:hidden path="expiringSeconds"/>
 
 						<div class="data n1">
-							<label for="name">Nome</label>
-							<form:input type="text" class="form-control" path="user.name"
+							<label style="margin-left:40px" for="name">Nome</label>
+							<form:input type="text" class="form-control" path="user.name" style="margin-left:111px"
 								id="name" placeholder="name" readonly="true"/>
 
 
 						</div>
 						
 						<div class="data n2">
-							<label for="lastName">Cognome</label>
-							<form:input type="text" class="form-control" path="user.lastName"
+							<label style="margin-left:40px" for="lastName">Cognome</label>
+							<form:input type="text" class="form-control" path="user.lastName" style="margin-left:82px"
 								id="lastName" placeholder="lastName" readonly="true"/>
 
 						</div>
 						
 						<div class="data n3">
-							<label for="email">Email</label>
-							<form:input type="text" class="form-control" path="user.email"
+							<label style="margin-left:40px" for="email">Email</label>
+							<form:input type="text" class="form-control" path="user.email" style="margin-left:114px"
 								id="email" placeholder="email" />
 
 							<c:if test="${not empty emailMessage}">
@@ -347,8 +397,8 @@ xmlhttp.send();
 
 						</div>
 						<div id="boxVerificationCode" class="data n4" style="display:none">
-							<label for="verificationCode">Codice Verifica</label>
-							<form:input type="text" class="form-control" path="verificationCode"
+							<label style="margin-left:40px" for="verificationCode">Codice Verifica</label>
+							<form:input type="text" class="form-control" path="verificationCode" style="margin-left:40px"
 								id="verificationCode" placeholder="Inserisci il Codice ricevuto" />
 
 								<div class="errorMessage" style="color: red;">
@@ -356,10 +406,12 @@ xmlhttp.send();
 
 						</div>
 						<div class="error" style="color:red" id="txtHint"></div>
-						<button id="btnObserve" class="button login" style="display:none" >Osserva</button>
 
 					</form:form>
+						<button id="btnObserve" class="button login" style="display:none" onclick="observeItem()">Osserva</button>
 						<button id="btnSendCode" class="button login" onclick="sendCode()">Invia codice verifica</button>
+						<a id="closeDialog" href="#closeObserve" title="Chiudi"  style="display:none;color:black;text-align:center;font-size:22px;">Torna a rilanciare</a>
+				</div>
 			</div>
 
 			<div class="inner registrationPage">
@@ -373,26 +425,19 @@ xmlhttp.send();
  					
  						<tr>
 							<td colspan="2">
-								<h2>
-									<span id="time"/>&nbsp;&nbsp;&nbsp;&nbsp;
-									
-									<c:url var="urlIconObserve" value="img/icons/observe.png" />
-									<div class="inner" style="float:right;margin-right:200px;">
-										<div class="links">
-											<a style="color:#434343" href="#openModalObserve"><img style="width:80px;margin-left:150px" src="${urlIconObserve}" />
-											Osserva oggetto</a>
-										</div>
-											<c:if test="${not empty observeMessage}">
-												<div class="errorMessage" style="color: red;">
-												${observeMessage}</div>
-											</c:if>
-									</div>
+
+								<h2 style="padding:5px;">
+									<span id="time" /> 
 								</h2>
-									
-									
-								
+								<h1 style="padding:2px;">
+								<c:url var="urlIconObserve" value="img/icons/observe.png" />
+								<a style="color: #00a5e2"
+										href="#openModalObserve">Osserva oggetto<img
+										style="width: 40px; margin-left:50px"
+										src="${urlIconObserve}" /> </a></h1>
+
 							</td>
-							
+
 						</tr>
 						<tr>
 							<td colspan="2" style="font-weight: bold;">Se il rilancio avviene negli ultimi 3 minuti, l'orario di fine

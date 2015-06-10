@@ -6,7 +6,9 @@
  
 	<display-name>Asta web</display-name>
 	
-	
+	<session-config>
+		<session-timeout>-1</session-timeout>
+	</session-config>
 	
 	<servlet>
 	<servlet-name>astawebHibernateServlet</servlet-name>

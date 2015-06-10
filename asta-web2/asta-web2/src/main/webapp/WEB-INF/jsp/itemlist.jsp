@@ -128,9 +128,9 @@
 					<thead align="center">
 						<tr>
 							<th width="18%"><h3>Articolo</h3></th>
-							<th width="30%"><h3>Descrizione</h3></th>
+							<th width="25%"><h3>Descrizione</h3></th>
 							<th width="10%"><h3>Base d'asta</h3></th>
-							<th width="10%"><h3>Miglior offerta</h3></th>
+							<th width="20%"><h3>Miglior offerta</h3></th>
 							<th width="10%"><h3>Scadenza</h3></th>
 							<th width="10%"><h3>Anteprima</h3></th>
 							<th width="10%"><h3>Rilancia!</h3></th>
@@ -158,8 +158,8 @@
 								 maxFractionDigits="2"/> 
 								</td>
 								<td><c:choose>
-										<c:when test="${not empty item.bestRelaunch}">
-											&euro; <fmt:formatNumber value="${item.bestRelaunch}"
+										<c:when test="${not empty item.bestRelaunch.amount}">
+											<b>${item.bestRelaunch.username}</b> &euro; <fmt:formatNumber value="${item.bestRelaunch.amount}"
 										maxFractionDigits="2" />
 										</c:when>
 										<c:otherwise>

@@ -29,7 +29,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	@Query("select distinct i from Item i JOIN FETCH i.images img where i.status = (:status) order by i.expiringDate asc")
 	List<Item> findAllByStatusJoinImages(@Param("status") ItemStatus status);
 
-	@Query("select sum(bestRelaunch) from Item")
+	@Query("select sum(bestRelaunch.amount) from Item")
 	BigDecimal getTotalOffer();
 
 	@Query("select distinct i  from Item i LEFT JOIN FETCH i.images LEFT JOIN FETCH i.relaunches where i.id = (:id)")

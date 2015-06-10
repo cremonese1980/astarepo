@@ -63,8 +63,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${itemlist}" var="item">
-							<tr>
+						<c:forEach items="${itemlist}" var="item" varStatus="itemStatus">
+							<c:choose>
+								<c:when test="${itemStatus.index % 2 == 1}">
+									<tr>
+								</c:when>
+								<c:otherwise>
+									<tr style="background-color:#DDDDDD">
+								</c:otherwise>
+								</c:choose>
 								<td>
 									${item.name}
 								</td>

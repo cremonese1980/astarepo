@@ -41,7 +41,8 @@
 <div class="section2">
 	<div class="inner">
 		<div class="welcomeUser">
-			Totale raccolto &euro; ${astaService.totalOffers}
+			Totale raccolto &euro; <fmt:formatNumber value="${astaService.totalOffers}"
+									  maxFractionDigits="2" />
 		</div>
 	</div>
 	

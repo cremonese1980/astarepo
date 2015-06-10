@@ -187,8 +187,8 @@ public class EmailService extends ApplicationObjectSupport {
 	}
 
 	public void sendOnSell(Item item) {
-		String subject = "L'articolo " + item.getName() + " è appena stao messo in vendita";
-		String body = "Ciao!<br/><br/>L'articolo " + item.getName() + " è appena stato messo in vendita.<br/>"
+		String subject = "L'articolo " + item.getName() + " &egrave; appena stao messo in vendita";
+		String body = "Ciao!<br/><br/>L'articolo " + item.getName() + " &egrave; appena stato messo in vendita.<br/>"
 				+ "Descrizione: " + item.getDescription()
 				+ "<br/>Data inizio asta: " + dateFormat.format(item.getFromDate()) + 
 				"<br/>Data fine asta: " + dateFormat.format(item.getExpiringDate()) +
@@ -199,23 +199,39 @@ public class EmailService extends ApplicationObjectSupport {
 		
 	}
 
-	public void sendExpired(Item item, Relaunch relaunch) {
-		String subject = "L'articolo " + item.getName() + " è appena scaduto";
-		String body = "Ciao!<br/><br/>L'articolo " + item.getName() + " è appena scaduto."
+	public void sendExpired(Item item) {
+		String subject = "Attenzione: L'articolo " + item.getName() + " che stavi osservando &egrave; appena scaduto";
+		String body = "Ciao!<br/><br/>L'articolo " + item.getName() + " &egrave; appena scaduto."
 				+ "<br/>Descrizione: " + item.getDescription() +
 				"<br/>Data fine asta: " + dateFormat.format(item.getExpiringDate())  +
 				"<br/>Prezzo base &euro;: " + item.getBaseAuctionPrice()
 				;
 		if(item.getStatus()==ItemStatus.SOLD_OUT){
-			body+="<br/><br/><b>Venduto per &euro; " + item.getBestRelaunch() + "</b>";
-			body+="<br/>a " + relaunch.getUsername() +
-					" con rilancio in data " + dateFormat.format(relaunch.getDate());
+			body+="<br/><br/><b>Venduto per &euro; " + item.getBestRelaunch().getAmount() + "</b>";
+			body+="<br/>a <b>" + item.getBestRelaunch().getUsername() +
+					" </b> con rilancio in data " + dateFormat.format(item.getBestRelaunch().getDate());
 		}else{
-			body+= "<br/><br/>Purtroppo è rimasto invenduto, ma non disperiamo, l'ho appena rimesso in vendita ad un prezzo inferiore del 20% rispetto alla base d'asta";
+			body+= "<br/><br/>Purtroppo &egrave; rimasto invenduto, ma non disperiamo, l'ho appena rimesso in vendita ad un prezzo inferiore del 20% rispetto alla base d'asta";
 		}
 		
 		body+="<br/><br/>Normali saluti,<br/>Il tuo Servente";
 		send(subject, body);
 	}
+	
+	public void sendRelaunch(Item item) {
+		String subject = "Attenzione: nuovo Rilancio per l'articolo " + item.getName() + " che stavi osservando";
+		String body = "Ciao!<br/><br/>&egrave; appena stato effettuato un rilancio per l'articolo " + item.getName() + " che stai osservando."
+				+ "<br/>Descrizione: " + item.getDescription() +
+				"<br/>Data fine asta: " + dateFormat.format(item.getExpiringDate())  +
+				"<br/>Prezzo base &euro;: " + item.getBaseAuctionPrice()
+				;
+			body+="<br/><br/><b>Ultimo rilancio: &euro; " + item.getBestRelaunch().getAmount() + "</b>";
+			body+="<br/><b> effettuato da " + item.getBestRelaunch().getUsername() +
+					" </b> con rilancio in data " + dateFormat.format(item.getBestRelaunch().getDate());
+		
+		body+="<br/><br/>Normali saluti,<br/>Il tuo Servente";
+		send(subject, body);
+	}
+
     
 }

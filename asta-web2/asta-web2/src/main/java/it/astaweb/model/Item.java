@@ -8,12 +8,16 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -49,8 +53,9 @@ public class Item implements Serializable{
 	@NotNull
 	@Column(name="id_status", columnDefinition="varchar")
 	private ItemStatus status = ItemStatus.PRE_SELL;
-	@Column(name="best_relaunch")
-	private BigDecimal bestRelaunch;
+	@ManyToOne
+	@JoinColumn(name="id_best_relaunch")
+	private Relaunch bestRelaunch;
 	@OneToMany(mappedBy="item",fetch=FetchType.LAZY)
 	private Set<Relaunch> relaunches = new HashSet<Relaunch>();
 	
@@ -102,12 +107,6 @@ public class Item implements Serializable{
 	public void setStatus(ItemStatus status) {
 		this.status = status;
 	}
-	public BigDecimal getBestRelaunch() {
-		return bestRelaunch;
-	}
-	public void setBestRelaunch(BigDecimal bestRelaunch) {
-		this.bestRelaunch = bestRelaunch;
-	}
 	public Set<Relaunch> getRelaunches() {
 		return relaunches;
 	}
@@ -120,6 +119,12 @@ public class Item implements Serializable{
 				+ baseAuctionPrice + ", expiringDate=" + expiringDate
 				+ ", fromDate=" + fromDate + ", status=" + status
 				+ ", bestRelaunch=" + bestRelaunch + "]";
+	}
+	public Relaunch getBestRelaunch() {
+		return bestRelaunch;
+	}
+	public void setBestRelaunch(Relaunch bestRelaunch) {
+		this.bestRelaunch = bestRelaunch;
 	}
 	
 	

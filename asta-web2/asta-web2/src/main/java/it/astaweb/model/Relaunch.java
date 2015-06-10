@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -22,7 +21,6 @@ public class Relaunch implements Comparable<Relaunch>{
 	@Id
 	@GeneratedValue
 	private Integer id;
-	@NotEmpty
 	private String username;
 	@ManyToOne(cascade={CascadeType.MERGE})
 	@JoinColumn(name="id_item")
@@ -31,6 +29,12 @@ public class Relaunch implements Comparable<Relaunch>{
 	private Date date;
 	private BigDecimal amount;
 	
+	
+	public Relaunch() {
+	}
+	public Relaunch(BigDecimal baseAuctionPrice) {
+		this.amount = baseAuctionPrice;
+	}
 	public Integer getId() {
 		return id;
 	}

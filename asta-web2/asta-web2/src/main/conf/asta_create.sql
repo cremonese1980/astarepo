@@ -56,7 +56,7 @@ create table item (
 	base_auction_price DECIMAL(10,2) not null,
 	expiring_date datetime not null,
 	from_date datetime not null,
-	best_relaunch DECIMAL(10,2),
+	id_best_relaunch int unsigned,
 	primary key (id)
 );
 
@@ -88,6 +88,18 @@ create table configuration (
 	primary key (name)
 );
 /*
+ * Dopo asta test
+ */
+create table item_news (
+	id int unsigned not null auto_increment,
+	id_item int unsigned not null,
+	id_status int not null default 0,
+	sent_date datetime,	
+	cc_list varchar(2000),
+	primary key (id)
+);
+
+/*
  * FOREIGN KEYS
  */
 alter table item_image
@@ -99,4 +111,17 @@ alter table relaunch
 	add constraint relaunch_fk_item
 	foreign key(id_item)
 	references item(id);
+	
+/*
+ * Dopo asta test
+ */
+	alter table item_news
+	add constraint news_fk_item
+	foreign key(id_item)
+	references item(id);
+	
+	alter table item
+	add constraint item_fk_bestrelaunch
+	foreign key(id_best_relaunch)
+	references relaunch(id);
 	

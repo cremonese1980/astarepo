@@ -64,6 +64,47 @@
 
 
 
+.modalDialogObserve {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+
+
+
+
+
+.modalDialogObserve:target {
+	opacity:1;
+	pointer-events: auto;
+}
+
+.modalDialogObserve > div {
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: #fff;
+	background: -moz-linear-gradient(#fff, #999);
+	background: -webkit-linear-gradient(#fff, #999);
+	background: -o-linear-gradient(#fff, #999);
+}
+
+
+
+
 .close {
 	background: #606061;
 	color: #FFFFFF;
@@ -84,6 +125,31 @@
 }
 
 .close:hover { background: #00d9ff; }
+
+
+
+.closeObserve {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.closeObserve:hover { background: #00d9ff; }
+
+
 
 
 
@@ -194,7 +260,59 @@
 					<b>${astaService.testPhaseMessage}</b>
 				</div>
 			</c:if>
-			
+
+			<c:url var="urlIconObserve" value="img/icons/observe.png" />
+			<div class="links">
+				<a href="#openModalObserve"><img style="width:35px;margin-left:150px" src="${urlIconObserve}" />
+					Osserva oggetto</a>
+			</div>
+
+			<div id="openModalObserve" class="modalDialogObserve">
+				<div>
+					<a href="#closeObserve" title="Close" class="closeObserve">X</a>
+					<h2>Osserva Oggetto</h2>
+					<form:form id="myFormModal" method="post" action="observeItem.html"
+						commandName="userObserver">
+						
+						<form:hidden path="user.password"/>
+						<form:hidden path="item.name"/>
+						<form:hidden path="item.id"/>
+<%-- 						<form:hidden path="relaunches"/> --%>
+<%-- 						<form:hidden path="expiringSeconds"/> --%>
+
+						<div class="data n1">
+							<label for="name">Nome</label>
+							<form:input type="text" class="form-control" path="user.name"
+								id="name" placeholder="name" disabled="true"/>
+
+
+						</div>
+						
+						<div class="data n2">
+							<label for="lastName">Cognome</label>
+							<form:input type="text" class="form-control" path="user.lastName"
+								id="lastName" placeholder="lastName" disabled="true"/>
+
+						</div>
+						
+						<div class="data n3">
+							<label for="email">Email</label>
+							<form:input type="text" class="form-control" path="user.email"
+								id="email" placeholder="email" />
+
+							<c:if test="${not empty emailMessage}">
+								<div class="errorMessage" style="color: red;">
+									${emailMessage}</div>
+							</c:if>
+
+						</div>
+
+						<button class="button login">Osserva</button>
+
+					</form:form>
+				</div>
+			</div>
+
 			<div class="inner registrationPage">
 
 				<form:form id="myForm" method="post" action="relaunchItem.html"
@@ -205,7 +323,9 @@
 					<table>
  					
  						<tr>
-							<td colspan="2"><h2><span id="time"/></h2></td>
+							<td colspan="2"><h2>
+									<span id="time"/></h2>&nbsp;&nbsp;
+							</td>
 						</tr>
 						<tr>
 							<td colspan="2" style="font-weight: bold;">Se il rilancio avviene negli ultimi 3 minuti, l'orario di fine
@@ -238,11 +358,11 @@
 						<tr>
 							<td>Miglior Rilancio</td>
 							<td><c:choose>
-							<c:when test="${not empty bestRelaunch.username}">
-								&euro; <fmt:formatNumber value="${bestRelaunch.amount}"
+							<c:when test="${not empty item.bestRelaunch.username}">
+								&euro; <fmt:formatNumber value="${item.bestRelaunch.amount}"
 										maxFractionDigits="2" />
-								(${bestRelaunch.username} <fmt:formatDate
-										value="${bestRelaunch.date}" pattern="dd/MM/yyyy HH:mm:ss" />)
+								(<b>${item.bestRelaunch.username}</b> <fmt:formatDate
+										value="${item.bestRelaunch.date}" pattern="dd/MM/yyyy HH:mm:ss" />)
 								</c:when>
 								<c:otherwise>
 									Nessun rilancio, il tuo può essere il primo!

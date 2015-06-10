@@ -84,10 +84,6 @@ public class ItemController {
 			return "insertItem";
 		}
 
-		String okMessage = "Oggetto salvato correttaemente";
-		if(item.getId()!=null){
-			okMessage = "Oggetto modficato correttaemente";
-		}
 		
 		if (item.getBaseAuctionPrice()==null 
 				|| item.getExpiringDate()==null || item.getFromDate() == null || item.getName()==null ||
@@ -95,6 +91,10 @@ public class ItemController {
 			model.addAttribute("errorMessage", "Tutti i campi sono obbligatori, tranne la descrizione");
 		}
 		
+		String okMessage = "Oggetto modficato correttaemente";
+		if(item.getId()==null){
+			okMessage = "Oggetto salvato correttaemente";
+		}
 	
 		if(validateDate(item, model)){			
 			astaService.saveItem(item);

@@ -24,6 +24,7 @@ insert into configuration(name, value) values('mail.sender.from', 'astaweb.serve
 insert into configuration(name, value) values('mail.sender.cc', '');
 insert into configuration(name, value) values('mail.sender.to', 'cremonese1980@gmail.com,chevuoi@hotmail.com');
 insert into configuration(name, value) values('mail.sender.smtp.socketFactory.class', 'javax.net.ssl.SSLSocketFactory');
+insert into configuration (name,value) value ('bc.list.base', 'cremonese1980@gmail.com,chevuoi@hotmail.com');
 
 delete from item_image;
 delete from relaunch;

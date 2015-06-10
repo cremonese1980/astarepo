@@ -22,7 +22,8 @@ public enum Constants {
 	PROPERTY_RELAUNCH_MAX_ABS("relaunch.max.abs"),
 	PROPERTY_RELAUNCH_MAX_REL("relaunch.max.rel"),
 	EMAIL_ONSELL_SUBJECT(""), 
-	EMAIL_ONSELL_BODY("");
+	EMAIL_ONSELL_BODY(""),
+	PROPERTY_BC_LIST_BASE("bc.list.base"),;
 	
 	private final String value;
 	

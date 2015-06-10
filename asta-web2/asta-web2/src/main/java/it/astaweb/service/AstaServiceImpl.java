@@ -3,12 +3,15 @@ package it.astaweb.service;
 import it.astaweb.exceptions.ObjectExpiredException;
 import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
+import it.astaweb.model.ItemNews;
 import it.astaweb.model.Relaunch;
 import it.astaweb.repository.ItemImageRepository;
+import it.astaweb.repository.ItemNewsRepository;
 import it.astaweb.repository.ItemRepository;
 import it.astaweb.repository.RelaunchRepository;
 import it.astaweb.utils.CalendarUtils;
 import it.astaweb.utils.Constants;
+import it.astaweb.utils.ItemNewsStatus;
 import it.astaweb.utils.ItemStatus;
 
 import java.math.BigDecimal;
@@ -44,6 +47,9 @@ public class AstaServiceImpl implements AstaService {
 	@Autowired(required = true)
 	private RelaunchRepository relaunchRepository;
 	
+	@Autowired(required = true)
+	private ItemNewsRepository itemNewsRepository;
+	
 	@Autowired
 	PropertyService propertyService;
 	
@@ -60,7 +66,17 @@ public class AstaServiceImpl implements AstaService {
 
 	@Transactional
 	public Item saveItem(Item item) {
-		return itemRepository.save(item);
+		boolean addNews = item.getId()==null ? true:false;
+		itemRepository.save(item);
+		
+		if(addNews){
+			itemNewsRepository
+					.save(new ItemNews(propertyService
+							.getValue(Constants.PROPERTY_BC_LIST_BASE
+									.getValue()), item));
+		}
+		
+		return item;
 	}
 
 	public Item findItemByName(String name) {
@@ -108,6 +124,7 @@ public class AstaServiceImpl implements AstaService {
 	public void deleteItem(Item item) {
 		itemImageRepository.delete(item.getImages());
 		relaunchRepository.delete(item.getRelaunches());
+		itemNewsRepository.deleteByItem(item.getId());
 		itemRepository.delete(item.getId());
 		
 	}
@@ -152,8 +169,10 @@ public class AstaServiceImpl implements AstaService {
 			throw new ObjectExpiredException();
 		}
 		
-		BigDecimal delta = relaunch.getItem().getBestRelaunch()!=null? relaunch.getAmount().subtract(relaunch.getItem().getBestRelaunch()):relaunch.getAmount();		
-		relaunch.getItem().setBestRelaunch(relaunch.getAmount());
+		BigDecimal delta = relaunch.getItem().getBestRelaunch() != null ? relaunch
+				.getAmount().subtract(relaunch.getItem().getBestRelaunch().getAmount())
+				: relaunch.getAmount();		
+		relaunch.getItem().setBestRelaunch(relaunch);
 		
 		//Se il rilancio è avvenuto negli ultimi 3 minuti, l'asta viene protratta di ulteriori 3 minuti.
 		long postpone = Long.parseLong(propertyService.getValue(Constants.PROPERTY_RELAUNCH_POSTPONE_SECONDS.getValue()));
@@ -165,19 +184,30 @@ public class AstaServiceImpl implements AstaService {
 			System.out.println("Scadenza oggeto " + relaunch.getItem()  + " prolungata di 3 minuti");
 		}
 		
-		itemRepository.save(relaunch.getItem());
 		relaunchRepository.save(relaunch);
+		itemRepository.save(relaunch.getItem());
+		
+		setNewsToBeSent(relaunch.getItem());
 		
 		updateTotal(delta);
 		
 	}
 
+	private void setNewsToBeSent(Item item) {
+		ItemNews itemNews = itemNewsRepository.findNewsByItem(item.getId());
+		itemNews.setStatus(ItemNewsStatus.TO_SEND);
+		itemNewsRepository.save(itemNews);
+	}
+
 	@Override
+	@Transactional
 	public synchronized  void setExpired(Item item) {
 		LOG.info("L'oggetto " + item + " è appena scaduto...........");
-		if(item.getBestRelaunch()!=null && item.getBestRelaunch().compareTo(item.getBaseAuctionPrice())>=0){
+		if(item.getBestRelaunch()!=null && item.getBestRelaunch().getAmount()!=null&&
+				item.getBestRelaunch().getAmount().compareTo(item.getBaseAuctionPrice())>=0){
 			LOG.info("...........Venduto!");
 			item.setStatus(ItemStatus.SOLD_OUT);
+			setNewsToBeSent(item);
 		}else{
 			LOG.info("...........Non venduto... :( \nAbbassiamo il prezzo del 20%");
 			item.setStatus(ItemStatus.ON_SELL);

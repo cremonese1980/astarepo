@@ -1,17 +1,19 @@
-
-Aggiungi messaggio ASTA FINITA, si aggiudica l'oggetto Marco De marchi (ad esempio)
-Aggiungere le varie mail di report
+BUG rilancio pari alla base d'asta
 
 Aggiungi il bottone "OSSERVA" per ricevere email di notifica se qualcuno fa un'offerta.
-Aggiungi offerta automatica con tetto massimo (come hattrick)
+I log..
+Aggiungi lista ultimi 5 rilanci nella pagina del rilancio
+Aggiungi ajax, sia nella pagina del rilancio, che in quella della lista
+Aggiungi cache per articoli ?
+Aggiungi messaggio ASTA FINITA, si aggiudica l'oggetto Marco De marchi (ad esempio)
+Aggiungere le varie mail di report
 Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro per l'oggetto yy
+
+Aggiungi offerta automatica con tetto massimo (come hattrick)
 
 Check dimensioni file caricato
 Aggiungere validazione lato server per aggiunta/modifica oggetti a seconda dello stato
-Bottone per aggiornare pagina rilancio, oppure ajax per autoaggiornarsi
 
-Valutare se aggiungere lo stato ON_SELL_DISCOUNTED, che sarebbe lo stato degli invenduti, ribassando il prezzo
-Test in locale sezione admin
 
 
 
@@ -23,8 +25,12 @@ Cerca icona ingranaggi
 Cerca icona elimina
 Cerca icona (più +) per aggiungere oggetti
 
+BUF FIXED rilancio inferiore ad 1 euro
+BUG FIXED decimali totale
 
 
+DONE Test in locale sezione admin
+DONE Aggiungi nome dell'utente che ha effettuato il miglior rilancio nella pagina elenco
 DONE Formattare valuta euro nelle mail (due decimali)
 DONE Inibisci rilanci troppo esosi
 DONE Aggiungi messaggio evidente che inidica si tratti di una fase di test, con data inizio e data fine.

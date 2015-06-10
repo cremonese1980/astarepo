@@ -4,6 +4,7 @@ import it.astaweb.exceptions.ObjectExpiredException;
 import it.astaweb.model.Item;
 import it.astaweb.model.Relaunch;
 import it.astaweb.model.User;
+import it.astaweb.model.UserObserver;
 import it.astaweb.service.AstaService;
 import it.astaweb.service.PropertyService;
 import it.astaweb.service.UserService;
@@ -141,7 +142,6 @@ public class AstaController {
 		relaunches.addAll(item.getRelaunches());
 		
 		Collections.sort(relaunches);
-		Relaunch bestRelaunch = relaunches.isEmpty()? new Relaunch(): relaunches.get(0);
 		
 		Relaunch relaunch = new Relaunch();
 		relaunch.setItem(item);
@@ -155,9 +155,11 @@ public class AstaController {
 		model.addAttribute("item", item);
 		model.addAttribute("user", loggedUser);
 		model.addAttribute("relaunch", relaunch);
-		model.addAttribute("bestRelaunch", bestRelaunch);
 		model.addAttribute("relaunches", relaunches);
 		model.addAttribute("expiringSeconds", expiringSeconds);
+		
+		UserObserver userObserver = new UserObserver(loggedUser, item, relaunches, expiringSeconds);
+		model.addAttribute("userObserver", userObserver);
 		
 		String relaunchMessage = (String) params.get("relaunchMessage");
 		if(relaunchMessage !=  null && !relaunchMessage.trim().equals("")){
@@ -196,12 +198,10 @@ public class AstaController {
 		relaunches.addAll(item.getRelaunches());
 		
 		Collections.sort(relaunches);
-		Relaunch bestRelaunch = relaunches.isEmpty()? new Relaunch(): relaunches.get(0);
 
 		model.addAttribute("item", relaunch.getItem());
 		model.addAttribute("user", loggedUser);
 		model.addAttribute("newRelaunch", newRelaunch);
-		model.addAttribute("bestRelaunch", bestRelaunch);
 		
 		if(!validateRelaunch(relaunch, model)){
 			return "relaunchItem";
@@ -209,7 +209,6 @@ public class AstaController {
 		
 		try {
 			astaService.relaunch(relaunch);
-			model.addAttribute("bestRelaunch", relaunch);
 		} catch (ObjectExpiredException e) {
 			model.addAttribute("relaunchMessage", e.getMessage());
 			return "relaunchItem";
@@ -235,6 +234,25 @@ public class AstaController {
 	      return "results";
 	  }
 
+	 @RequestMapping(value="/observeItem", method=RequestMethod.POST)
+	  public String observeItem(@Valid @ModelAttribute("userObserver") UserObserver userObserver, BindingResult result, Model model) {        
+	      if(result.hasErrors()) {
+	          return "relaunchItem";
+	      } 
+	      
+	      System.out.println("Mail: " + userObserver.getUser().getEmail());
+	      
+	      Relaunch newRelaunch = new Relaunch();
+			newRelaunch.setItem(userObserver.getItem());
+			newRelaunch.setUsername(userObserver.getUser().getName() + " " + userObserver.getUser().getLastName() );
+			
+	      model.addAttribute("item", userObserver.getItem());
+			model.addAttribute("user", userObserver.getUser());
+			model.addAttribute("newRelaunch", newRelaunch);
+	      
+	      return "relaunchItem";
+	  }
+	 
   
   private boolean validateRelaunch(Relaunch relaunch, Model model) {
 		
@@ -242,46 +260,45 @@ public class AstaController {
 		  model.addAttribute("relaunchMessage", "Asta terminata!");
 		  return false;
 	  }
-	  if(relaunch.getAmount()==null || relaunch.getAmount().longValue() < relaunch.getItem().getBaseAuctionPrice().longValue()){
+	  if(relaunch.getAmount()==null || relaunch.getAmount().doubleValue() < relaunch.getItem().getBaseAuctionPrice().doubleValue()){
 		  model.addAttribute("relaunchMessage", "L'offerta minima è di &euro; " + relaunch.getItem().getBaseAuctionPrice().longValue());
 		  return false;
 	  }
 	  
-	  if(relaunch.getItem().getBestRelaunch()!=null){
-		  
-		  if(relaunch.getAmount().longValue() < 1 + relaunch.getItem().getBestRelaunch().longValue()){
-			  model.addAttribute("relaunchMessage",
-					  "Il rilancio minimo è di &euro; 1 in più rispetto all'offerta corrente di &euro;  "
-							  + relaunch.getItem().getBestRelaunch());
-			  return false;
-		  }
-	  }
-		BigDecimal current = relaunch.getItem().getBestRelaunch() != null ? relaunch
-				.getItem().getBestRelaunch() : relaunch.getItem()
-				.getBaseAuctionPrice();
+		Relaunch current = relaunch.getItem().getBestRelaunch() != null ? relaunch
+				.getItem().getBestRelaunch() : new Relaunch(relaunch.getItem()
+						.getBaseAuctionPrice()) ;
+
+		if (relaunch.getAmount().doubleValue() < 1 + current.getAmount().doubleValue()) {
+			model.addAttribute(
+					"relaunchMessage",
+					"Il rilancio minimo è di &euro; 1 in più rispetto alla base d'asta o all'offerta corrente di &euro;  "
+							+ current.getAmount());
+			return false;
+		}
 		BigDecimal maxAbs = new BigDecimal(
 				propertyService.getValue(Constants.PROPERTY_RELAUNCH_MAX_ABS
 						.getValue()));
-		if (relaunch.getAmount().compareTo(maxAbs.add(current)) >= 1) {
+		if (relaunch.getAmount().compareTo(maxAbs.add(current.getAmount())) >= 1) {
 			model.addAttribute(
 					"relaunchMessage",
 					"Il rilancio massimo è di &euro; "
 							+ maxAbs
 							+ " in più rispetto all'offerta corrente di &euro;  "
-							+ relaunch.getItem().getBestRelaunch());
+							+ relaunch.getItem().getBestRelaunch().getAmount());
 			return false;
 		}
 
 		BigDecimal maxRel = new BigDecimal(
 				propertyService.getValue(Constants.PROPERTY_RELAUNCH_MAX_REL
 						.getValue()));
-		if (relaunch.getAmount().compareTo(maxRel.multiply(current)) >= 1) {
+		if (relaunch.getAmount().compareTo(maxRel.multiply(current.getAmount())) >= 1) {
 			model.addAttribute(
 					"relaunchMessage",
 					"Il rilancio massimo è di "
 							+ maxRel
 							+ " volte superiore rispetto all'offerta corrente di &euro;  "
-							+ relaunch.getItem().getBestRelaunch());
+							+ relaunch.getItem().getBestRelaunch().getAmount());
 			return false;
 		}
 	  

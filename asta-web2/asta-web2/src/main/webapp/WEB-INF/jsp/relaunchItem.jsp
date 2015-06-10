@@ -91,7 +91,7 @@
 }
 
 .modalDialogObserve > div {
-	width: 400px;
+	width: 550px;
 	position: relative;
 	margin: 10% auto;
 	padding: 5px 20px 13px 20px;
@@ -155,6 +155,46 @@
 
 
   </style>
+
+<script>
+function sendCode()
+{
+
+	var emailAddress = document.getElementById('email').value;
+	var itemid = document.getElementById('itemid').value;
+var xmlhttp;    
+if (emailAddress=="")
+  {
+  document.getElementById("txtHint").innerHTML="Inserisci un indirizzo email";
+  return;
+  }
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+    document.getElementById('btnObserve').style.display = "block";
+    document.getElementById('btnSendCode').style.display = "none";
+    document.getElementById('boxVerificationCode').style.display = "block";
+    
+    }
+  else{
+	  document.getElementById("txtHint").innerHTML= "Riprova più tardi";
+  }
+  }
+document.getElementById("txtHint").innerHTML= "Invio in corso......";
+xmlhttp.open("GET","sendCode.html?email="+emailAddress+"&itemid="+itemid,false);
+xmlhttp.send();
+}
+</script>
 
 <title>Ciao Rocco</title>
 
@@ -264,7 +304,6 @@
 			
 
 			<div id="openModalObserve" class="modalDialogObserve">
-				<div>
 					<a href="#closeObserve" title="Close" class="closeObserve">X</a>
 					<h2>Osserva Oggetto</h2>
 					<form:form id="myFormModal" method="post" action="observeItem.html"
@@ -307,11 +346,20 @@
 							</c:if>
 
 						</div>
+						<div id="boxVerificationCode" class="data n4" style="display:none">
+							<label for="verificationCode">Codice Verifica</label>
+							<form:input type="text" class="form-control" path="verificationCode"
+								id="verificationCode" placeholder="Inserisci il Codice ricevuto" />
 
-						<button class="button login">Osserva</button>
+								<div class="errorMessage" style="color: red;">
+									${emailMessage}</div>
+
+						</div>
+						<div class="error" style="color:red" id="txtHint"></div>
+						<button id="btnObserve" class="button login" style="display:none" >Osserva</button>
 
 					</form:form>
-				</div>
+						<button id="btnSendCode" class="button login" onclick="sendCode()">Invia codice verifica</button>
 			</div>
 
 			<div class="inner registrationPage">
@@ -320,21 +368,29 @@
 					commandName="relaunch">
 					
 					<form:hidden path="username"/>
-					<form:hidden path="item.id" />
+					<form:hidden id="itemid" path="item.id" />
 					<table>
  					
  						<tr>
-							<td colspan="2"><h2>
-									<span id="time"/></h2>&nbsp;&nbsp;
-							</td>
-							<c:url var="urlIconObserve" value="img/icons/observe.png" />
-							<td colspan="2"><h2>
-							<div class="inner" style="float:right;margin-right:200px;">
-								<div class="links">
-									<a style="color:#434343" href="#openModalObserve"><img style="width:80px;margin-left:150px" src="${urlIconObserve}" />
-										Osserva oggetto</a>
-								</div>
-							</div>
+							<td colspan="2">
+								<h2>
+									<span id="time"/>&nbsp;&nbsp;&nbsp;&nbsp;
+									
+									<c:url var="urlIconObserve" value="img/icons/observe.png" />
+									<div class="inner" style="float:right;margin-right:200px;">
+										<div class="links">
+											<a style="color:#434343" href="#openModalObserve"><img style="width:80px;margin-left:150px" src="${urlIconObserve}" />
+											Osserva oggetto</a>
+										</div>
+											<c:if test="${not empty observeMessage}">
+												<div class="errorMessage" style="color: red;">
+												${observeMessage}</div>
+											</c:if>
+									</div>
+								</h2>
+									
+									
+								
 							</td>
 							
 						</tr>

@@ -6,6 +6,7 @@ import it.astaweb.model.Relaunch;
 import it.astaweb.model.User;
 import it.astaweb.model.UserObserver;
 import it.astaweb.service.AstaService;
+import it.astaweb.service.ObserveService;
 import it.astaweb.service.PropertyService;
 import it.astaweb.service.UserService;
 import it.astaweb.utils.CalendarUtils;
@@ -35,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes({"user",})
+@SessionAttributes({"user", "userObserver"})
 public class AstaController {
 
   @Autowired(required=true)
@@ -47,11 +48,40 @@ public class AstaController {
   @Autowired(required=true)
   PropertyService propertyService;
   
+  @Autowired(required=true)
+  ObserveService observeService;
+  
   private static List<String> secretWords;
   
   @PostConstruct
   public void init(){
 	  System.out.println("Asta controller inizializzato");
+  }
+  
+  @RequestMapping(value="/sendCode", method=RequestMethod.GET)
+  public String sendCode(@RequestParam Map<String, String> params, Model model) {
+	  
+//	  User loggedUser =  (User)model.asMap().get("user");
+//	  if(loggedUser!=null && loggedUser.getName()!=null && !loggedUser.getName().trim().equals("")){
+//		  model.addAttribute("user", loggedUser);
+//    	  return "redirect:itemlist.html";
+//      }
+//	  loggedUser = new User();
+//      model.addAttribute("user", loggedUser);  
+	  
+	  String email = (String) params.get("email");
+	  String itemid = (String) params.get("itemid");
+	  
+	  System.out.println("email " + email);
+	  System.out.println("itemid " + itemid);
+	  
+	  String observeMessage = observeService.sendCode(itemid, email);
+	  observeMessage = observeMessage.equals("ok") ? "Codice Verifica inviato a " + email : observeMessage;
+	  
+	  model.addAttribute("statusMessage", observeMessage);
+	  model.addAttribute("statusCode", "ok");
+	  
+      return "sendCode";
   }
   
   @RequestMapping(value="/loginUser", method=RequestMethod.GET)
@@ -63,7 +93,7 @@ public class AstaController {
     	  return "redirect:itemlist.html";
       }
 	  loggedUser = new User();
-      model.addAttribute("user", loggedUser);     
+      model.addAttribute("user", loggedUser);    
       return "loginUser";
   }
 
@@ -243,17 +273,13 @@ public class AstaController {
 		}
 
 		System.out.println("Mail: " + userObserver.getUser().getEmail());
+		
+		String observeMessage = observeService.observe(userObserver.getItem().getId().toString(), userObserver.getUser().getEmail(), userObserver.getVerificationCode());
+		observeMessage = observeMessage.equals("ok") ? "Da ora riceverai le notifiche riguardo questo articolo": observeMessage;
 
-		Relaunch newRelaunch = new Relaunch();
-		newRelaunch.setItem(userObserver.getItem());
-		newRelaunch.setUsername(userObserver.getUser().getName() + " "
-				+ userObserver.getUser().getLastName());
-
-//		model.addAttribute("item", userObserver.getItem());
 		model.addAttribute("user", userObserver.getUser());
-//		model.addAttribute("relaunch", newRelaunch);
-//		model.addAttribute("relaunches", userObserver.getRelaunches());
-//		model.addAttribute("expiringSeconds", userObserver.getExpiringSeconds());
+		model.addAttribute("userObserver", userObserver);
+		model.addAttribute("observeMessage", observeMessage);
 
 		return "redirect:relaunchItem.html?itemid=" + userObserver.getItem().getId();
 	}

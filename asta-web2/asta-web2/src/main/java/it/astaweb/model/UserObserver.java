@@ -8,6 +8,7 @@ public class UserObserver {
 	private Item item;
 	private List<Relaunch> relaunches;
 	private Long expiringSeconds;
+	private String verificationCode;
 	
 	public UserObserver(User user, Item item, List<Relaunch> relaunches,
 			Long expiringSeconds) {
@@ -41,6 +42,12 @@ public class UserObserver {
 	}
 	public void setExpiringSeconds(Long expiringSeconds) {
 		this.expiringSeconds = expiringSeconds;
+	}
+	public String getVerificationCode() {
+		return verificationCode;
+	}
+	public void setVerificationCode(String verificationCode) {
+		this.verificationCode = verificationCode;
 	}
 	
 	

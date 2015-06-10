@@ -117,9 +117,9 @@ public class ItemProcess implements Serializable {
 		try {
 			if(expired){
 				
-				emailService.sendExpired(itemNews.getItem());
+				emailService.sendExpired(itemNews);
 			}else{
-				emailService.sendRelaunch(itemNews.getItem());
+				emailService.sendRelaunch(itemNews);
 			}
 			itemNews.setSentDate(now);
 			itemNews.setStatus(ItemNewsStatus.SENT);

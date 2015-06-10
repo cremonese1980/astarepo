@@ -3,6 +3,7 @@ package it.astaweb.service;
 
 
 import it.astaweb.model.Item;
+import it.astaweb.model.ItemNews;
 import it.astaweb.model.Relaunch;
 import it.astaweb.utils.CalendarUtils;
 import it.astaweb.utils.Constants;
@@ -90,10 +91,12 @@ public class EmailService extends ApplicationObjectSupport {
 	    } else
 		cc = ccext;
 
-		send(subject, body);
+	    String[] mailTo = this.to.split(",");
+	    
+		send(subject, body, mailTo);
     }
     
-    	public void send(String subjectText, String bodyText) {
+    	public void send(String subjectText, String bodyText, String[] mailTo) {
 	    
 	    try {
 	    	Session session = setupSession();
@@ -119,7 +122,6 @@ public class EmailService extends ApplicationObjectSupport {
 //		}
 		mailMessage.setContent(mp);
 		
-		String[] mailTo = this.to.split(",");
 		
 		for (int i = 0; i < mailTo.length; i++) {
 			 mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(mailTo[i]));
@@ -195,42 +197,59 @@ public class EmailService extends ApplicationObjectSupport {
 				"<br/>Prezzo base &euro;: " + item.getBaseAuctionPrice()+
 				"<br/><br/>Normali saluti,<br/>Il tuo Servente"
 				;
-		send(subject, body);
+		
+		 String[] mailTo = this.to.split(",");
+		send(subject, body, mailTo);
 		
 	}
 
-	public void sendExpired(Item item) {
-		String subject = "Attenzione: L'articolo " + item.getName() + " che stavi osservando &egrave; appena scaduto";
-		String body = "Ciao!<br/><br/>L'articolo " + item.getName() + " &egrave; appena scaduto."
-				+ "<br/>Descrizione: " + item.getDescription() +
-				"<br/>Data fine asta: " + dateFormat.format(item.getExpiringDate())  +
-				"<br/>Prezzo base &euro;: " + item.getBaseAuctionPrice()
+	public void sendExpired(ItemNews itemNews) {
+		String subject = "Attenzione: L'articolo " + itemNews.getItem().getName() + " che stavi osservando &egrave; appena scaduto";
+		String body = "Ciao!<br/><br/>L'articolo " + itemNews.getItem().getName() + " &egrave; appena scaduto."
+				+ "<br/>Descrizione: " + itemNews.getItem().getDescription() +
+				"<br/>Data fine asta: " + dateFormat.format(itemNews.getItem().getExpiringDate())  +
+				"<br/>Prezzo base &euro;: " + itemNews.getItem().getBaseAuctionPrice()
 				;
-		if(item.getStatus()==ItemStatus.SOLD_OUT){
-			body+="<br/><br/><b>Venduto per &euro; " + item.getBestRelaunch().getAmount() + "</b>";
-			body+="<br/>a <b>" + item.getBestRelaunch().getUsername() +
-					" </b> con rilancio in data " + dateFormat.format(item.getBestRelaunch().getDate());
+		if(itemNews.getItem().getStatus()==ItemStatus.SOLD_OUT){
+			body+="<br/><br/><b>Venduto per &euro; " + itemNews.getItem().getBestRelaunch().getAmount() + "</b>";
+			body+="<br/>a <b>" + itemNews.getItem().getBestRelaunch().getUsername() +
+					" </b> con rilancio in data " + dateFormat.format(itemNews.getItem().getBestRelaunch().getDate());
 		}else{
 			body+= "<br/><br/>Purtroppo &egrave; rimasto invenduto, ma non disperiamo, l'ho appena rimesso in vendita ad un prezzo inferiore del 20% rispetto alla base d'asta";
 		}
 		
 		body+="<br/><br/>Normali saluti,<br/>Il tuo Servente";
-		send(subject, body);
+		 String[] mailTo = this.to.split(",");
+			send(subject, body, itemNews.getCcList().split(","));
 	}
 	
-	public void sendRelaunch(Item item) {
-		String subject = "Attenzione: nuovo Rilancio per l'articolo " + item.getName() + " che stavi osservando";
-		String body = "Ciao!<br/><br/>&egrave; appena stato effettuato un rilancio per l'articolo " + item.getName() + " che stai osservando."
-				+ "<br/>Descrizione: " + item.getDescription() +
-				"<br/>Data fine asta: " + dateFormat.format(item.getExpiringDate())  +
-				"<br/>Prezzo base &euro;: " + item.getBaseAuctionPrice()
+	public void sendRelaunch(ItemNews itemNews) {
+		String subject = "Attenzione: nuovo Rilancio per l'articolo " + itemNews.getItem().getName() + " che stavi osservando";
+		String body = "Ciao!<br/><br/>&egrave; appena stato effettuato un rilancio per l'articolo " + itemNews.getItem().getName() + " che stai osservando."
+				+ "<br/>Descrizione: " + itemNews.getItem().getDescription() +
+				"<br/>Data fine asta: " + dateFormat.format(itemNews.getItem().getExpiringDate())  +
+				"<br/>Prezzo base &euro;: " + itemNews.getItem().getBaseAuctionPrice()
 				;
-			body+="<br/><br/><b>Ultimo rilancio: &euro; " + item.getBestRelaunch().getAmount() + "</b>";
-			body+="<br/><b> effettuato da " + item.getBestRelaunch().getUsername() +
-					" </b> con rilancio in data " + dateFormat.format(item.getBestRelaunch().getDate());
+			body+="<br/><br/><b>Ultimo rilancio: &euro; " + itemNews.getItem().getBestRelaunch().getAmount() + "</b>";
+			body+="<br/><b> effettuato da " + itemNews.getItem().getBestRelaunch().getUsername() +
+					" </b> con rilancio in data " + dateFormat.format(itemNews.getItem().getBestRelaunch().getDate());
 		
 		body+="<br/><br/>Normali saluti,<br/>Il tuo Servente";
-		send(subject, body);
+		 String[] mailTo = this.to.split(",");
+		 send(subject, body, itemNews.getCcList().split(","));
+	}
+
+	public void sendCode(Item item, String email, String code) {
+		
+		String subject = "Asta di www.ciaorocco.it - Codice di Verifica";
+		
+		String body = "Hai chiesto di osservare l'oggetto " + item.getName()+ 
+				"<br/><br/>Il codice di verifica &egrave; <b>" + code + "</b>"
+				+"<br/>Copialo e inseriscilo nella finestra di dialogo";
+		
+		String[] mailTo = {email};
+		send(subject, body, mailTo);
+		
 	}
 
     

@@ -1,10 +1,6 @@
 package it.astaweb.controller;
 
-import java.util.List;
-
 import it.astaweb.model.Item;
-import it.astaweb.model.Student;
-import it.astaweb.model.StudentLogin;
 import it.astaweb.model.User;
 import it.astaweb.service.AstaService;
 

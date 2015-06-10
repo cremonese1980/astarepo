@@ -235,23 +235,28 @@ public class AstaController {
 	  }
 
 	 @RequestMapping(value="/observeItem", method=RequestMethod.POST)
-	  public String observeItem(@Valid @ModelAttribute("userObserver") UserObserver userObserver, BindingResult result, Model model) {        
-	      if(result.hasErrors()) {
-	          return "relaunchItem";
-	      } 
-	      
-	      System.out.println("Mail: " + userObserver.getUser().getEmail());
-	      
-	      Relaunch newRelaunch = new Relaunch();
-			newRelaunch.setItem(userObserver.getItem());
-			newRelaunch.setUsername(userObserver.getUser().getName() + " " + userObserver.getUser().getLastName() );
-			
-	      model.addAttribute("item", userObserver.getItem());
-			model.addAttribute("user", userObserver.getUser());
-			model.addAttribute("newRelaunch", newRelaunch);
-	      
-	      return "relaunchItem";
-	  }
+	public String observeItem(
+			@Valid @ModelAttribute("userObserver") UserObserver userObserver,
+			BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "relaunchItem";
+		}
+
+		System.out.println("Mail: " + userObserver.getUser().getEmail());
+
+		Relaunch newRelaunch = new Relaunch();
+		newRelaunch.setItem(userObserver.getItem());
+		newRelaunch.setUsername(userObserver.getUser().getName() + " "
+				+ userObserver.getUser().getLastName());
+
+//		model.addAttribute("item", userObserver.getItem());
+		model.addAttribute("user", userObserver.getUser());
+//		model.addAttribute("relaunch", newRelaunch);
+//		model.addAttribute("relaunches", userObserver.getRelaunches());
+//		model.addAttribute("expiringSeconds", userObserver.getExpiringSeconds());
+
+		return "redirect:relaunchItem.html?itemid=" + userObserver.getItem().getId();
+	}
 	 
   
   private boolean validateRelaunch(Relaunch relaunch, Model model) {

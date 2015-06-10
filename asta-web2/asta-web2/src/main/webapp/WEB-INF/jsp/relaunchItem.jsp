@@ -198,12 +198,12 @@
 	        if(diff<3600){
 	        	hours ="";
 	        }else{
-	        	hours = hours + "h:"
+	        	hours = hours + "h:";
 	        }
 	        if(diff<60){
 	        	minutes ="";
 	        }else{
-	        	minutes = minutes + "m:"
+	        	minutes = minutes + "m:";
 	        }
 	        
 	        var finish = false;
@@ -211,7 +211,7 @@
 	        if(diff <= 0){
 	        	finish = true;
 	        }else{
-	        	seconds = seconds + "s"
+	        	seconds = seconds + "s";
 	        }
 	        
 	        
@@ -261,11 +261,7 @@
 				</div>
 			</c:if>
 
-			<c:url var="urlIconObserve" value="img/icons/observe.png" />
-			<div class="links">
-				<a href="#openModalObserve"><img style="width:35px;margin-left:150px" src="${urlIconObserve}" />
-					Osserva oggetto</a>
-			</div>
+			
 
 			<div id="openModalObserve" class="modalDialogObserve">
 				<div>
@@ -275,15 +271,20 @@
 						commandName="userObserver">
 						
 						<form:hidden path="user.password"/>
+						
 						<form:hidden path="item.name"/>
 						<form:hidden path="item.id"/>
-<%-- 						<form:hidden path="relaunches"/> --%>
-<%-- 						<form:hidden path="expiringSeconds"/> --%>
+						<form:hidden path="item.description"/>
+						<form:hidden path="item.baseAuctionPrice"/>
+						<form:hidden path="item.expiringDate"/>
+						<form:hidden path="item.fromDate"/>
+						<form:hidden path="item.bestRelaunch.id"/>
+						<form:hidden path="expiringSeconds"/>
 
 						<div class="data n1">
 							<label for="name">Nome</label>
 							<form:input type="text" class="form-control" path="user.name"
-								id="name" placeholder="name" disabled="true"/>
+								id="name" placeholder="name" readonly="true"/>
 
 
 						</div>
@@ -291,7 +292,7 @@
 						<div class="data n2">
 							<label for="lastName">Cognome</label>
 							<form:input type="text" class="form-control" path="user.lastName"
-								id="lastName" placeholder="lastName" disabled="true"/>
+								id="lastName" placeholder="lastName" readonly="true"/>
 
 						</div>
 						
@@ -326,6 +327,16 @@
 							<td colspan="2"><h2>
 									<span id="time"/></h2>&nbsp;&nbsp;
 							</td>
+							<c:url var="urlIconObserve" value="img/icons/observe.png" />
+							<td colspan="2"><h2>
+							<div class="inner" style="float:right;margin-right:200px;">
+								<div class="links">
+									<a style="color:#434343" href="#openModalObserve"><img style="width:80px;margin-left:150px" src="${urlIconObserve}" />
+										Osserva oggetto</a>
+								</div>
+							</div>
+							</td>
+							
 						</tr>
 						<tr>
 							<td colspan="2" style="font-weight: bold;">Se il rilancio avviene negli ultimi 3 minuti, l'orario di fine

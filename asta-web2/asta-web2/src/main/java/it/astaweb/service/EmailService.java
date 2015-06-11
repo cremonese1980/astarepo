@@ -189,7 +189,7 @@ public class EmailService extends ApplicationObjectSupport {
 	}
 
 	public void sendOnSell(Item item) {
-		String subject = "L'articolo " + item.getName() + " &egrave; appena stao messo in vendita";
+		String subject = "L'articolo " + item.getName() + " è appena stato messo in vendita";
 		String body = "Ciao!<br/><br/>L'articolo " + item.getName() + " &egrave; appena stato messo in vendita.<br/>"
 				+ "Descrizione: " + item.getDescription()
 				+ "<br/>Data inizio asta: " + dateFormat.format(item.getFromDate()) + 

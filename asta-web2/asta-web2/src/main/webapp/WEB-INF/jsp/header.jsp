@@ -31,7 +31,7 @@
 		<div class="links">
 			<c:url var="urlIcon" value="img/public/auction_ico2.png" />
 			<a href="itemlist.html"><img title="Vai all'asta!" style="width:30px" src="${urlIcon}"/> Asta</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="index.html">Home | </a>
+			<a href="index.html">Home</a> | 
 			<a style="font-size:12px" href="loginAdmin.html">Admin</a>
 		</div>
 		<div style="clear:both;"></div>

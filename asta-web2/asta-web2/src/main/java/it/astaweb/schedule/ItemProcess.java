@@ -40,9 +40,6 @@ public class ItemProcess implements Serializable {
 	@Autowired
 	PropertyService propertyService;
 	
-	@Autowired
-	ItemNewsRepository itemNewsRepository;
-
 	public ItemProcess() {
 	}
 	
@@ -95,12 +92,12 @@ public class ItemProcess implements Serializable {
 	@Scheduled(fixedRate=60000,initialDelay=30000)
 	public void sendItemNews(){	
 		
-		List<ItemNews> news = itemNewsRepository.findAll();
+		List<ItemNews> news = astaService.findAllItemNews();
+		Date now = CalendarUtils.currentTimeInItaly();
 		
 		for (Iterator<ItemNews> iterator = news.iterator(); iterator.hasNext();) {
 			ItemNews itemNews = iterator.next();
 			
-			Date now = CalendarUtils.currentTimeInItaly();
 			if(itemNews.getItem().getExpiringDate().before(now) && itemNews.getStatus()!= ItemNewsStatus.SENT){
 				sendNews(itemNews, now, true);
 			}else{
@@ -123,11 +120,11 @@ public class ItemProcess implements Serializable {
 			}
 			itemNews.setSentDate(now);
 			itemNews.setStatus(ItemNewsStatus.SENT);
-			itemNewsRepository.save(itemNews);
+			astaService.saveItemNews(itemNews);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			itemNews.setStatus(ItemNewsStatus.TO_SEND_AGAIN);
-			itemNewsRepository.save(itemNews);
+			astaService.saveItemNews(itemNews);
 		}
 	}
 	

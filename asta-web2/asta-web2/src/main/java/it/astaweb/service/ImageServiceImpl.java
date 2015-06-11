@@ -4,7 +4,6 @@ import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
 import it.astaweb.repository.ConfigurationRepository;
 import it.astaweb.repository.ItemImageRepository;
-import it.astaweb.repository.ItemRepository;
 import it.astaweb.utils.Constants;
 
 import java.awt.Graphics2D;
@@ -44,10 +43,6 @@ public class ImageServiceImpl implements ImageService {
 	private static final String IMG_ORIGINAL_VALUE = "";
 	private static final String JPG_SUFFIX = ".jpg";
 	
-
-	@Autowired(required = true)
-	private ItemRepository itemRepository;
-
 	@Autowired(required = true)
 	private ItemImageRepository itemImageRepository;
 	

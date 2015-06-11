@@ -34,5 +34,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 	@Query("select distinct i  from Item i LEFT JOIN FETCH i.images LEFT JOIN FETCH i.relaunches where i.id = (:id)")
 	Item findByIdAndFetchImagesFetchRelaunches(@Param("id") Integer id);
+	
+	@Query("select distinct i from Item i LEFT JOIN FETCH i.images img LEFT JOIN FETCH i.relaunches rel")
+	List<Item> findAllJoinImagesJoinRelaunches();
 
 }

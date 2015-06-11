@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -26,7 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "item")
-public class Item implements Serializable{
+public class Item implements Serializable, Comparable<Item>{
 	/**
 	 * 
 	 */
@@ -125,6 +123,10 @@ public class Item implements Serializable{
 	}
 	public void setBestRelaunch(Relaunch bestRelaunch) {
 		this.bestRelaunch = bestRelaunch;
+	}
+	@Override
+	public int compareTo(Item o) {
+		return this.expiringDate.compareTo(o.expiringDate);
 	}
 	
 	

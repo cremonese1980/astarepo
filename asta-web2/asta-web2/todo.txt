@@ -1,10 +1,9 @@
-BUG rilancio pari alla base d'asta
 
-Aggiungi il bottone "OSSERVA" per ricevere email di notifica se qualcuno fa un'offerta.
+Aggiungi bottone per smettere di osservare un oggetto
+Aggiungi ajax, sia nella pagina del rilancio, che in quella della lista
+Aggiungi cache per immagini
 I log..
 Aggiungi lista ultimi 5 rilanci nella pagina del rilancio
-Aggiungi ajax, sia nella pagina del rilancio, che in quella della lista
-Aggiungi cache per articoli ?
 Aggiungi messaggio ASTA FINITA, si aggiudica l'oggetto Marco De marchi (ad esempio)
 Aggiungere le varie mail di report
 Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro per l'oggetto yy
@@ -27,8 +26,11 @@ Cerca icona (più +) per aggiungere oggetti
 
 BUF FIXED rilancio inferiore ad 1 euro
 BUG FIXED decimali totale
+BUG FIXED rilancio pari alla base d'asta
 
 
+DONE Aggiungi cache per articoli ?
+DONE Aggiungi il bottone "OSSERVA" per ricevere email di notifica se qualcuno fa un'offerta.
 DONE Test in locale sezione admin
 DONE Aggiungi nome dell'utente che ha effettuato il miglior rilancio nella pagina elenco
 DONE Formattare valuta euro nelle mail (due decimali)

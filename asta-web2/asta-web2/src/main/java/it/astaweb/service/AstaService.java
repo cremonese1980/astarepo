@@ -3,22 +3,18 @@ package it.astaweb.service;
 import it.astaweb.exceptions.ObjectExpiredException;
 import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
+import it.astaweb.model.ItemNews;
 import it.astaweb.model.Relaunch;
 import it.astaweb.utils.ItemStatus;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 public interface AstaService {
 
 	Item saveItem(Item item) ;
 
-	Item findItemByName(String name);
-
 	Item findItemById(Integer id);
-
-	Item findItemByIdAndFetchImages(Integer id);
 
 	void deleteItem(Item item) ;
 
@@ -51,5 +47,9 @@ public interface AstaService {
 	Relaunch getBestRelaunch(Item item);
 	
 	String getTestPhaseMessage();
+
+	List<ItemNews> findAllItemNews();
+
+	void saveItemNews(ItemNews itemNews);
 
 }

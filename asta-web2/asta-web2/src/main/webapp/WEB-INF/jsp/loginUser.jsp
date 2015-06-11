@@ -41,7 +41,7 @@
 	<div id="wrapperMain">
 
 		<div class="pageTitle">
-			<span class="inner">Iserisci i tuoi dati</span>
+			<span class="inner">Inserisci i tuoi dati</span>
 		</div>
 		<div class="inner">
 			Si prega gentilmente di inserire nome e cognome reali, e la parola segreta ricevuta.

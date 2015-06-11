@@ -372,7 +372,7 @@ function observeItem()
 
 						<div class="data n1">
 							<label style="margin-left:40px" for="name">Nome</label>
-							<form:input type="text" class="form-control" path="user.name" style="margin-left:111px"
+							<form:input type="text" class="form-control" path="user.name" style="margin-left:111px;width:250px;"
 								id="name" placeholder="name" readonly="true"/>
 
 
@@ -380,14 +380,14 @@ function observeItem()
 						
 						<div class="data n2">
 							<label style="margin-left:40px" for="lastName">Cognome</label>
-							<form:input type="text" class="form-control" path="user.lastName" style="margin-left:82px"
+							<form:input type="text" class="form-control" path="user.lastName" style="margin-left:80px;width:250px;"
 								id="lastName" placeholder="lastName" readonly="true"/>
 
 						</div>
 						
 						<div class="data n3">
 							<label style="margin-left:40px" for="email">Email</label>
-							<form:input type="text" class="form-control" path="user.email" style="margin-left:114px"
+							<form:input type="text" class="form-control" path="user.email" style="margin-left:113px;width:250px;"
 								id="email" placeholder="email" />
 
 							<c:if test="${not empty emailMessage}">
@@ -398,14 +398,14 @@ function observeItem()
 						</div>
 						<div id="boxVerificationCode" class="data n4" style="display:none">
 							<label style="margin-left:40px" for="verificationCode">Codice Verifica</label>
-							<form:input type="text" class="form-control" path="verificationCode" style="margin-left:40px"
+							<form:input type="text" class="form-control" path="verificationCode" style="margin-left:35px;width:250px;"
 								id="verificationCode" placeholder="Inserisci il Codice ricevuto" />
 
 								<div class="errorMessage" style="color: red;">
 									${emailMessage}</div>
 
 						</div>
-						<div class="error" style="color:red" id="txtHint"></div>
+						<div class="error" style="color:red;padding:15px;margin-left:50px;" id="txtHint"></div>
 
 					</form:form>
 						<button id="btnObserve" class="button login" style="display:none" onclick="observeItem()">Osserva</button>
@@ -426,14 +426,14 @@ function observeItem()
  						<tr>
 							<td colspan="2">
 
-								<h2 style="padding:5px;">
+								<h2 style="padding:5px;height:14px;">
 									<span id="time" /> 
 								</h2>
-								<h1 style="padding:2px;">
+								<h1 style="padding:2px;height:34px;">
 								<c:url var="urlIconObserve" value="img/icons/observe.png" />
 								<a style="color: #00a5e2"
 										href="#openModalObserve">Osserva oggetto<img
-										style="width: 40px; margin-left:50px"
+										style="width: 52px; margin-left:12px;margin-bottom:-14px"
 										src="${urlIconObserve}" /> </a></h1>
 
 							</td>

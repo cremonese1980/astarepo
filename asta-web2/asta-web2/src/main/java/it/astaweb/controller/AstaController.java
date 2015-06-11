@@ -301,15 +301,19 @@ public class AstaController {
 		  return false;
 	  }
 	  
-		Relaunch current = relaunch.getItem().getBestRelaunch() != null ? relaunch
+	  	int noRelaunches = relaunch.getItem().getBestRelaunch()!=null &&relaunch.getItem().getBestRelaunch().getAmount()!=null? 1:0;
+	  
+		Relaunch current = relaunch.getItem().getBestRelaunch() != null && relaunch.getItem().getBestRelaunch().getAmount()!=null? relaunch
 				.getItem().getBestRelaunch() : new Relaunch(relaunch.getItem()
 						.getBaseAuctionPrice()) ;
 
-		if (relaunch.getAmount().doubleValue() < 1 + current.getAmount().doubleValue()) {
-			model.addAttribute(
-					"relaunchMessage",
-					"Il rilancio minimo è di &euro; 1 in più rispetto alla base d'asta o all'offerta corrente di &euro;  "
-							+ current.getAmount());
+		if (relaunch.getAmount().doubleValue() < noRelaunches + current.getAmount().doubleValue()) {
+			String message = "Il rilancio minimo è pari alla base d'asta";
+			if(noRelaunches==1){
+				message = "Il rilancio minimo è di &euro; 1 in più rispetto  all'offerta corrente di &euro; " + current.getAmount();
+			}
+					
+			model.addAttribute("relaunchMessage", message);
 			return false;
 		}
 		BigDecimal maxAbs = new BigDecimal(

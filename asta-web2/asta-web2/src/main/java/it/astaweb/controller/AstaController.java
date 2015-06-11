@@ -106,6 +106,26 @@ public class AstaController {
  		return "sendCode";
  	}
   
+  @RequestMapping(value="/updateItem", method=RequestMethod.GET)
+	public String updateItem(@RequestParam Map<String, String> params, Model model) {
+
+		 String itemid = (String) params.get("itemid");
+		 String nowDateString = (String) params.get("nowDate");
+		  
+		 System.out.println("Verificando aggiornamenti per l'item  " + itemid);
+		 System.out.println("Now date " + nowDateString);
+		 
+		 Date now = CalendarUtils.currentTimeInItaly();
+		
+		Item item = astaService.findItemById(Integer.parseInt(itemid));
+		
+//		String message = item.getBestRelaunch()!=null &&item.getBestRelaunch().getAmount()!=null && item.getBestRelaunch().getDate().
+
+		model.addAttribute("itemMessage", "no update");
+
+		return "itemUpdateResult";
+	}
+  
   
   @RequestMapping(value="/loginUser", method=RequestMethod.GET)
   public String loginUser(Model model) {

@@ -175,6 +175,7 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
@@ -214,6 +215,7 @@
 					<tomcatLoggingFile>tomcat_server.log</tomcatLoggingFile>
 					<port>5319</port>
 					<path>/</path>
+					<contextReloadable>true</contextReloadable>
 					<systemProperties>
 						<server.property>alpha</server.property>
 					</systemProperties>

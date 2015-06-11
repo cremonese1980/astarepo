@@ -157,6 +157,34 @@
   </style>
 
 <script>
+
+function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY, axisX, axisY ) {
+	
+	  context.translate( positionX, positionY );
+	  context.rotate( angleInRad );
+	  context.drawImage( image, -axisX, -axisY );
+	  context.rotate( -angleInRad );
+	  context.translate( -positionX, -positionY );
+	}
+	
+function prepareImage(){
+	var TO_RADIANS = Math.PI/180; 
+	ctx = document.getElementById("canvasDiv").getContext("2d");
+	var imgSprite = new Image();
+	imgSprite.src = "img/icons/redroundarrow.png";
+	
+	
+
+	// rotate 45º image "imgSprite", based on its rotation axis located at x=20,y=30 and draw it on context "ctx" of the canvas on coordinates x=200,y=100
+	rotateAndPaintImage ( ctx, imgSprite, 45*TO_RADIANS, 200, 100, 20, 30 );
+}
+	
+
+
+function init(){
+    setTimeout("update()", 2000);
+}
+
 function sendCode()
 {
 
@@ -243,6 +271,8 @@ function observeItem()
 	xmlhttp.open("GET","observeItem.html?email="+emailAddress+"&itemid="+itemid+"&code="+verificationCode,false);
 	xmlhttp.send();
 }
+
+
 </script>
 
 <title>Ciao Rocco</title>
@@ -322,12 +352,55 @@ function observeItem()
 	    // we don't want to wait a full second before the timer starts
 	    timer();
 	    setInterval(timer, 1000);
-	}
+	};
+	
+	function updateItem(startDate){
+// 		var diff = ((new Date()).getTime() - startDate)/1000; 
+// 		alert('diff ' + diff);
+		
+		var itemid = document.getElementById('itemid').value;
+		var xmlhttpBis;
+		
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttpBis=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+			xmlhttpBis=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		xmlhttpBis.onreadystatechange=function()
+		  {
+			  if (xmlhttpBis.readyState==4 && xmlhttpBis.status==200)
+			    {
+				    document.getElementById("updateItemDiv").innerHTML=xmlhttpBis.responseText;
+				    var itemMessage = document.getElementById('itemMessage').value + "Fissa: " + startDate + ". Variabile: " + (new Date()).getTime();
+				    document.getElementById("textItem").innerHTML = itemMessage;
+			    }
+		  }
+		xmlhttpBis.open("GET","updateItem.html?itemid="+itemid+"&nowDate="+ startDate,true);
+		xmlhttpBis.send();
+		
+// 		alert(itemid);
+
+
+	};
+	
+	function startFunction(nowDate) {
+//     	alert('prima chiamata: ' + nowDate);
+        setInterval(function(){ updateItem(nowDate); }, 2000);
+	};
 
 	window.onload = function () {
 	    var fiveMinutes = ${expiringSeconds},
 	        display = document.querySelector('#time');
+	    
 	    startTimer(fiveMinutes, display);
+
+	    startFunction((new Date).getTime());
+	    
+	    
+	    
 	};
 	</script>
 
@@ -347,6 +420,8 @@ function observeItem()
 			<c:if test="${not empty astaService.testPhaseMessage}">
 				<div class="inner" style="background-color:#DDDDDD;">
 					<b>${astaService.testPhaseMessage}</b>
+					<div class="error" style="color:red;padding:15px;margin-left:50px;" id="updateItemDiv"></div>
+					<div class="error" style="color:red;padding:15px;margin-left:50px;" id="textItem"></div>
 				</div>
 			</c:if>
 

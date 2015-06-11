@@ -1,4 +1,5 @@
 
+Se si posticipa data scadenza, non togliere da IN VENDITA, seppure il processo lo rimette dopo poco
 Aggiungi bottone per smettere di osservare un oggetto
 Aggiungi ajax, sia nella pagina del rilancio, che in quella della lista
 Aggiungi cache per immagini

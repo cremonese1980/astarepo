@@ -290,13 +290,27 @@ function observeItem()
 	        minutes,
 	        seconds,
 	        text,
-	        lastWord;
-	    function timer() {
+	        lastWord,
+	        stop;
+	      
+	    var newDuration=document.getElementById("idExpiringSeconds").value;
+	    var funcRunning = setInterval(timer, 1000);
+	    
+	     function timer() {
 	        // get the number of seconds that have elapsed since 
 	        // startTimer() was called
-	        duration=document.getElementById("idExpiringSeconds").value;
+	        
+	        stop = document.getElementById("idStopOld").value;
+	        if(stop=='true'){
+// 	        	alert('stopped');
+	        	document.getElementById("idStopOld").value = 'false';
+	        	clearInterval(funcRunning);
+	        	
+	        }
+	        
+	        
 // 	        alert(duration);
-	        diff = duration - (((Date.now() - start) / 1000) | 0);
+	        diff = newDuration - (((Date.now() - start) / 1000) | 0);
 
 	        // does the same job as parseInt truncates the float
 	        days = (diff / 86400) | 0;
@@ -352,8 +366,8 @@ function observeItem()
 	        display.textContent = text;  
 	    };
 	    // we don't want to wait a full second before the timer starts
-	    timer();
-	    setInterval(timer, 1000);
+// 	    timer();
+	    
 	};
 	
 	function updateItem(startDate){
@@ -383,16 +397,25 @@ function observeItem()
 				    document.getElementById("idAmount").innerHTML = document.getElementById('updAmount').value;
 				    document.getElementById("idUsername").innerHTML= document.getElementById('updUsername').value;
 				    document.getElementById("idDate").innerHTML = document.getElementById('updDate').value;
-				    document.getElementById("idExpiringSeconds").innerHTML = document.getElementById('updExpiringSeconds').value;
 				    document.getElementById("idExpiringDate").innerHTML = document.getElementById('updExpiringDate').value;
 				    document.getElementById("idTdRelaunch").style.color='red';
+				    document.getElementById("idPageLife").innerHTML = document.getElementById('updPageLife').value;
 				    
+// 				    document.getElementById("newExpiringSeconds").innerHTML = document.getElementById('updExpiringSeconds').value;
+// 				    document.getElementById("labNewExpiringSeconds").innerHTML = document.getElementById('updExpiringSeconds').value;
 				    
+				    document.getElementById("idExpiringSeconds").value = document.getElementById('updExpiringSeconds').value;
+				    var fiveMinutes = document.getElementById("idExpiringSeconds").value,
+			        display = document.querySelector('#time');
+				    document.getElementById("idStopOld").value = 'true';
+				    waitSeconds(1500);
+			    	startTimer(fiveMinutes, display);
 				    }
 				    
+// 				    alert(document.getElementById('updExpiringSeconds').value);
 				    
 			    }
-		  }
+		  };
 		xmlhttpBis.open("GET","updateItem.html?itemid="+itemid+"&nowDate="+ startDate,true);
 		xmlhttpBis.send();
 
@@ -400,16 +423,27 @@ function observeItem()
 	
 	function startFunction(nowDate) {
 //     	alert('prima chiamata: ' + nowDate);
-        setInterval(function(){ updateItem(nowDate); }, 2000);
+        setInterval(function(){ updateItem(nowDate); }, 5000);
+	};
+	
+	function waitSeconds(iMilliSeconds) {
+	    var counter= 0
+	        , start = new Date().getTime()
+	        , end = 0;
+	    while (counter < iMilliSeconds) {
+	        end = new Date().getTime();
+	        counter = end - start;
+	    }
 	};
 
 	window.onload = function () {
 	    var fiveMinutes = document.getElementById("idExpiringSeconds").value,
 	        display = document.querySelector('#time');
 	    
+	    
 	    startTimer(fiveMinutes, display);
 
-	    startFunction((new Date).getTime());
+	    startFunction(document.getElementById("idPageLife").value);
 	    
 	    
 	    
@@ -432,6 +466,16 @@ function observeItem()
 			<c:if test="${not empty astaService.testPhaseMessage}">
 				<div class="inner" style="background-color:#DDDDDD;">
 					<b>${astaService.testPhaseMessage}</b>
+					
+					<div id="updateItemContent" style="display:none"></div>
+<%-- 					<span>Exp sec ${expiringSeconds}</span> --%>
+<!-- 					<span id="labNewExpiringSeconds"></span> -->
+					
+					<input type="hidden" id="idExpiringSeconds" value="${expiringSeconds}" />
+<!-- 					<input type="hidden" id="newExpiringSeconds"></span> -->
+					<input type="hidden" id="idPageLife" value="${pageLife}"></span>
+					<input type="hidden" id="idStopOld" value="false" />
+					
 					<img src="img/icons/attention_icon2.png" style="display:none;"/>
 					<div  class="error" style="color:red;padding:15px;margin-left:20px;display:none" id="divTextItem">
 						<img style="width:25px" src="img/icons/attention_icon2.png"/>&nbsp;&nbsp;<span id="textItem"></span>
@@ -508,9 +552,6 @@ function observeItem()
 				<form:form id="myForm" method="post" action="relaunchItem.html"
 					commandName="relaunch">
 					
-					<div id="updateItemContent" style="display:none"></div>
-					
-					<input type="hidden" id="idExpiringSeconds" value="${expiringSeconds}"/>
 					
 					<form:hidden path="username"/>
 					<form:hidden id="itemid" path="item.id" />
@@ -556,7 +597,6 @@ function observeItem()
 							</td>
 						</tr>
 						
-						<!-- SUBSTITUTE BY AJAX -->
 						
 						<tr>
 							<td>Scadenza</td>

@@ -9,3 +9,4 @@
 <input type="hidden" id="updAmount" value="${amount}"/>
 <input type="hidden" id="updDate" value="${date}"/>
 <input type="hidden" id="updExpiringDate" value="${expiringDate}"/>
+<input type="hidden" id="updPageLife" value="${pageLife}"/>

@@ -1,8 +1,9 @@
 
-BUGGISSIMO per il push del rilancio.. non passare la data dal web. Boh, cmq c'è un problema con le date (solo live)
+
+BUG risolvi eccezione in asta controller nel metodo updateItem
 Dove c'è un date format, usare il pattern già usato in AstaController
 Aggiungi bottone per smettere di osservare un oggetto
-Aggiungi ajax, sia nella pagina del rilancio, che in quella della lista
+Aggiungi ajax nella pagina della lista
 Aggiungi cache per immagini
 I log..
 Aggiungi lista ultimi 5 rilanci nella pagina del rilancio
@@ -27,6 +28,7 @@ Cerca icona ingranaggi
 Cerca icona elimina
 Cerca icona (più +) per aggiungere oggetti
 
+BUGGISSIMO FIXED per il push del rilancio.. non passare la data dal web. Boh, cmq c'è un problema con le date (solo live)
 BUF FIXED rilancio inferiore ad 1 euro
 BUG FIXED decimali totale
 BUG FIXED rilancio pari alla base d'asta

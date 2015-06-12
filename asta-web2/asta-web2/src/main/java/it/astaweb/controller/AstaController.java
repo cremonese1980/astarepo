@@ -19,6 +19,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -136,7 +137,13 @@ public class AstaController {
 
 		String itemid = (String) params.get("itemid");
 		String nowDateString = (String) params.get("nowDate");
-		long clientTime = Long.parseLong(nowDateString);
+		Long pageLife = 0L;
+		
+		try {
+			pageLife = Long.parseLong(nowDateString);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 //		System.out.println("Verificando aggiornamenti per l'item  " + itemid);
 //		System.out.println("Now date " + nowDateString);
@@ -146,25 +153,29 @@ public class AstaController {
 		boolean newRelaunch = item.getBestRelaunch()!=null&&
 				item.getBestRelaunch().getAmount()!=null &&
 						item.getBestRelaunch().getAmount().longValue()>0
-								&& item.getBestRelaunch().getDate().getTime()>clientTime?
+								&& item.getBestRelaunch().getDate().getTime()>pageLife.longValue() ?
 										true:false;
 						
 		String message = "";
 								
+		Long expiringSeconds = (item.getExpiringDate().getTime() - CalendarUtils.currentTimeInItaly().getTime())/1000;
+		if(expiringSeconds<=0){
+			expiringSeconds = 0L;
+		}
+		model.addAttribute("expiringSeconds", expiringSeconds);
+		
 		if(newRelaunch){
-			Long expiringSeconds = (item.getExpiringDate().getTime() - CalendarUtils.currentTimeInItaly().getTime())/1000;
-			if(expiringSeconds<=0){
-				expiringSeconds = 0L;
-			}
 			
-			System.out.println(expiringSeconds);
+//			System.out.println(expiringSeconds);
+			
+			pageLife = CalendarUtils.currentTimeInItaly().getTime();
 
 			model.addAttribute("item", item);
-			model.addAttribute("expiringSeconds", expiringSeconds);
 			model.addAttribute("username", item.getBestRelaunch().getUsername());
 			model.addAttribute("amount", decimalFormat.get().format(item.getBestRelaunch().getAmount()));
 			model.addAttribute("date", df.get().format(item.getBestRelaunch().getDate()));
 			model.addAttribute("expiringDate", df.get().format(item.getExpiringDate()));
+			model.addAttribute("pageLife", pageLife);
 			
 			message = "Attenzione, &egrave; stato effettuato un rilancio da " + item.getBestRelaunch().getUsername()
 					+" di &euro; " + item.getBestRelaunch().getAmount() + " in data " + df.get().format(item.getBestRelaunch().getDate()
@@ -275,12 +286,15 @@ public class AstaController {
 		if(expiringSeconds<=0){
 			expiringSeconds = 0L;
 		}
+		
+		Long pageLife = CalendarUtils.currentTimeInItaly().getTime();
 
 		model.addAttribute("item", item);
 		model.addAttribute("user", loggedUser);
 		model.addAttribute("relaunch", relaunch);
 		model.addAttribute("relaunches", relaunches);
 		model.addAttribute("expiringSeconds", expiringSeconds);
+		model.addAttribute("pageLife", pageLife);
 		
 		UserObserver userObserver = new UserObserver(loggedUser, item, relaunches, expiringSeconds);
 		model.addAttribute("userObserver", userObserver);

@@ -62,6 +62,9 @@
 					commandName="item">
 					
 					<form:hidden path="id"/>
+					<form:hidden path="status"/>
+					<form:hidden path="bestRelaunch.id"/>
+					
 					<div class="data n1">
 						<label for="name">Nome</label>
 						<form:input type="text" class="form-control" path="name"

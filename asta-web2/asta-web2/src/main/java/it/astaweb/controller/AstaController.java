@@ -14,6 +14,9 @@ import it.astaweb.utils.Constants;
 import it.astaweb.utils.ItemStatus;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,6 +41,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes({"user", "userObserver"})
 public class AstaController {
+	
+	private static final String DATE_PATTERN = "dd/MM/yyyy HH:mm:ss";
 
   @Autowired(required=true)
   private AstaService astaService;
@@ -53,9 +58,28 @@ public class AstaController {
   
   private static List<String> secretWords;
   
+  private static final ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>(){
+	    @Override
+	    protected DateFormat initialValue() {
+	        return new SimpleDateFormat(DATE_PATTERN);
+	    }
+	  };
+	  
+	  private static final ThreadLocal<DecimalFormat> decimalFormat = new ThreadLocal<DecimalFormat>(){
+		    @Override
+		    protected DecimalFormat initialValue() {
+		        return new DecimalFormat();
+		    }
+		  };
+	  
+
+	  
+  
   @PostConstruct
   public void init(){
 	  System.out.println("Asta controller inizializzato");
+	  decimalFormat.get().setMaximumFractionDigits(2);
+	  decimalFormat.get().setMinimumFractionDigits(0);
   }
   
   @RequestMapping(value="/sendCode", method=RequestMethod.GET)
@@ -107,21 +131,48 @@ public class AstaController {
  	}
   
   @RequestMapping(value="/updateItem", method=RequestMethod.GET)
-	public String updateItem(@RequestParam Map<String, String> params, Model model) {
+	public String updateItem(@RequestParam Map<String, String> params,
+			Model model) {
 
-		 String itemid = (String) params.get("itemid");
-		 String nowDateString = (String) params.get("nowDate");
-		  
-		 System.out.println("Verificando aggiornamenti per l'item  " + itemid);
-		 System.out.println("Now date " + nowDateString);
-		 
-		 Date now = CalendarUtils.currentTimeInItaly();
-		
+		String itemid = (String) params.get("itemid");
+		String nowDateString = (String) params.get("nowDate");
+		long clientTime = Long.parseLong(nowDateString);
+
+//		System.out.println("Verificando aggiornamenti per l'item  " + itemid);
+//		System.out.println("Now date " + nowDateString);
+
 		Item item = astaService.findItemById(Integer.parseInt(itemid));
 		
-//		String message = item.getBestRelaunch()!=null &&item.getBestRelaunch().getAmount()!=null && item.getBestRelaunch().getDate().
+		boolean newRelaunch = item.getBestRelaunch()!=null&&
+				item.getBestRelaunch().getAmount()!=null &&
+						item.getBestRelaunch().getAmount().longValue()>0
+								&& item.getBestRelaunch().getDate().getTime()>clientTime?
+										true:false;
+						
+		String message = "";
+								
+		if(newRelaunch){
+			Long expiringSeconds = (item.getExpiringDate().getTime() - CalendarUtils.currentTimeInItaly().getTime())/1000;
+			if(expiringSeconds<=0){
+				expiringSeconds = 0L;
+			}
+			
+			System.out.println(expiringSeconds);
 
-		model.addAttribute("itemMessage", "no update");
+			model.addAttribute("item", item);
+			model.addAttribute("expiringSeconds", expiringSeconds);
+			model.addAttribute("username", item.getBestRelaunch().getUsername());
+			model.addAttribute("amount", decimalFormat.get().format(item.getBestRelaunch().getAmount()));
+			model.addAttribute("date", df.get().format(item.getBestRelaunch().getDate()));
+			model.addAttribute("expiringDate", df.get().format(item.getExpiringDate()));
+			
+			message = "Attenzione, &egrave; stato effettuato un rilancio da " + item.getBestRelaunch().getUsername()
+					+" di &euro; " + item.getBestRelaunch().getAmount() + " in data " + df.get().format(item.getBestRelaunch().getDate()
+					) ;
+		}
+
+
+		model.addAttribute("itemMessage", message);
 
 		return "itemUpdateResult";
 	}

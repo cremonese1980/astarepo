@@ -294,6 +294,8 @@ function observeItem()
 	    function timer() {
 	        // get the number of seconds that have elapsed since 
 	        // startTimer() was called
+	        duration=document.getElementById("idExpiringSeconds").value;
+// 	        alert(duration);
 	        diff = duration - (((Date.now() - start) / 1000) | 0);
 
 	        // does the same job as parseInt truncates the float
@@ -355,8 +357,6 @@ function observeItem()
 	};
 	
 	function updateItem(startDate){
-// 		var diff = ((new Date()).getTime() - startDate)/1000; 
-// 		alert('diff ' + diff);
 		
 		var itemid = document.getElementById('itemid').value;
 		var xmlhttpBis;
@@ -373,16 +373,28 @@ function observeItem()
 		  {
 			  if (xmlhttpBis.readyState==4 && xmlhttpBis.status==200)
 			    {
-				    document.getElementById("updateItemDiv").innerHTML=xmlhttpBis.responseText;
-				    var itemMessage = document.getElementById('itemMessage').value + "Fissa: " + startDate + ". Variabile: " + (new Date()).getTime();
+				    document.getElementById("updateItemContent").innerHTML=xmlhttpBis.responseText;
+// 				    alert(xmlhttpBis.responseText);
+				    var itemMessage = document.getElementById('itemMessage').value;
+				    if(itemMessage!=null && itemMessage!=''){
+				    	
+				    document.getElementById("divTextItem").style.display = 'block';
 				    document.getElementById("textItem").innerHTML = itemMessage;
+				    document.getElementById("idAmount").innerHTML = document.getElementById('updAmount').value;
+				    document.getElementById("idUsername").innerHTML= document.getElementById('updUsername').value;
+				    document.getElementById("idDate").innerHTML = document.getElementById('updDate').value;
+				    document.getElementById("idExpiringSeconds").innerHTML = document.getElementById('updExpiringSeconds').value;
+				    document.getElementById("idExpiringDate").innerHTML = document.getElementById('updExpiringDate').value;
+				    document.getElementById("idTdRelaunch").style.color='red';
+				    
+				    
+				    }
+				    
+				    
 			    }
 		  }
 		xmlhttpBis.open("GET","updateItem.html?itemid="+itemid+"&nowDate="+ startDate,true);
 		xmlhttpBis.send();
-		
-// 		alert(itemid);
-
 
 	};
 	
@@ -392,7 +404,7 @@ function observeItem()
 	};
 
 	window.onload = function () {
-	    var fiveMinutes = ${expiringSeconds},
+	    var fiveMinutes = document.getElementById("idExpiringSeconds").value,
 	        display = document.querySelector('#time');
 	    
 	    startTimer(fiveMinutes, display);
@@ -420,8 +432,10 @@ function observeItem()
 			<c:if test="${not empty astaService.testPhaseMessage}">
 				<div class="inner" style="background-color:#DDDDDD;">
 					<b>${astaService.testPhaseMessage}</b>
-					<div class="error" style="color:red;padding:15px;margin-left:50px;" id="updateItemDiv"></div>
-					<div class="error" style="color:red;padding:15px;margin-left:50px;" id="textItem"></div>
+					<img src="img/icons/attention_icon2.png" style="display:none;"/>
+					<div  class="error" style="color:red;padding:15px;margin-left:20px;display:none" id="divTextItem">
+						<img style="width:25px" src="img/icons/attention_icon2.png"/>&nbsp;&nbsp;<span id="textItem"></span>
+					</div>
 				</div>
 			</c:if>
 
@@ -494,6 +508,10 @@ function observeItem()
 				<form:form id="myForm" method="post" action="relaunchItem.html"
 					commandName="relaunch">
 					
+					<div id="updateItemContent" style="display:none"></div>
+					
+					<input type="hidden" id="idExpiringSeconds" value="${expiringSeconds}"/>
+					
 					<form:hidden path="username"/>
 					<form:hidden id="itemid" path="item.id" />
 					<table>
@@ -537,19 +555,23 @@ function observeItem()
 									  maxFractionDigits="2" />
 							</td>
 						</tr>
+						
+						<!-- SUBSTITUTE BY AJAX -->
+						
 						<tr>
 							<td>Scadenza</td>
-							<td><fmt:formatDate value="${item.expiringDate}"
-									pattern="dd/MM/yyyy HH:mm:ss" /></td>
+							<td><span id="idExpiringDate"><fmt:formatDate  value="${item.expiringDate}"
+									pattern="dd/MM/yyyy HH:mm:ss" /></span></td>
 						</tr>
 						<tr>
 							<td>Miglior Rilancio</td>
-							<td><c:choose>
+							<td id="idTdRelaunch"><c:choose>
 							<c:when test="${not empty item.bestRelaunch.username}">
-								&euro; <fmt:formatNumber value="${item.bestRelaunch.amount}"
-										maxFractionDigits="2" />
-								(<b>${item.bestRelaunch.username}</b> <fmt:formatDate
-										value="${item.bestRelaunch.date}" pattern="dd/MM/yyyy HH:mm:ss" />)
+								&euro; <span id="idAmount"><fmt:formatNumber  value="${item.bestRelaunch.amount}"
+										maxFractionDigits="2" /></span>
+								(<span id="idUsername"><b >${item.bestRelaunch.username}</b></span> 
+								 <span id="idDate"><fmt:formatDate
+										 value="${item.bestRelaunch.date}" pattern="dd/MM/yyyy HH:mm:ss" /></span>)
 								</c:when>
 								<c:otherwise>
 									Nessun rilancio, il tuo può essere il primo!
@@ -557,6 +579,8 @@ function observeItem()
 								</c:choose>
 								</td>
 						</tr>
+						<!-- END SUBSTITUTE BY AJAX -->
+						
 						<tr>
 							<td >
 									La tua Offerta

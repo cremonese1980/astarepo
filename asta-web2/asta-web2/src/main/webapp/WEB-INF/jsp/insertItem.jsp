@@ -64,6 +64,10 @@
 					<form:hidden path="id"/>
 					<form:hidden path="status"/>
 					<form:hidden path="bestRelaunch.id"/>
+					<form:hidden path="bestRelaunch.username"/>
+					<form:hidden path="bestRelaunch.date"/>
+					<form:hidden path="bestRelaunch.amount"/>
+					
 					
 					<div class="data n1">
 						<label for="name">Nome</label>

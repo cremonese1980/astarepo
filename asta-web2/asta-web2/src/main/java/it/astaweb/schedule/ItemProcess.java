@@ -60,7 +60,7 @@ public class ItemProcess implements Serializable {
 				try {
 					emailService.sendOnSell(item);
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					System.out.println("Errore nell'invio della mail " + e.getMessage());
 				}
 			}
 			

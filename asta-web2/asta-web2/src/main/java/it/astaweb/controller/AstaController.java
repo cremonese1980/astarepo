@@ -118,8 +118,6 @@ public class AstaController {
  		 String code = (String) params.get("code");
  		  
  		 System.out.println("Verificando il codice  " + code + " per l'email " + email + " per l'item con id  " + itemid);
- 		  System.out.println("email " + email);
- 		  System.out.println("itemid " + itemid);
  		
  		String observeMessage = observeService.observe(itemid, email, code);
  		String statusCode = observeMessage.equals("ok") ? observeMessage : "ko";

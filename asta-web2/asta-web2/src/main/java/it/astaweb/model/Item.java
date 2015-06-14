@@ -51,9 +51,11 @@ public class Item implements Serializable, Comparable<Item>{
 	@NotNull
 	@Column(name="id_status", columnDefinition="varchar")
 	private ItemStatus status = ItemStatus.PRE_SELL;
+	
 	@ManyToOne
 	@JoinColumn(name="id_best_relaunch")
 	private Relaunch bestRelaunch;
+	
 	@OneToMany(mappedBy="item",fetch=FetchType.LAZY)
 	private Set<Relaunch> relaunches = new HashSet<Relaunch>();
 	

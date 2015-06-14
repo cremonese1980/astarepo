@@ -180,8 +180,9 @@ public class ItemController {
 			return "redirect:index.html";
 		}
 
-		Item item = astaService.findItemById(Integer.parseInt((String)params.get("itemid")));
+		Item item = astaService.findItemByIdAndFetchImagesFetchRelaunches(Integer.parseInt((String)params.get("itemid")));
 		model.addAttribute("item", item);
+		model.addAttribute("bestRelaunch", item.getBestRelaunch());
 		
 		List<ItemImage> images = astaService.findAllImagesByItem(item.getId());
 		model.addAttribute("images", images);
@@ -234,7 +235,7 @@ public class ItemController {
 			return "redirect:index.html";
 		}
 
-		Item item = astaService.findItemById(Integer.parseInt((String)params.get("itemid")));
+		Item item = astaService.findItemByIdAndFetchImagesFetchRelaunches(Integer.parseInt((String)params.get("itemid")));
 		ItemImage itemImage = new ItemImage();
 		itemImage.setItem(item);
 		model.addAttribute("itemImage", itemImage);		

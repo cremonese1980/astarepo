@@ -5,7 +5,9 @@
 <div class="section1">
 	<div class="inner">	
 		<span class="questions">Domande?</span>
-		<span class="phone">02 123456 <em>(9- 18, Lun - Ven)</em></span>		
+		<c:if test="${not empty user.name}">
+			<span class="phone">393 9312001<em>(9- 18, Lun - Ven)</em></span>		
+		</c:if>
 		<span class="mail"><a href="mailto:astaweb.server@gmail.com" style="color: #fff">astaweb.server@gmail.com</a></span>
 		<span class="clear"></span>
 	</div>

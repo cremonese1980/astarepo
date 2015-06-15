@@ -19,9 +19,9 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -140,11 +140,7 @@ public class AstaController {
 		try {
 			pageLife = Long.parseLong(nowDateString);
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
-
-//		System.out.println("Verificando aggiornamenti per l'item  " + itemid);
-//		System.out.println("Now date " + nowDateString);
 
 		Item item = astaService.findItemById(Integer.parseInt(itemid));
 		
@@ -163,8 +159,6 @@ public class AstaController {
 		model.addAttribute("expiringSeconds", expiringSeconds);
 		
 		if(newRelaunch){
-			
-//			System.out.println(expiringSeconds);
 			
 			pageLife = CalendarUtils.currentTimeInItaly().getTime();
 
@@ -186,6 +180,62 @@ public class AstaController {
 		return "itemUpdateResult";
 	}
   
+  @RequestMapping(value="/updateItems", method=RequestMethod.GET)
+	public String updateItems(@RequestParam Map<String, String> params,
+			Model model) {
+
+		String nowDateString = (String) params.get("nowDate");
+		Long pageLife = 0L;
+		
+		try {
+			pageLife = Long.parseLong(nowDateString);
+		} catch (Exception e) {
+		}
+
+		List<Item> itemList = astaService.findAllItemByStatus(ItemStatus.ON_SELL);
+		List<Item> updatedItemList = new ArrayList<Item>();
+		String message = "";
+		String idList ="";
+		
+		for (Iterator<Item> iterator = itemList.iterator(); iterator.hasNext();) {
+			Item item = iterator.next();
+
+			boolean newRelaunch = item.getBestRelaunch() != null
+					&& item.getBestRelaunch().getAmount() != null
+					&& item.getBestRelaunch().getAmount().longValue() > 0
+					&& item.getBestRelaunch().getDate().getTime() > pageLife
+							.longValue() ? true : false;
+					
+			if (newRelaunch) {
+				idList+=item.getId()+",";
+				updatedItemList.add(item);
+				message += "Attenzione, <b> "
+						+ item.getBestRelaunch().getUsername()
+						+ "</b> offre &euro; <b>"
+						+ decimalFormat.get().format(item.getBestRelaunch().getAmount())
+						+ "</b> in data <b>"
+						+ df.get().format(item.getBestRelaunch().getDate() )+ "</b>"
+								+ " per l'articolo <b>" + item.getName() + "</b><br/>";
+			}
+
+		}								
+		
+		if(updatedItemList.size()>0){
+			
+			
+			pageLife = CalendarUtils.currentTimeInItaly().getTime();
+
+			model.addAttribute("updatedItemList", updatedItemList);
+			model.addAttribute("pageLife", pageLife);
+			model.addAttribute("idList", idList);
+			
+		}
+
+
+		model.addAttribute("itemMessage", message);
+
+		return "itemsUpdateResult";
+	}
   
   @RequestMapping(value="/loginUser", method=RequestMethod.GET)
   public String loginUser(Model model) {
@@ -242,7 +292,10 @@ public class AstaController {
 	  if(loggedUser==null || loggedUser.getName()==null || loggedUser.getName().trim().equals("")){
 		  return "redirect:loginUser.html";
 	  }
-      List<Item> itemList = astaService.findAllItemByStatusJoinImages(ItemStatus.ON_SELL);        
+      List<Item> itemList = astaService.findAllItemByStatusJoinImages(ItemStatus.ON_SELL);
+      Long pageLife = CalendarUtils.currentTimeInItaly().getTime();
+      
+      model.addAttribute("pageLife", pageLife);
       model.addAttribute("itemlist", itemList);
       model.addAttribute("user", loggedUser);
       return "itemlist";

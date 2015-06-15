@@ -97,9 +97,87 @@
 
 <title>Ciao Rocco</title>
 
+<script>
+function updateItems(startDate){
+		
+		var xmlhttpBis;
+		
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttpBis=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+			xmlhttpBis=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		xmlhttpBis.onreadystatechange=function()
+		  {
+			  if (xmlhttpBis.readyState==4 && xmlhttpBis.status==200)
+			    {
+				    document.getElementById("updateItemContent").innerHTML=xmlhttpBis.responseText;
+
+				    var itemMessage = document.getElementById('itemMessage').value;
+				    if(itemMessage!=null && itemMessage!=''){
+				    	
+					    document.getElementById("divTextItem").style.display = 'block';
+					    document.getElementById("textItem").innerHTML = itemMessage;
+					    document.getElementById("idPageLife").innerHTML = document.getElementById('updPageLife').value;					    
+					    
+						var idListArray = document.getElementById("updIdList").value.split(",");
+
+						for (var int = 0; int < idListArray.length-1; int++) 
+							{ 
+
+								var idItem = idListArray[int];
+								
+								replaceRelaunch(idItem);
+
+							}
+
+				    }
+				    
+				    
+			    }
+		  };
+		xmlhttpBis.open("GET","updateItems.html?nowDate="+ startDate,true);
+		xmlhttpBis.send();
+
+	};
+	
+	function startFunction(nowDate) {
+        setInterval(function(){ updateItems(nowDate); }, 10000);
+	};
+	
+	function replaceRelaunch(idItem){
+		
+		var fieldPrefix = ['Date','Username','Amount'];
+		
+		for (var int = 0; int < fieldPrefix.length; int++) {
+			
+			replaceVal(idItem, fieldPrefix[int]);
+		}
+		
+	};
+	function replaceVal(idItem, field){
+		
+		document.getElementById("idBr" + field+idItem).innerHTML = document.getElementById("upd"+field+idItem).value;
+		document.getElementById("idBr" +field+idItem).style.color='red';
+		document.getElementById("idBrEuro" +idItem).style.color='red';
+	}
+	
+
+	window.onload = function () {
+
+	    startFunction(document.getElementById("idPageLife").value);
+	    
+	};
+	</script>
+
 </head>
 
 <body class="commonOverride becomeFundraiser support">
+
+	<input type="hidden" id="idPageLife" value="${pageLife}">
 
 
 	<%-------------------------------------------------- HEADER --------------------------------------------------------%>
@@ -119,6 +197,10 @@
 			<c:if test="${not empty astaService.testPhaseMessage}">
 				<div class="inner" style="background-color:#DDDDDD;">
 					<b>${astaService.testPhaseMessage}</b>
+					<div id="updateItemContent" style="display:none"></div>
+					<div  class="error" style="color:red;padding:15px;margin-left:20px;display:none" id="divTextItem">
+						<img style="width:25px;text-align:center" src="img/icons/attention_icon2.png"/><br/><span id="textItem"></span>
+					</div>
 				</div>
 			</c:if>
 			<br/>
@@ -128,9 +210,9 @@
 					<thead align="center">
 						<tr>
 							<th width="18%"><h3>Articolo</h3></th>
-							<th width="25%"><h3>Descrizione</h3></th>
+							<th width="20%"><h3>Descrizione</h3></th>
 							<th width="10%"><h3>Base d'asta</h3></th>
-							<th width="20%"><h3>Miglior offerta</h3></th>
+							<th width="25%"><h3>Miglior offerta</h3></th>
 							<th width="10%"><h3>Scadenza</h3></th>
 							<th width="10%"><h3>Anteprima</h3></th>
 							<th width="10%"><h3>Rilancia!</h3></th>
@@ -158,9 +240,12 @@
 								 maxFractionDigits="2"/> 
 								</td>
 								<td><c:choose>
-										<c:when test="${not empty item.bestRelaunch.amount}">
-											<b>${item.bestRelaunch.username}</b> &euro; <fmt:formatNumber value="${item.bestRelaunch.amount}"
-										maxFractionDigits="2" />
+										<c:when test="${not empty item.bestRelaunch.amount}">										
+										<span id="idBrDate${item.id}"><fmt:formatDate value="${item.bestRelaunch.date}" 
+											pattern="dd/MM/yyyy HH:mm:ss"/></span><br/>
+											<b><span id="idBrUsername${item.id}">${item.bestRelaunch.username}</span></b><br/>
+											<span id="idBrEuro${item.id}">&euro;:</span> <span id="idBrAmount${item.id}"><fmt:formatNumber value="${item.bestRelaunch.amount}"
+										maxFractionDigits="2" /></span>
 										</c:when>
 										<c:otherwise>
 											Nessuna offerta

@@ -473,7 +473,7 @@ function observeItem()
 					
 					<input type="hidden" id="idExpiringSeconds" value="${expiringSeconds}" />
 <!-- 					<input type="hidden" id="newExpiringSeconds"></span> -->
-					<input type="hidden" id="idPageLife" value="${pageLife}"></span>
+					<input type="hidden" id="idPageLife" value="${pageLife}">
 					<input type="hidden" id="idStopOld" value="false" />
 					
 					<img src="img/icons/attention_icon2.png" style="display:none;"/>
@@ -640,9 +640,7 @@ function observeItem()
 						<tr>
 							<td>&nbsp;</td>
 							<td>	
-								<c:if test="${user.password ne 'frittella'}">
 									<button class="button login">Rilancia</button>
-								</c:if>
 							</td>
 						</tr>
 					</table>

@@ -125,6 +125,10 @@ public class AstaServiceImpl implements AstaService {
 	@Transactional
 	@Override
 	public void deleteItem(Item item) {
+		if(item.getBestRelaunch()!=null && item.getBestRelaunch().getId()!=null){
+			item.setBestRelaunch(null);
+			itemCache.saveItem(item);
+		}
 		itemImageRepository.delete(item.getImages());
 		relaunchRepository.delete(item.getRelaunches());
 		itemNewsRepository.deleteByItem(item.getId());

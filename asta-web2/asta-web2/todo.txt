@@ -1,18 +1,19 @@
 
-<<<<<<< HEAD
-=======
-Rilancio minimo
->>>>>>> d66bdb668892010b738830a46d95d402e02debeb
+Ottimizzare memoria tomcat
+Togli possibilità di rilanciare con pwd frittella, NON solo il bottone, perchè con invio rilancio lo stesso
+Ordina gli avvisi in rosso
+Togli le password del cazzo
+Bloccare chiamate updateItem se utente non loggato
+Rilancio minimo 5 euro
 BUG risolvi eccezione in asta controller nel metodo updateItem
 Item controller, nel catch del metodo privato viene stampato null
 Dove c'è un date format, usare il pattern già usato in AstaController
-Aggiungi bottone per smettere di osservare un oggetto
-Aggiungi ajax nella pagina della lista
 Aggiungi cache per immagini
+Aggiungi bottone per smettere di osservare un oggetto
+Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro per l'oggetto yy
 I log..
 Aggiungi lista ultimi 5 rilanci nella pagina del rilancio
 Aggiungere le varie mail di report
-Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro per l'oggetto yy
 
 Inibire "osserva" per oggetti scaduti
 Se si posticipa data scadenza, non togliere da IN VENDITA, seppure il processo lo rimette dopo poco
@@ -38,6 +39,7 @@ BUG FIXED decimali totale
 BUG FIXED rilancio pari alla base d'asta
 
 
+DONE Aggiungi ajax nella pagina della lista
 DONE Aggiungi cache per articoli ?
 DONE Aggiungi il bottone "OSSERVA" per ricevere email di notifica se qualcuno fa un'offerta.
 DONE Test in locale sezione admin

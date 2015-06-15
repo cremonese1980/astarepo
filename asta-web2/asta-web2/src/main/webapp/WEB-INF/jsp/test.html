@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to display the array values after the split.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+<p id="updIdList">12,15,67,</p>
+
+<script>
+function myFunction() {
+
+  // var str = "How,are, you, doing, today,";
+   // var res = str.split(",");
+   // document.getElementById("demo").innerHTML = res;
+
+var idListArray = document.getElementById("updIdList").value.split(",");
+alert('lenght: ' + idListArray.lenght);
+var res = "";
+for (var int = 0; int < idListArray.length-1; int++) 
+{ 
+    var idItem = idListArray[i];
+res+=idItem + " ";
+						}
+}
+document.getElementById("demo").innerHTML = res;
+</script>
+
+</body>
+</html>

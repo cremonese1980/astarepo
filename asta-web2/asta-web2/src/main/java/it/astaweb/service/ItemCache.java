@@ -26,6 +26,8 @@ public interface ItemCache {
 
 	Item findItemByIdAndFetchImagesFetchRelaunches(Integer id);
 	
+	void refresh();
+	
 	
 
 }

@@ -23,7 +23,7 @@ public class ItemCacheImpl implements ItemCache {
 	
 	private BigDecimal totalOffer;
 	
-	Map<Integer, Item> itemCache = Collections.synchronizedMap(new WeakHashMap<Integer, Item>());
+	Map<Integer, Item> itemCache;
 	
 	@Autowired(required = true)
 	private ItemRepository itemRepository;
@@ -32,11 +32,11 @@ public class ItemCacheImpl implements ItemCache {
 	private void init(){
 		totalOffer = itemRepository.getTotalOffer();
 		
-		List<Item> itemList = itemRepository.findAllJoinImagesJoinRelaunches();
-		
-		initDb(itemList, itemCache);
+		refresh();
 		
 	}
+	
+	
 
 	private void initDb(List<Item> itemList,
 			Map<Integer, Item> itemCache) {
@@ -63,7 +63,7 @@ public class ItemCacheImpl implements ItemCache {
 			item.setBestRelaunch(null);
 		}
 		itemRepository.save(item);		
-		itemCache.put(item.getId(), item);
+		refresh();
 
 	}
 
@@ -79,7 +79,7 @@ public class ItemCacheImpl implements ItemCache {
 	@Override
 	public void deleteItem(Integer id) {
 		itemRepository.delete(id);
-		itemCache.remove(id);
+		refresh();
 
 	}
 
@@ -118,6 +118,16 @@ public class ItemCacheImpl implements ItemCache {
 	@Override
 	public Item findItemByIdAndFetchImagesFetchRelaunches(Integer id) {
 		return itemCache.get(id);
+	}
+
+
+
+	@Override
+	public synchronized void refresh() {
+		itemCache = Collections.synchronizedMap(new WeakHashMap<Integer, Item>());
+		List<Item> itemList = itemRepository.findAllJoinImagesJoinRelaunches();		
+		initDb(itemList, itemCache);
+		
 	}
 
 }

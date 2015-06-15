@@ -1,12 +1,16 @@
 
+<<<<<<< HEAD
+=======
+Rilancio minimo
+>>>>>>> d66bdb668892010b738830a46d95d402e02debeb
 BUG risolvi eccezione in asta controller nel metodo updateItem
+Item controller, nel catch del metodo privato viene stampato null
 Dove c'è un date format, usare il pattern già usato in AstaController
 Aggiungi bottone per smettere di osservare un oggetto
 Aggiungi ajax nella pagina della lista
 Aggiungi cache per immagini
 I log..
 Aggiungi lista ultimi 5 rilanci nella pagina del rilancio
-Aggiungi messaggio ASTA FINITA, si aggiudica l'oggetto Marco De marchi (ad esempio)
 Aggiungere le varie mail di report
 Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro per l'oggetto yy
 

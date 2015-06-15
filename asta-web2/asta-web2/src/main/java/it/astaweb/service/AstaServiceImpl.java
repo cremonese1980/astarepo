@@ -99,8 +99,11 @@ public class AstaServiceImpl implements AstaService {
 
 	@Transactional
 	@Override
-	public void addImage(ItemImage image) {
-		itemImageRepository.save(image);
+	public void addImage(ItemImage itemImage) {
+		if(itemImage.getItem().getBestRelaunch()!=null && itemImage.getItem().getBestRelaunch().getId()==null){
+			itemImage.getItem().setBestRelaunch(null);
+		}
+		itemImageRepository.save(itemImage);
 	}
 
 	@Override

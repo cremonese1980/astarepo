@@ -277,7 +277,7 @@ public class ItemController {
 //			model.addAttribute("descriptionMessage", "Descrizione immagine obbligatoria");
 //			error = true;
 //		}
-
+//		itemImage.setItem(astaService.findItemByIdAndFetchImagesFetchRelaunches(itemImage.getItem().getId()));
 		model.addAttribute("item", itemImage.getItem());
 		
 		if(error){
@@ -286,11 +286,12 @@ public class ItemController {
 		}
 		System.out.println("ItemController - Sto per aggiungere l'immagine");
 		logger.info("Sto per aggiungere l'immagine");
-		astaService.addImage(itemImage);
+//		astaService.addImage(itemImage);
 		try {
-			imageService.saveImage(itemImage, uploadImage);
+			astaService.addImage(itemImage);
 			Item item = astaService.findItemById(itemImage.getItem().getId());
 			itemImage.setItem(item);
+			imageService.saveImage(itemImage, uploadImage);
 			astaService.addImage(itemImage);
 		} catch (Exception e) {
 			model.addAttribute("uploadImageMessage", "Errore durante il salvataggio dell'immagine: " + e.getMessage());

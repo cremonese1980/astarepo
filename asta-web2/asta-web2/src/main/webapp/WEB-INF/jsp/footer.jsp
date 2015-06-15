@@ -34,6 +34,11 @@
 			lavoro. Precisiamo che i dpi in asta hanno valore affettivo e non
 			sono da considerarsi materiale di sicurezza da utilizzare.
 			L'iniziativa ha scopo benefico: il ricavato sarà interamente devoluto
-			a Gabrio ed Alice.</div>
+			a Gabrio ed Alice. I prezzi di partenza posso fungere da prima
+			offerta, ogni rilancio successivo dovrà essere pari ad un minimo di
+			euro 5. Modalità di pagamento: ricarica Postepay. Modalità di
+			consegna: tramite amici/colleghi/concittadini. I materiali acquistati
+			non hanno certificazioni. Gli articoli scadono dal 6 al 12 luglio,
+			tenete monitorati quelli di vostro interesse!</div>
 	</div>
 </div>

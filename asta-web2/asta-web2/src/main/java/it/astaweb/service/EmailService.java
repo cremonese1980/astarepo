@@ -189,7 +189,7 @@ public class EmailService extends ApplicationObjectSupport {
 	}
 
 	public void sendOnSell(Item item) {
-		String subject = "L'articolo " + item.getName() + " è appena stato messo in vendita";
+		String subject = "L'articolo " + item.getName() + " e' appena stato messo in vendita";
 		String body = "Ciao!<br/><br/>L'articolo " + item.getName() + " &egrave; appena stato messo in vendita.<br/>"
 				+ "Descrizione: " + item.getDescription()
 				+ "<br/>Data inizio asta: " + dateFormat.format(item.getFromDate()) + 
@@ -204,7 +204,7 @@ public class EmailService extends ApplicationObjectSupport {
 	}
 
 	public void sendExpired(ItemNews itemNews) {
-		String subject = "Attenzione: L'articolo " + itemNews.getItem().getName() + " che stavi osservando è appena scaduto";
+		String subject = "Attenzione: L'articolo " + itemNews.getItem().getName() + " che stavi osservando e' appena scaduto";
 		String body = "Ciao!<br/><br/>L'articolo " + itemNews.getItem().getName() + " &egrave; appena scaduto."
 				+ "<br/>Descrizione: " + itemNews.getItem().getDescription() +
 				"<br/>Data fine asta: " + dateFormat.format(itemNews.getItem().getExpiringDate())  +

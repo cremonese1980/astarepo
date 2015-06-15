@@ -1,5 +1,4 @@
 
-
 BUG risolvi eccezione in asta controller nel metodo updateItem
 Dove c'è un date format, usare il pattern già usato in AstaController
 Aggiungi bottone per smettere di osservare un oggetto
@@ -11,6 +10,7 @@ Aggiungi messaggio ASTA FINITA, si aggiudica l'oggetto Marco De marchi (ad esemp
 Aggiungere le varie mail di report
 Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro per l'oggetto yy
 
+Inibire "osserva" per oggetti scaduti
 Se si posticipa data scadenza, non togliere da IN VENDITA, seppure il processo lo rimette dopo poco
 Aggiungi offerta automatica con tetto massimo (come hattrick)
 

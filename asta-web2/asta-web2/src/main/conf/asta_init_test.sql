@@ -38,6 +38,13 @@ INSERT INTO item_news (id_item, cc_list)
     id AS id_item,
     'cremonese1980@gmail.com,chevuoi@hotmail.com' AS cc_list
   FROM item;
+  
+  
+  update item set id_best_relaunch = null;
+delete from item_image;
+delete from relaunch;
+delete from item_news;
+delete from item;
 
 
 commit;

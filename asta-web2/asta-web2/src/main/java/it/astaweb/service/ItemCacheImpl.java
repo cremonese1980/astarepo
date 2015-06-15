@@ -59,6 +59,9 @@ public class ItemCacheImpl implements ItemCache {
 
 	@Override
 	public void saveItem(Item item) {
+		if(item.getBestRelaunch()!=null && item.getBestRelaunch().getId()==null){
+			item.setBestRelaunch(null);
+		}
 		itemRepository.save(item);		
 		itemCache.put(item.getId(), item);
 

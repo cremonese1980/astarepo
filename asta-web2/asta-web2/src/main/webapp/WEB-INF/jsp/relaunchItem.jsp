@@ -639,7 +639,11 @@ function observeItem()
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
-							<td>	<button class="button login">Rilancia</button></td>
+							<td>	
+								<c:if test="${user.password ne 'frittella'}">
+									<button class="button login">Rilancia</button>
+								</c:if>
+							</td>
 						</tr>
 					</table>
 

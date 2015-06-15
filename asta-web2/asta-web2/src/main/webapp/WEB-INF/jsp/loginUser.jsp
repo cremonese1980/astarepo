@@ -89,7 +89,7 @@
 
 					</div>
 						
-					<button class="button login">Gioca!</button>
+					<button class="button login">Entra!</button>
 
 
 				</form:form>

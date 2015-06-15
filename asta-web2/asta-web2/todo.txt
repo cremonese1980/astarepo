@@ -7,7 +7,6 @@ Aggiungi ajax nella pagina della lista
 Aggiungi cache per immagini
 I log..
 Aggiungi lista ultimi 5 rilanci nella pagina del rilancio
-Aggiungi messaggio ASTA FINITA, si aggiudica l'oggetto Marco De marchi (ad esempio)
 Aggiungere le varie mail di report
 Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro per l'oggetto yy
 

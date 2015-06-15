@@ -1,6 +1,7 @@
 
-
+Rilancio minimo
 BUG risolvi eccezione in asta controller nel metodo updateItem
+Item controller, nel catch del metodo privato viene stampato null
 Dove c'è un date format, usare il pattern già usato in AstaController
 Aggiungi bottone per smettere di osservare un oggetto
 Aggiungi ajax nella pagina della lista

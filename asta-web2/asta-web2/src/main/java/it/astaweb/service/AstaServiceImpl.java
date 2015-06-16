@@ -251,7 +251,7 @@ public class AstaServiceImpl implements AstaService {
 		
 		Date now = CalendarUtils.currentTimeInItaly();
 		Calendar calendar = new GregorianCalendar();
-		calendar.set(2015, Calendar.JUNE, 16, 21, 0,0);
+		calendar.set(2015, Calendar.JUNE, 21, 18, 0,0);
 		
 		if(now.before(calendar.getTime())){
 			return "Fase di test senza nessun valore, se non quello di un prezioso aiuto, " +

@@ -56,6 +56,8 @@ public class AstaController {
   
   @Autowired(required=true)
   ObserveService observeService;
+
+  private int minRelaunch = 5;
   
   private static List<String> secretWords;
   
@@ -81,6 +83,8 @@ public class AstaController {
 	  System.out.println("Asta controller inizializzato");
 	  decimalFormat.get().setMaximumFractionDigits(2);
 	  decimalFormat.get().setMinimumFractionDigits(0);
+	  minRelaunch = Integer.parseInt(propertyService
+				.getValue(Constants.PROPERTY_RELAUNCH_MIN.getValue()));
   }
   
   @RequestMapping(value="/sendCode", method=RequestMethod.GET)
@@ -309,7 +313,6 @@ public class AstaController {
   
   @RequestMapping(value = "/relaunchItem", method = RequestMethod.GET)
 	public String itemPage(@RequestParam Map<String, String> params, Model model) {
-
 		User loggedUser = (User) model.asMap().get("user");
 		Item item = (Item)model.asMap().get("item");
 
@@ -437,7 +440,8 @@ public class AstaController {
 		  return false;
 	  }
 	  
-	  	int noRelaunches = relaunch.getItem().getBestRelaunch()!=null &&relaunch.getItem().getBestRelaunch().getAmount()!=null? 1:0;
+		int noRelaunches = relaunch.getItem().getBestRelaunch() != null
+				&& relaunch.getItem().getBestRelaunch().getAmount() != null ? minRelaunch : 0;
 	  
 		Relaunch current = relaunch.getItem().getBestRelaunch() != null && relaunch.getItem().getBestRelaunch().getAmount()!=null? relaunch
 				.getItem().getBestRelaunch() : new Relaunch(relaunch.getItem()
@@ -445,8 +449,8 @@ public class AstaController {
 
 		if (relaunch.getAmount().doubleValue() < noRelaunches + current.getAmount().doubleValue()) {
 			String message = "Il rilancio minimo è pari alla base d'asta";
-			if(noRelaunches==1){
-				message = "Il rilancio minimo è di &euro; 1 in più rispetto  all'offerta corrente di &euro; " + current.getAmount();
+			if(noRelaunches==minRelaunch){
+				message = "Il rilancio minimo è di &euro; " + minRelaunch + " in più rispetto  all'offerta corrente di &euro; " + current.getAmount();
 			}
 					
 			model.addAttribute("relaunchMessage", message);

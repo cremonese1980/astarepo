@@ -1,16 +1,13 @@
 package it.astaweb.service;
 
-import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
 import it.astaweb.repository.ItemImageRepository;
-import it.astaweb.repository.ItemRepository;
 import it.astaweb.utils.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -32,7 +29,7 @@ public class ImageCacheImpl implements ImageCache {
 	private PropertyService propertyService;
 	
 	
-	private Map<Integer, byte[]> imageCache;
+	private Map<String, byte[]> imageCache;
 	
 	@Autowired(required = true)
 	private ItemImageRepository itemImageRepository;
@@ -46,20 +43,30 @@ public class ImageCacheImpl implements ImageCache {
 	
 	@Override
 	public void add(File file, ItemImage itemImage) {
-		imageCache.put(itemImage.getId(), readFile(file));
+		if(imageCache.keySet().size()==0){
+			refresh();
+		}
+		imageCache.put(itemImage.getName(), readFile(file));
+		imageCache.put(itemImage.getThumbName(), readFile(file));
 		
 	}
 
 
 	@Override
-	public byte[] get(ItemImage itemImage) {
-		return imageCache.get(itemImage.getId());
+	public byte[] get(String imageName) {
+		if(imageCache.keySet().size()==0){
+			refresh();
+		}
+		return imageCache.get(imageName);
 	}
 
 
 	@Override
-	public void remove(ItemImage itemImage) {
-		imageCache.remove(itemImage.getId());
+	public void remove(String imageName) {
+		if(imageCache.keySet().size()==0){
+			refresh();
+		}
+		imageCache.remove(imageName);
 		
 	}
 	
@@ -73,30 +80,34 @@ public class ImageCacheImpl implements ImageCache {
 	
 	@Override
 	public synchronized void refresh() {
-		imageCache = Collections.synchronizedMap(new WeakHashMap<Integer, byte[]>());
+		imageCache = Collections.synchronizedMap(new WeakHashMap<String, byte[]>());
 		List<ItemImage> itemImageList = itemImageRepository.findAll();
 		initDb(itemImageList, imageCache);
 		
 	}
 
 	private void initDb(List<ItemImage> itemImageList,
-			Map<Integer, byte[]> imageCache) {
+			Map<String, byte[]> imageCache) {
 		
 		for (Iterator<ItemImage> iterator = itemImageList.iterator(); iterator.hasNext();) {
 			ItemImage itemImage = iterator.next();
 			
-			File file = accessFile(itemImage);
+			File file = accessFile(itemImage.getId()+"", itemImage.getItem().getId()+"", itemImage.getName());
+			File fileThumb = accessFile(itemImage.getId()+"", itemImage.getItem().getId()+"", itemImage.getThumbName());
 			
-			if(imageCache.get(itemImage.getId())==null){
-				imageCache.put(itemImage.getId(), readFile(file));
+			if(imageCache.get(itemImage.getName())==null){
+				imageCache.put(itemImage.getName(), readFile(file));
+			}
+			if(imageCache.get(itemImage.getThumbName())==null){
+				imageCache.put(itemImage.getThumbName(), readFile(fileThumb));
 			}
 			
 		}
 		
 	}
 
-	private File accessFile(ItemImage itemImage) {
-		String filePath = findImagePathByIdAndItemIdAndName(itemImage.getId()+"", itemImage.getItem().getId()+"", itemImage.getName());
+	private File accessFile(String itemImageId, String itemId, String imageName) {
+		String filePath = findImagePathByIdAndItemIdAndName(itemImageId, itemId, imageName);
 		
 		File file = new File(filePath);
 		if(!file.exists()){

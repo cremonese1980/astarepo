@@ -1,6 +1,6 @@
 
+TODO subito: rollback modifiche imagecache e consolidare tutto. Subito.
 Togli possibilità di rilanciare con pwd frittella, NON solo il bottone, perchè con invio rilancio lo stesso
-Rilancio minimo 5 euro
 Ottimizzare memoria tomcat
 Ordina gli avvisi in rosso
 Togli le password del cazzo
@@ -44,6 +44,7 @@ ItemProcess: portate fuori dai metodi le variabili
 
 
 
+DONE Rilancio minimo 5 euro
 BUGGISSIMO FIXED per il push del rilancio.. non passare la data dal web. Boh, cmq c'è un problema con le date (solo live)
 BUF FIXED rilancio inferiore ad 1 euro
 BUG FIXED decimali totale

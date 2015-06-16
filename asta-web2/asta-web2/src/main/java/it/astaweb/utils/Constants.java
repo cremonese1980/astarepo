@@ -21,6 +21,7 @@ public enum Constants {
 	PROPERTY_SECRET_WORDS("secret.words"),
 	PROPERTY_RELAUNCH_MAX_ABS("relaunch.max.abs"),
 	PROPERTY_RELAUNCH_MAX_REL("relaunch.max.rel"),
+	PROPERTY_RELAUNCH_MIN("relaunch.min"),
 	EMAIL_ONSELL_SUBJECT(""), 
 	EMAIL_ONSELL_BODY(""),
 	PROPERTY_BC_LIST_BASE("bc.list.base"),;

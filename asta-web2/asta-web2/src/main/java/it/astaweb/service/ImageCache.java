@@ -8,9 +8,9 @@ public interface ImageCache {
 
 	void add(File file, ItemImage itemImage);
 	
-	byte[] get(ItemImage itemImage);
+	byte[] get(String imageName);
 	
-	void remove(ItemImage itemImage);
+	void remove(String imageName);
 
 	void refresh();
 

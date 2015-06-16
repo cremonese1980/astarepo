@@ -12,6 +12,7 @@ insert into configuration(name, value) values('secret.words', 'birra,fiorentina,
 insert into configuration(name, value) values('relaunch.postpone.seconds', '180');
 insert into configuration(name, value) values('relaunch.max.abs', '50');
 insert into configuration(name, value) values('relaunch.max.rel', '3');
+insert into configuration(name, value) values('relaunch.min', '5');
 
 insert into configuration(name, value) values('mail.sender.host', 'smtp.gmail.com');
 insert into configuration(name, value) values('mail.sender.port', '465');

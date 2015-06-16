@@ -19,10 +19,12 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service("imageService")
+@DependsOn(value={"imageCache"})
 public class ImageServiceImpl implements ImageService {
 	
 	private static final Log LOG = LogFactory.getLog(ImageServiceImpl.class);
@@ -76,12 +78,14 @@ public class ImageServiceImpl implements ImageService {
 		System.out.println("Saving Image in base disk path: " + ImageCacheImpl.BASE_PATH);
 
 		File image = writeImage(itemImage, uploadImage, IMG_ORIGINAL);
-		imageCache.add(image, itemImage);
 		File imageThumb = writeImageThumb(image, itemImage, IMG_THUMB);
 		
 		itemImage.setName(image.getName());
 		itemImage.setThumbName(imageThumb.getName());
 		itemImage.setPath(image.getAbsolutePath().substring(0,image.getAbsolutePath().lastIndexOf("/")+1));
+
+		imageCache.add(image, itemImage);
+		imageCache.add(imageThumb, itemImage);
 		
 		return itemImage;
 	}
@@ -249,6 +253,11 @@ public class ImageServiceImpl implements ImageService {
 		g.dispose();
 
 		return resizedImage;
+	}
+
+	@Override
+	public byte[] get(String imageName) {
+		return imageCache.get(imageName);
 	}
 
 }

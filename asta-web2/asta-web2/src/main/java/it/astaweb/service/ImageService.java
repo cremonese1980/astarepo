@@ -18,4 +18,5 @@ public interface ImageService {
 	  void deleteImage(ItemImage itemImage);
 	  List<ItemImage> findAllImage();
 	  List<ItemImage> findAllImageByItem(Item item);
+	  byte[] get(String imageName);
 	}

@@ -75,4 +75,45 @@ public class ImageController {
 		}
 
 	}
+	
+	
+	public static void main(String[] args) {
+		
+		File file = new File("/home/cremo80/asta/store/img/1/1_80cm_vintage.jpg");
+		
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(file);
+			byte b[];
+			int x = fis.available();
+			b = new byte[x];
+			System.out.println("file " + file.length());
+			
+//			printArray(b);
+			fis.read(b);
+			System.out.println("array " + b.length);
+//			printArray(b);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (fis != null)
+				try {
+					fis.close();
+				} catch (IOException ignore) {
+				}
+		}
+	}
+
+
+	private static void printArray(byte[] b) {
+		for (int i = 0; i < b.length; i++) {
+			System.out.print(b[i]);
+		}
+		System.out.println("");
+		System.out.println("");
+	}
 }

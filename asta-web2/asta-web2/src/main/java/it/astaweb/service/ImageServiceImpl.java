@@ -4,7 +4,6 @@ import it.astaweb.model.Item;
 import it.astaweb.model.ItemImage;
 import it.astaweb.repository.ConfigurationRepository;
 import it.astaweb.repository.ItemImageRepository;
-import it.astaweb.utils.Constants;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -51,16 +50,18 @@ public class ImageServiceImpl implements ImageService {
 	
 	@Autowired(required = true)
 	private PropertyService propertyService;
+	
+	@Autowired(required = true)
+	private ImageCache imageCache;
 
-	private  String BASE_PATH = "/home/asta/store/img";
 	private  File BASE_FOLDER;
 	
 	@PostConstruct
 	public void init(){
-		BASE_PATH = propertyService.getValue(Constants.PROPERTY_NAME_BASE_PATH.getValue());
-		BASE_FOLDER = new File(BASE_PATH);
+		
+		BASE_FOLDER = new File(ImageCacheImpl.BASE_PATH);
 		if(!BASE_FOLDER.exists()){
-			LOG.info("Base folder [" + BASE_PATH + "] doesen't exists. I create it right now!" );
+			LOG.info("Base folder [" + ImageCacheImpl.BASE_PATH + "] doesen't exists. I create it right now!" );
 			if(!BASE_FOLDER.mkdir()){
 				LOG.info("Huston, we have a problem");
 			}else{
@@ -71,11 +72,12 @@ public class ImageServiceImpl implements ImageService {
 	
 	@Override
 	public ItemImage saveImage(ItemImage itemImage, MultipartFile uploadImage) throws IllegalStateException, IOException {
-		logger.info("Saving Image in base disk path: " + BASE_PATH);
-		System.out.println("Saving Image in base disk path: " + BASE_PATH);
+		logger.info("Saving Image in base disk path: " + ImageCacheImpl.BASE_PATH);
+		System.out.println("Saving Image in base disk path: " + ImageCacheImpl.BASE_PATH);
 
 		File image = writeImage(itemImage, uploadImage, IMG_ORIGINAL);
-		File imageThumb = writeImageThumb(image, itemImage, IMG_THUMB);;
+		imageCache.add(image, itemImage);
+		File imageThumb = writeImageThumb(image, itemImage, IMG_THUMB);
 		
 		itemImage.setName(image.getName());
 		itemImage.setThumbName(imageThumb.getName());
@@ -120,7 +122,7 @@ public class ImageServiceImpl implements ImageService {
 	public String findImagePathByIdAndItemIdAndName(String id, String itemId,
 			String name) {
 		
-		return BASE_PATH + File.separator + itemId + File.separator + name;
+		return imageCache.findImagePathByIdAndItemIdAndName(id, itemId, name);
 	}
 
 	/*
@@ -129,7 +131,7 @@ public class ImageServiceImpl implements ImageService {
 	private File writeImage(ItemImage itemImage, MultipartFile uploadImage, int type) throws IllegalStateException, IOException {
 		
 //		File temp = File.createTempFile("temp_" + System.currentTimeMillis(), ".jpg");
-		File temp = new File(BASE_PATH+ File.separator + "temp_" + System.currentTimeMillis() + ".jpg");
+		File temp = new File(ImageCacheImpl.BASE_PATH+ File.separator + "temp_" + System.currentTimeMillis() + ".jpg");
 		System.out.println("Temp file creato: " + temp.getName() + " nel path " + temp.getAbsolutePath());
 		uploadImage.transferTo(temp);
 		System.out.println("File temporaneo scritto" );
@@ -184,7 +186,7 @@ public class ImageServiceImpl implements ImageService {
 		if(!imageName.endsWith(JPG_SUFFIX)){
 			imageName = imageName + JPG_SUFFIX;
 		}
-		String path = BASE_PATH
+		String path = ImageCacheImpl.BASE_PATH
 				+ File.separator
 				+ itemImage.getItem().getId()
 				+ File.separator
@@ -211,7 +213,7 @@ public class ImageServiceImpl implements ImageService {
 	
 	private void buildItemFolder(ItemImage itemImage) {
 		
-		File itemFolder = new File(BASE_PATH + File.separator + itemImage.getItem().getId());
+		File itemFolder = new File(ImageCacheImpl.BASE_PATH + File.separator + itemImage.getItem().getId());
 		if(!itemFolder.exists()){
 			itemFolder.mkdir();
 		}

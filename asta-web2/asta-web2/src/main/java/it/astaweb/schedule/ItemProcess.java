@@ -2,13 +2,10 @@ package it.astaweb.schedule;
 
 import it.astaweb.model.Item;
 import it.astaweb.model.ItemNews;
-import it.astaweb.model.Relaunch;
-import it.astaweb.repository.ItemNewsRepository;
 import it.astaweb.service.AstaService;
 import it.astaweb.service.EmailService;
 import it.astaweb.service.PropertyService;
 import it.astaweb.utils.CalendarUtils;
-import it.astaweb.utils.Constants;
 import it.astaweb.utils.ItemNewsStatus;
 import it.astaweb.utils.ItemStatus;
 
@@ -40,13 +37,21 @@ public class ItemProcess implements Serializable {
 	@Autowired
 	PropertyService propertyService;
 	
+	/*
+	 * Variabili portate fuori
+	 */
+	private List<Item> itemPreSell;
+	private List<Item> itemOnSell;
+	private List<ItemNews> news;
+	private Date now;
+	
 	public ItemProcess() {
 	}
 	
 	@Scheduled(fixedRate=60000)
 	public void presellTosell(){		
 		
-		List<Item> itemPreSell =  astaService.findAllItemByStatus(ItemStatus.PRE_SELL);
+		itemPreSell =  astaService.findAllItemByStatus(ItemStatus.PRE_SELL);
 		
 		LOG.info("Oggetti in pre-vendita **********************************");
 		for (Iterator<Item> iterator = itemPreSell.iterator(); iterator.hasNext();) {
@@ -67,7 +72,7 @@ public class ItemProcess implements Serializable {
 		}
 		LOG.info("Fine Oggetti in pre-vendita **********************************\n");
 		
-		List<Item> itemOnSell =  astaService.findAllItemByStatus(ItemStatus.ON_SELL);
+		itemOnSell =  astaService.findAllItemByStatus(ItemStatus.ON_SELL);
 		
 		LOG.info("Oggetti in vendita **********************************");
 		for (Iterator<Item> iterator = itemOnSell.iterator(); iterator.hasNext();) {
@@ -87,13 +92,14 @@ public class ItemProcess implements Serializable {
 			
 		}
 		LOG.info("Fine Oggetti in vendita **********************************");
+		Runtime.getRuntime().gc();
 	}
 	
 	@Scheduled(fixedRate=60000,initialDelay=30000)
 	public void sendItemNews(){	
 		
-		List<ItemNews> news = astaService.findAllItemNews();
-		Date now = CalendarUtils.currentTimeInItaly();
+		news = astaService.findAllItemNews();
+		now = CalendarUtils.currentTimeInItaly();
 		
 		for (Iterator<ItemNews> iterator = news.iterator(); iterator.hasNext();) {
 			ItemNews itemNews = iterator.next();
@@ -107,6 +113,8 @@ public class ItemProcess implements Serializable {
 			}
 			
 		}
+		
+		Runtime.getRuntime().gc();
 		
 	}
 

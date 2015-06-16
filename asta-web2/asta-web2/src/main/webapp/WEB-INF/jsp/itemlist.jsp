@@ -244,7 +244,7 @@ function updateItems(startDate){
 										<span id="idBrDate${item.id}"><fmt:formatDate value="${item.bestRelaunch.date}" 
 											pattern="dd/MM/yyyy HH:mm:ss"/></span><br/>
 											<b><span id="idBrUsername${item.id}">${item.bestRelaunch.username}</span></b><br/>
-											<span id="idBrEuro${item.id}">&euro;:</span> <span id="idBrAmount${item.id}"><fmt:formatNumber value="${item.bestRelaunch.amount}"
+											<span id="idBrEuro${item.id}">&euro;</span> <span id="idBrAmount${item.id}"><fmt:formatNumber value="${item.bestRelaunch.amount}"
 										maxFractionDigits="2" /></span>
 										</c:when>
 										<c:otherwise>

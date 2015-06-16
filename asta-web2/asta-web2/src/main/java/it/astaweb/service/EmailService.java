@@ -4,7 +4,6 @@ package it.astaweb.service;
 
 import it.astaweb.model.Item;
 import it.astaweb.model.ItemNews;
-import it.astaweb.model.Relaunch;
 import it.astaweb.utils.CalendarUtils;
 import it.astaweb.utils.Constants;
 import it.astaweb.utils.ItemStatus;
@@ -33,7 +32,13 @@ import org.springframework.stereotype.Service;
 public class EmailService extends ApplicationObjectSupport {
 	
 	private static final String DATE_PATTERN = "dd/MM/yyyy HH:mm:ss";
-	private static DateFormat dateFormat;
+	
+	private static final ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>(){
+	    @Override
+	    protected DateFormat initialValue() {
+	        return new SimpleDateFormat(DATE_PATTERN);
+	    }
+	  };
 	
 	@Autowired
     private PropertyService propertyService;
@@ -64,8 +69,6 @@ public class EmailService extends ApplicationObjectSupport {
 		cc = propertyService.getValue(Constants.PROPERTY_MAIL_SENDER_CC.getValue());
 		to = propertyService.getValue(Constants.PROPERTY_MAIL_SENDER_TO.getValue());
 		smtpSocketFactory = propertyService.getValue(Constants.PROPERTY_MAIL_SENDER_SMTP_SOCKETFACTORYCLASS.getValue());
-		
-		dateFormat = new SimpleDateFormat(DATE_PATTERN);
 		
 	}
 
@@ -192,8 +195,8 @@ public class EmailService extends ApplicationObjectSupport {
 		String subject = "L'articolo " + item.getName() + " e' appena stato messo in vendita";
 		String body = "Ciao!<br/><br/>L'articolo " + item.getName() + " &egrave; appena stato messo in vendita.<br/>"
 				+ "Descrizione: " + item.getDescription()
-				+ "<br/>Data inizio asta: " + dateFormat.format(item.getFromDate()) + 
-				"<br/>Data fine asta: " + dateFormat.format(item.getExpiringDate()) +
+				+ "<br/>Data inizio asta: " + df.get().format(item.getFromDate()) + 
+				"<br/>Data fine asta: " + df.get().format(item.getExpiringDate()) +
 				"<br/>Prezzo base &euro;: " + item.getBaseAuctionPrice()+
 				"<br/><br/>Normali saluti,<br/>Il tuo Servente"
 				;
@@ -207,13 +210,13 @@ public class EmailService extends ApplicationObjectSupport {
 		String subject = "Attenzione: L'articolo " + itemNews.getItem().getName() + " che stavi osservando e' appena scaduto";
 		String body = "Ciao!<br/><br/>L'articolo " + itemNews.getItem().getName() + " &egrave; appena scaduto."
 				+ "<br/>Descrizione: " + itemNews.getItem().getDescription() +
-				"<br/>Data fine asta: " + dateFormat.format(itemNews.getItem().getExpiringDate())  +
+				"<br/>Data fine asta: " + df.get().format(itemNews.getItem().getExpiringDate())  +
 				"<br/>Prezzo base &euro;: " + itemNews.getItem().getBaseAuctionPrice()
 				;
 		if(itemNews.getItem().getStatus()==ItemStatus.SOLD_OUT){
 			body+="<br/><br/><b>Venduto per &euro; " + itemNews.getItem().getBestRelaunch().getAmount() + "</b>";
 			body+="<br/>a <b>" + itemNews.getItem().getBestRelaunch().getUsername() +
-					" </b> con rilancio in data " + dateFormat.format(itemNews.getItem().getBestRelaunch().getDate());
+					" </b> con rilancio in data " + df.get().format(itemNews.getItem().getBestRelaunch().getDate());
 		}else{
 			body+= "<br/><br/>Purtroppo &egrave; rimasto invenduto, ma non disperiamo, l'ho appena rimesso in vendita ad un prezzo inferiore del 20% rispetto alla base d'asta";
 		}
@@ -227,12 +230,12 @@ public class EmailService extends ApplicationObjectSupport {
 		String subject = "Attenzione: nuovo Rilancio per l'articolo " + itemNews.getItem().getName() + " che stavi osservando";
 		String body = "Ciao!<br/><br/>&egrave; appena stato effettuato un rilancio per l'articolo " + itemNews.getItem().getName() + " che stai osservando."
 				+ "<br/>Descrizione: " + itemNews.getItem().getDescription() +
-				"<br/>Data fine asta: " + dateFormat.format(itemNews.getItem().getExpiringDate())  +
+				"<br/>Data fine asta: " + df.get().format(itemNews.getItem().getExpiringDate())  +
 				"<br/>Prezzo base &euro;: " + itemNews.getItem().getBaseAuctionPrice()
 				;
 			body+="<br/><br/><b>Ultimo rilancio: &euro; " + itemNews.getItem().getBestRelaunch().getAmount() + "</b>";
 			body+="<br/><b> effettuato da " + itemNews.getItem().getBestRelaunch().getUsername() +
-					" </b> con rilancio in data " + dateFormat.format(itemNews.getItem().getBestRelaunch().getDate());
+					" </b> con rilancio in data " + df.get().format(itemNews.getItem().getBestRelaunch().getDate());
 		
 		body+="<br/><br/>Normali saluti,<br/>Il tuo Servente";
 		 String[] mailTo = this.to.split(",");

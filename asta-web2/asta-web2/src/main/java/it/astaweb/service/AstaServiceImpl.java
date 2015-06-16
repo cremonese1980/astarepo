@@ -37,6 +37,13 @@ public class AstaServiceImpl implements AstaService {
 	private static final Log LOG = LogFactory.getLog(AstaServiceImpl.class);
 	private static final String DATE_PATTERN = "dd/MM/yyyy HH:mm:ss";
 	
+	private static final ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>(){
+	    @Override
+	    protected DateFormat initialValue() {
+	        return new SimpleDateFormat(DATE_PATTERN);
+	    }
+	  };
+	
 
 //	@Autowired(required = true)
 //	private ItemRepository itemRepository;
@@ -242,15 +249,13 @@ public class AstaServiceImpl implements AstaService {
 	@Override
 	public String getTestPhaseMessage() {
 		
-		DateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
-		
 		Date now = CalendarUtils.currentTimeInItaly();
 		Calendar calendar = new GregorianCalendar();
 		calendar.set(2015, Calendar.JUNE, 16, 21, 0,0);
 		
 		if(now.before(calendar.getTime())){
 			return "Fase di test senza nessun valore, se non quello di un prezioso aiuto, " +
-					"che terminerà in data " + dateFormat.format(calendar.getTime()) + ". Grazie!";
+					"che terminerà in data " + df.get().format(calendar.getTime()) + ". Grazie!";
 		}
 		
 		return "";

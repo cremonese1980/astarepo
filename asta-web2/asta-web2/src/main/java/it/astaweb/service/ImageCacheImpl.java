@@ -85,13 +85,6 @@ public class ImageCacheImpl implements ImageCache {
 		getImageCache().clear();
 		List<ItemImage> itemImageList = itemImageRepository.findAll();
 		initDb(itemImageList, getImageCache());
-		if(get){
-			
-			System.out.println("from get");
-		}else{
-			System.out.println("NOT get");
-			
-		}
 		
 	}
 

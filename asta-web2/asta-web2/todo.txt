@@ -1,6 +1,6 @@
 
-BUG se un articolo è senza rilanci, non viene aggiornato in rosso. risolto ma da testare
-Ordina gli avvisi in rosso
+Storico rilanci, colare diversamente le righe pari e dispari.
+TEstare rilanci intorno alla scadenza asta. Push di rilanci etc.
 Togli possibilità di rilanciare con pwd frittella, NON solo il bottone, perchè con invio rilancio lo stesso
 Bloccare chiamate updateItem se utente non loggato
 Togli le password del cazzo
@@ -12,7 +12,6 @@ Ottimizzare memoria tomcat
 Aggiungi bottone per smettere di osservare un oggetto
 Aggiungere sezione news in alto a destra: 15 giugno ore 12:37 xxx offre 20 euro per l'oggetto yy
 I log..
-Aggiungi lista ultimi 5 rilanci nella pagina del rilancio
 Aggiungere le varie mail di report
 
 Se si posticipa data scadenza, non togliere da IN VENDITA, seppure il processo lo rimette dopo poco
@@ -42,6 +41,9 @@ ItemProcess: portate fuori dai metodi le variabili
 
 
 
+DONE Aggiungi lista ultimi 5 rilanci nella pagina del rilancio
+DONE Ordina gli avvisi in rosso
+DONE BUG se un articolo è senza rilanci, non viene aggiornato in rosso. risolto ma da testare
 DONE Aggiungi cache per immagini
 DONE Dove c'è un date format, usare il pattern già usato in AstaController
 DONE TODO subito: rollback modifiche imagecache e consolidare tutto. Subito. = Sistemata cache immagini. Sembra funzionare

@@ -23,8 +23,6 @@ import java.util.TimeZone;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +41,6 @@ import org.springframework.web.multipart.MultipartFile;
 @SessionAttributes("user")
 public class ItemController {
 
-	private static final Log LOG = LogFactory.getLog(ItemController.class);
 	private static final Logger logger = LogManager.getLogger(ItemController.class);
 
 	@Autowired(required = true)

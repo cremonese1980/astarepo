@@ -150,7 +150,7 @@ function updateItems(startDate){
 	
 	function replaceRelaunch(idItem){
 		
-		var fieldPrefix = ['Date','Username','Amount'];
+		var fieldPrefix = ['Date','Username','Amount','ExpiringDate'];
 		
 		for (var int = 0; int < fieldPrefix.length; int++) {
 			
@@ -162,6 +162,8 @@ function updateItems(startDate){
 		document.getElementById("idBr" + field+idItem).innerHTML = document.getElementById("upd"+field+idItem).value;
 		document.getElementById("idBr" +field+idItem).style.color='red';
 		document.getElementById("idBrEuro" +idItem).style.color='red';
+		document.getElementById("idBrNoRelaunch" + idItem).innerHTML = "";
+		
 	}
 	
 
@@ -245,18 +247,20 @@ function updateItems(startDate){
 											<b><span id="idBrUsername${item.id}">${item.bestRelaunch.username}</span></b><br/>
 											<span id="idBrEuro${item.id}">&euro;</span> <span id="idBrAmount${item.id}"><fmt:formatNumber value="${item.bestRelaunch.amount}"
 										maxFractionDigits="2" /></span>
+										<span id="idBrNoRelaunch${item.id}"></span>
 										</c:when>
 										<c:otherwise>
-											Nessuna offerta
+											<span id="idBrNoRelaunch${item.id}">Nessuna offerta</span>
 											<span id="idBrDate${item.id}"></span><br/>
 											<b><span id="idBrUsername${item.id}"></span></b><br/>
-											<span id="idBrEuro${item.id}">&euro;</span> <span id="idBrAmount${item.id}"></span>
+											<span id="idBrEuro${item.id}"></span> <span id="idBrAmount${item.id}"></span>
 										</c:otherwise>
 									</c:choose> 
 								</td>
 								<td>
+									<span id="idBrExpiringDate${item.id}">
 									<fmt:formatDate value="${item.expiringDate}" 
-									pattern="dd/MM/yyyy HH:mm:ss"/>
+									pattern="dd/MM/yyyy HH:mm:ss"/></span>
 								</td>
 
 								<td>

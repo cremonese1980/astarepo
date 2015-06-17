@@ -16,6 +16,8 @@
 	<input type="hidden" id="updDate${item.id}" value="<fmt:formatDate value="${item.bestRelaunch.date}" 
 											pattern="dd/MM/yyyy HH:mm:ss"/>"/>
 	<input type="hidden" id="updAmount${item.id}" value="${item.bestRelaunch.amount}"/>
+	<input type="hidden" id="updExpiringDate${item.id}" value="<fmt:formatDate value="${item.expiringDate}" 
+											pattern="dd/MM/yyyy HH:mm:ss"/>"/>
 
 
 </c:forEach>

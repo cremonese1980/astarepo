@@ -607,8 +607,8 @@ function observeItem()
 							<td>Miglior Rilancio</td>
 							<td id="idTdRelaunch"><c:choose>
 							<c:when test="${not empty item.bestRelaunch.username}">
-								&euro; <span id="idAmount"><fmt:formatNumber  value="${item.bestRelaunch.amount}"
-										maxFractionDigits="2" /></span>
+								<b>&euro; <span id="idAmount"><fmt:formatNumber  value="${item.bestRelaunch.amount}"
+										maxFractionDigits="2" /></span></b>
 								(<span id="idUsername"><b >${item.bestRelaunch.username}</b></span> 
 								 <span id="idDate"><fmt:formatDate
 										 value="${item.bestRelaunch.date}" pattern="dd/MM/yyyy HH:mm:ss" /></span>)
@@ -675,7 +675,6 @@ function observeItem()
  														title="${image.description}" />
 													</div>
 												</div>
-											</td>
 									</c:forEach>
 								</tr>
 						</tbody>
@@ -683,6 +682,32 @@ function observeItem()
 
 				</div>
 				</c:if>
+		</div>
+		<div class="inner">&nbsp;</div>
+		<div class="section2" style="background-color: #F8F8F8;">
+			<div class="inner">
+				<c:if test="${not empty item.relaunches}">
+					<div class="pageTitle" style="font-size:24px;margin-left:24px;"> Storico rilanci</div>
+					<div class="inner">
+						<table class="commonOverride registrationPage"
+							style="border: 1px solid #F8F8F8">
+							<tbody>
+								<c:forEach items="${item.relaunches}" var="relaunch"
+									varStatus="status">
+									<tr>
+										<td width="45%"><fmt:formatDate
+										 			value="${relaunch.date}" pattern="dd/MM/yyyy HH:mm:ss" /> </td>
+											
+										<td width="49%"> ${relaunch.username} </td>
+											<td> <b>&euro;
+										 	<fmt:formatNumber  value="${relaunch.amount}" maxFractionDigits="2" /></b></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</c:if>
+			</div>
 		</div>
 
 	</div>

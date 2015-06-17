@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
@@ -202,6 +203,7 @@ public class AstaController {
 		List<Item> updatedItemList = new ArrayList<Item>();
 		String message = "";
 		String idList ="";
+		List<String> messages = new ArrayList<String>();
 		
 		for (Iterator<Item> iterator = itemList.iterator(); iterator.hasNext();) {
 			Item item = iterator.next();
@@ -212,21 +214,27 @@ public class AstaController {
 					&& item.getBestRelaunch().getDate().getTime() > pageLife
 							.longValue() ? true : false;
 					
+					
 			if (newRelaunch) {
 				idList+=item.getId()+",";
 				updatedItemList.add(item);
-				message += "Attenzione, <b> "
+				messages.add( item.getBestRelaunch().getDate().getTime() + "_Attenzione, <b> "
 						+ item.getBestRelaunch().getUsername()
 						+ "</b> offre &euro; <b>"
 						+ decimalFormat.get().format(item.getBestRelaunch().getAmount())
 						+ "</b> in data <b>"
 						+ df.get().format(item.getBestRelaunch().getDate() )+ "</b>"
-								+ " per l'articolo <b>" + item.getName() + "</b><br/>";
+								+ " per l'articolo <b>" + item.getName() + "</b><br/>");
 			}
 
 		}								
 		
 		if(updatedItemList.size()>0){
+			
+			Collections.sort(messages);
+			Collections.reverse(messages);
+			
+			message = printUpdateMessage(messages);
 			
 			
 			pageLife = CalendarUtils.currentTimeInItaly().getTime();
@@ -237,13 +245,25 @@ public class AstaController {
 			
 		}
 
-
 		model.addAttribute("itemMessage", message);
 
 		return "itemsUpdateResult";
 	}
   
-  @RequestMapping(value="/loginUser", method=RequestMethod.GET)
+  private String printUpdateMessage(List<String> messages) {
+	String message = "";
+	
+	for (Iterator<String> iterator = messages.iterator(); iterator.hasNext();) {
+		String line = iterator.next();
+		
+		message+=line.substring(line.indexOf("_")+1);
+		
+	}
+	
+	return message;
+}
+
+@RequestMapping(value="/loginUser", method=RequestMethod.GET)
   public String loginUser(Model model) {
 	  
 	  User loggedUser =  (User)model.asMap().get("user");
@@ -329,11 +349,13 @@ public class AstaController {
 		item = item!=null? item: astaService.findItemByIdAndFetchImagesFetchRelaunches(Integer
 				.parseInt((String) params.get("itemid")));
 		
-		List<Relaunch> relaunches = new ArrayList<Relaunch>();
-		relaunches.addAll(item.getRelaunches());
-		
-		Collections.sort(relaunches);
-		
+//		List<Relaunch> relaunches = new ArrayList<Relaunch>();
+//		relaunches.addAll(item.getRelaunches());
+		/*
+		 * Tolta property relaunches da classe UserObserver
+		 */
+//		Collections.sort(relaunches);
+		item.setRelaunches(new TreeSet<Relaunch>(item.getRelaunches()));
 		Relaunch relaunch = new Relaunch();
 		relaunch.setItem(item);
 		relaunch.setUsername(username);
@@ -348,11 +370,11 @@ public class AstaController {
 		model.addAttribute("item", item);
 		model.addAttribute("user", loggedUser);
 		model.addAttribute("relaunch", relaunch);
-		model.addAttribute("relaunches", relaunches);
+//		model.addAttribute("relaunches", relaunches);
 		model.addAttribute("expiringSeconds", expiringSeconds);
 		model.addAttribute("pageLife", pageLife);
 		
-		UserObserver userObserver = new UserObserver(loggedUser, item, relaunches, expiringSeconds);
+		UserObserver userObserver = new UserObserver(loggedUser, item, expiringSeconds);
 		model.addAttribute("userObserver", userObserver);
 		
 		String relaunchMessage = (String) params.get("relaunchMessage");

@@ -63,6 +63,9 @@ public class AstaServiceImpl implements AstaService {
 	@Autowired(required = true)
 	private ItemCache itemCache;
 	
+	@Autowired
+	private ImageService imageService;
+	
 	private BigDecimal totalOffer;
 	
 	@PostConstruct
@@ -269,6 +272,13 @@ public class AstaServiceImpl implements AstaService {
 	@Override
 	public void saveItemNews(ItemNews itemNews) {
 		itemNewsRepository.save(itemNews);
+		
+	}
+
+	@Override
+	public void refresh() {
+		itemCache.refresh();
+		imageService.refresh();
 		
 	}
 	

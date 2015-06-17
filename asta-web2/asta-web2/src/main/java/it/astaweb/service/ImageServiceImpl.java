@@ -55,6 +55,9 @@ public class ImageServiceImpl implements ImageService {
 	
 	@Autowired(required = true)
 	private ImageCache imageCache;
+	
+	@Autowired(required = true)
+	private ItemCache itemCache;
 
 	private  File BASE_FOLDER;
 	
@@ -70,6 +73,7 @@ public class ImageServiceImpl implements ImageService {
 				LOG.info("Base folder created. We are Lucky");
 			}
 		}
+		refresh();
 	}
 	
 	@Override
@@ -84,8 +88,8 @@ public class ImageServiceImpl implements ImageService {
 		itemImage.setThumbName(imageThumb.getName());
 		itemImage.setPath(image.getAbsolutePath().substring(0,image.getAbsolutePath().lastIndexOf("/")+1));
 
-		imageCache.add(image, itemImage);
-		imageCache.add(imageThumb, itemImage);
+		imageCache.add(image, itemImage.getName());
+		imageCache.add(imageThumb, itemImage.getThumbName());
 		
 		return itemImage;
 	}
@@ -258,6 +262,12 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	public byte[] get(String imageName) {
 		return imageCache.get(imageName);
+	}
+
+	@Override
+	public void refresh() {
+		imageCache.refresh(false);
+		
 	}
 
 }

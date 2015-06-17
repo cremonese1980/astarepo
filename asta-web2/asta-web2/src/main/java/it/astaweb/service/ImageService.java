@@ -19,4 +19,5 @@ public interface ImageService {
 	  List<ItemImage> findAllImage();
 	  List<ItemImage> findAllImageByItem(Item item);
 	  byte[] get(String imageName);
+	void refresh();
 	}

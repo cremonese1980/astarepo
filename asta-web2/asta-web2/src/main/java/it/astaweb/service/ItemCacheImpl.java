@@ -7,10 +7,10 @@ import it.astaweb.utils.ItemStatus;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import javax.annotation.PostConstruct;
 
@@ -124,7 +124,7 @@ public class ItemCacheImpl implements ItemCache {
 
 	@Override
 	public synchronized void refresh() {
-		itemCache = Collections.synchronizedMap(new WeakHashMap<Integer, Item>());
+		itemCache = Collections.synchronizedMap(new HashMap<Integer, Item>());
 		List<Item> itemList = itemRepository.findAllJoinImagesJoinRelaunches();		
 		initDb(itemList, itemCache);
 		

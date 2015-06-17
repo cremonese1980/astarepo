@@ -159,7 +159,6 @@ function updateItems(startDate){
 		
 	};
 	function replaceVal(idItem, field){
-		
 		document.getElementById("idBr" + field+idItem).innerHTML = document.getElementById("upd"+field+idItem).value;
 		document.getElementById("idBr" +field+idItem).style.color='red';
 		document.getElementById("idBrEuro" +idItem).style.color='red';
@@ -249,6 +248,9 @@ function updateItems(startDate){
 										</c:when>
 										<c:otherwise>
 											Nessuna offerta
+											<span id="idBrDate${item.id}"></span><br/>
+											<b><span id="idBrUsername${item.id}"></span></b><br/>
+											<span id="idBrEuro${item.id}">&euro;</span> <span id="idBrAmount${item.id}"></span>
 										</c:otherwise>
 									</c:choose> 
 								</td>

@@ -9,10 +9,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import javax.annotation.PostConstruct;
 
@@ -29,7 +29,7 @@ public class ImageCacheImpl implements ImageCache {
 	private PropertyService propertyService;
 	
 	
-	private Map<String, byte[]> imageCache;
+	private Map<String, byte[]> imageCache = Collections.synchronizedMap(new HashMap<String, byte[]>());
 	
 	@Autowired(required = true)
 	private ItemImageRepository itemImageRepository;
@@ -37,36 +37,35 @@ public class ImageCacheImpl implements ImageCache {
 	@PostConstruct
 	private void init(){
 		BASE_PATH = propertyService.getValue(Constants.PROPERTY_NAME_BASE_PATH.getValue());
-		refresh();
+		refresh(false);
 		
 	}
 	
 	@Override
-	public void add(File file, ItemImage itemImage) {
-		if(imageCache.keySet().size()==0){
-			refresh();
-		}
-		imageCache.put(itemImage.getName(), readFile(file));
-		imageCache.put(itemImage.getThumbName(), readFile(file));
+	public void add(File file, String name) {
+		getImageCache().put(name, readFile(file));
 		
 	}
 
 
 	@Override
 	public byte[] get(String imageName) {
-		if(imageCache.keySet().size()==0){
-			refresh();
+		if(getImageCache().isEmpty()){
+			System.out.println("empty ");
+			refresh(true);
+		}else{
+			System.out.println("NOT empty ");
 		}
-		return imageCache.get(imageName);
+		return getImageCache().get(imageName);
 	}
 
 
 	@Override
 	public void remove(String imageName) {
-		if(imageCache.keySet().size()==0){
-			refresh();
+		if(getImageCache().keySet().size()==0){
+			refresh(false);
 		}
-		imageCache.remove(imageName);
+		getImageCache().remove(imageName);
 		
 	}
 	
@@ -77,12 +76,22 @@ public class ImageCacheImpl implements ImageCache {
 		return ImageCacheImpl.BASE_PATH + File.separator + itemId + File.separator + name;
 	}
 	
+	private synchronized Map<String, byte[]> getImageCache(){
+		return imageCache;
+	}
 	
 	@Override
-	public synchronized void refresh() {
-		imageCache = Collections.synchronizedMap(new WeakHashMap<String, byte[]>());
+	public synchronized void refresh(boolean get) {
+		getImageCache().clear();
 		List<ItemImage> itemImageList = itemImageRepository.findAll();
-		initDb(itemImageList, imageCache);
+		initDb(itemImageList, getImageCache());
+		if(get){
+			
+			System.out.println("from get");
+		}else{
+			System.out.println("NOT get");
+			
+		}
 		
 	}
 
@@ -124,11 +133,11 @@ public class ImageCacheImpl implements ImageCache {
 			fis = new FileInputStream(file);
 			int x = fis.available();
 			b = new byte[x];
-			System.out.println("file " + file.length());
+//			System.out.println("file " + file.length());
 			
 //			printArray(b);
 			fis.read(b);
-			System.out.println("array " + b.length);
+//			System.out.println("array " + b.length);
 //			printArray(b);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

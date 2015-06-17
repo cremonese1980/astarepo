@@ -52,4 +52,6 @@ public interface AstaService {
 
 	void saveItemNews(ItemNews itemNews);
 
+	void refresh();
+
 }

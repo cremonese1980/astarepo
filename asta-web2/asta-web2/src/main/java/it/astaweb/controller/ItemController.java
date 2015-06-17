@@ -293,6 +293,7 @@ public class ItemController {
 			itemImage.setItem(item);
 			imageService.saveImage(itemImage, uploadImage);
 			astaService.addImage(itemImage);
+			astaService.refresh();
 		} catch (Exception e) {
 			model.addAttribute("uploadImageMessage", "Errore durante il salvataggio dell'immagine: " + e.getMessage());
 			astaService.deleteItemImage(itemImage);
@@ -316,6 +317,7 @@ public class ItemController {
 
 		ItemImage itemImage = astaService.findImageById(Integer.parseInt((String)params.get("imageid")));
 		astaService.deleteItemImage(itemImage);
+		astaService.refresh();
 		
 		return "redirect:modifyItem.html?itemid=" + itemImage.getItem().getId();
 	}

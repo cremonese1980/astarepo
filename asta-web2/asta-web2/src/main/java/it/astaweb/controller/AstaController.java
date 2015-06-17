@@ -85,6 +85,8 @@ public class AstaController {
 	  decimalFormat.get().setMinimumFractionDigits(0);
 	  minRelaunch = Integer.parseInt(propertyService
 				.getValue(Constants.PROPERTY_RELAUNCH_MIN.getValue()));
+	  
+	  astaService.refresh();
   }
   
   @RequestMapping(value="/sendCode", method=RequestMethod.GET)

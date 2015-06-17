@@ -1,18 +1,16 @@
 package it.astaweb.service;
 
-import it.astaweb.model.ItemImage;
-
 import java.io.File;
 
 public interface ImageCache {
 
-	void add(File file, ItemImage itemImage);
+	void add(File file, String name);
 	
 	byte[] get(String imageName);
 	
 	void remove(String imageName);
 
-	void refresh();
+	void refresh(boolean get);
 
 	String findImagePathByIdAndItemIdAndName(String id, String itemId,
 			String name);

@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @DependsOn(value={"imageService"})
 public class ImageController {
 
-	@Autowired
-	ImageService imageService;
+	@Autowired(required = true)
+	private ImageService imageService;
 
 	@RequestMapping(value = "/image")
 	public void getImage(@RequestParam Map<String, String> params,
@@ -92,11 +92,9 @@ public class ImageController {
 			byte b[];
 			int x = fis.available();
 			b = new byte[x];
-			System.out.println("file " + file.length());
 			
 //			printArray(b);
 			fis.read(b);
-			System.out.println("array " + b.length);
 //			printArray(b);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

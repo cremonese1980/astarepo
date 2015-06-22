@@ -3,6 +3,7 @@
 -- Execute by using 'gpd_own' user
 -- ==================================================================
 -- mysql --host=mysql1001.mochahost.com --user=cremo80_asta_own --password=asta_123 cremo80_astadb
+-- mysql --host=198.38.90.184 --user=cremo80_asta_own --password=asta_123 cremo80_astadb
 
 -- mysqldump --host=mysql1001.mochahost.com --user=cremo80_asta_own --password=asta_123 cremo80_astadb > /home/cremo80/*******.sql
 
@@ -11,6 +12,8 @@
 
 -- update configuration set value = 'birra,fiorentina,g4br13l3,cazzola' where name = 'secret.words';
 -- commit;
+
+-- IP nuovo db 198.38.90.184
 
 use cremo80_astadb;
 

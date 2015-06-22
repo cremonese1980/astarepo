@@ -1,5 +1,8 @@
 package it.astaweb.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.astaweb.model.Item;
 import it.astaweb.model.User;
 import it.astaweb.service.AstaService;
@@ -21,6 +24,8 @@ public class IndexController {
 
   @Autowired(required=true)
   private AstaService astaService;
+  
+  private static final String BASE_PATH = "img/rocco/";
 
   @RequestMapping(value="/index", method=RequestMethod.GET)
   public String itemList(Model model) {
@@ -35,7 +40,19 @@ public class IndexController {
   }
 
   @RequestMapping(value="/hello", method=RequestMethod.GET)
-  public String hello(Model model) {          
+  public String hello(Model model) {         
+	  
+	  List<String> imgList = new ArrayList<String>();
+	  
+	  
+	  
+	  for (int i = 0; i <= 17; i++) {
+		
+		  imgList.add(BASE_PATH + i+".jpg");
+	}
+	  
+	  model.addAttribute("imgList", imgList);
+	  
       return "hello";
   }
   

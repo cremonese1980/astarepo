@@ -5,7 +5,6 @@ Togli possibilità di rilanciare con pwd frittella, NON solo il bottone, perchè
 Bloccare chiamate updateItem se utente non loggato
 Togli le password del cazzo
 Aggiungere validazione lato server per aggiunta/modifica oggetti a seconda dello stato
-Inibire "osserva" per oggetti scaduti
 Item controller, nel catch del metodo privato viene stampato null
 BUG risolvi eccezione in asta controller nel metodo updateItem
 Ottimizzare memoria tomcat

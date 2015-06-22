@@ -24,7 +24,7 @@
 	<%@ include file="includeJavascript.jsp" %>
 	
 	
-	<title>Ciao Rocco</title>
+	<title>Ciao Rocco!</title>
 	
 </head>
 

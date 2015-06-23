@@ -51,10 +51,10 @@ public class ImageCacheImpl implements ImageCache {
 	@Override
 	public byte[] get(String imageName) {
 		if(getImageCache().isEmpty()){
-			System.out.println("empty ");
+//			System.out.println("empty ");
 			refresh(true);
 		}else{
-			System.out.println("NOT empty ");
+//			System.out.println("NOT empty ");
 		}
 		return getImageCache().get(imageName);
 	}

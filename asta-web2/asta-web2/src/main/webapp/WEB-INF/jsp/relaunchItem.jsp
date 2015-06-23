@@ -463,7 +463,6 @@ function observeItem()
 		</div>
 		
 		<div class="section1" style="background-color: #F8F8F8;">
-			<c:if test="${not empty astaService.testPhaseMessage}">
 				<div class="inner" style="background-color:#DDDDDD;">
 					<b>${astaService.testPhaseMessage}</b>
 					
@@ -481,7 +480,6 @@ function observeItem()
 						<img style="width:25px" src="img/icons/attention_icon2.png"/>&nbsp;&nbsp;<span id="textItem"></span>
 					</div>
 				</div>
-			</c:if>
 
 			
 

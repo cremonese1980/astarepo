@@ -400,6 +400,11 @@ public class AstaController {
 			return "redirect:loginUser.html";
 		}
 		
+		if(loggedUser.getPassword() == null || loggedUser.getPassword().trim().equalsIgnoreCase("") ||
+				loggedUser.getPassword().trim().equalsIgnoreCase("frittella")){
+			model.addAttribute("relaunchMessage", "Ehi... la fase di test è finita.. mi spiace.");
+		}
+		
 		Item item = astaService.findItemByIdAndFetchImagesFetchRelaunches(relaunch.getItem().getId());
 		relaunch.setItem(item);
 		

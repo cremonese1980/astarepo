@@ -26,6 +26,16 @@ public class IndexController {
   private AstaService astaService;
   
   private static final String BASE_PATH = "img/rocco/";
+  
+  private static final List<String> imgList;
+  
+	static {
+		imgList = new ArrayList<String>();
+		for (int i = 0; i <= 18; i++) {
+
+			imgList.add(BASE_PATH + i + ".jpg");
+		}
+	}
 
   @RequestMapping(value="/index", method=RequestMethod.GET)
   public String itemList(Model model) {
@@ -41,15 +51,6 @@ public class IndexController {
 
   @RequestMapping(value="/hello", method=RequestMethod.GET)
   public String hello(Model model) {         
-	  
-	  List<String> imgList = new ArrayList<String>();
-	  
-	  
-	  
-	  for (int i = 0; i <= 17; i++) {
-		
-		  imgList.add(BASE_PATH + i+".jpg");
-	}
 	  
 	  model.addAttribute("imgList", imgList);
 	  

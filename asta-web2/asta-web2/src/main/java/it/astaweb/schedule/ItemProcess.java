@@ -48,7 +48,7 @@ public class ItemProcess implements Serializable {
 	public ItemProcess() {
 	}
 	
-	@Scheduled(fixedRate=60000)
+	@Scheduled(fixedRate=60000000)
 	public void presellTosell(){		
 		
 		itemPreSell =  astaService.findAllItemByStatus(ItemStatus.PRE_SELL);
@@ -95,7 +95,7 @@ public class ItemProcess implements Serializable {
 		Runtime.getRuntime().gc();
 	}
 	
-	@Scheduled(fixedRate=60000,initialDelay=30000)
+	@Scheduled(fixedRate=180000,initialDelay=30000)
 	public void sendItemNews(){	
 		
 		news = astaService.findAllItemNews();

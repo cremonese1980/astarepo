@@ -423,7 +423,7 @@ function observeItem()
 	
 	function startFunction(nowDate) {
 //     	alert('prima chiamata: ' + nowDate);
-        setInterval(function(){ updateItem(nowDate); }, 5000);
+        setInterval(function(){ updateItem(nowDate); }, 30000);
 	};
 	
 	function waitSeconds(iMilliSeconds) {

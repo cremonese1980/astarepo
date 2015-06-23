@@ -145,7 +145,7 @@ function updateItems(startDate){
 	};
 	
 	function startFunction(nowDate) {
-        setInterval(function(){ updateItems(nowDate); }, 10000);
+        setInterval(function(){ updateItems(nowDate); }, 30000);
 	};
 	
 	function replaceRelaunch(idItem){

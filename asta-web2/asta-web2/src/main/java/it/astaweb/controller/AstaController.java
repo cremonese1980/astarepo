@@ -403,6 +403,7 @@ public class AstaController {
 		if(loggedUser.getPassword() == null || loggedUser.getPassword().trim().equalsIgnoreCase("") ||
 				loggedUser.getPassword().trim().equalsIgnoreCase("frittella")){
 			model.addAttribute("relaunchMessage", "Ehi... la fase di test è finita.. mi spiace.");
+			return "relaunchItem";
 		}
 		
 		Item item = astaService.findItemByIdAndFetchImagesFetchRelaunches(relaunch.getItem().getId());
@@ -494,7 +495,7 @@ public class AstaController {
 					"Il rilancio massimo è di &euro; "
 							+ maxAbs
 							+ " in più rispetto all'offerta corrente di &euro;  "
-							+ relaunch.getItem().getBestRelaunch().getAmount());
+							+ current.getAmount());
 			return false;
 		}
 
@@ -507,7 +508,7 @@ public class AstaController {
 					"Il rilancio massimo è di "
 							+ maxRel
 							+ " volte superiore rispetto all'offerta corrente di &euro;  "
-							+ relaunch.getItem().getBestRelaunch().getAmount());
+							+ current.getAmount());
 			return false;
 		}
 	  

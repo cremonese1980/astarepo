@@ -44,6 +44,10 @@
 			Totale raccolto &euro; <fmt:formatNumber value="${astaService.totalOffers}"
 									  maxFractionDigits="2" />
 		</div>
+		<c:url var="urlLogo" value="img/public/img.PNG" />
+<!-- 		<div class="inner"> -->
+<%-- 		<img width="20%" src="${urlLogo}" alt="Crew Room" /> --%>
+<!-- 		</div> -->
 	</div>
 	
 	<div class="sectionNews">

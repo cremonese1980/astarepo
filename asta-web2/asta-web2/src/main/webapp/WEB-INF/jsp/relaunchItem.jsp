@@ -464,7 +464,7 @@ function observeItem()
 		
 		<div class="section1" style="background-color: #F8F8F8;">
 				<div class="inner" style="background-color:#DDDDDD;">
-					<b>${astaService.testPhaseMessage}</b>
+					<span style="font-size:12px">${astaService.testPhaseMessage}</span>
 					
 					<div id="updateItemContent" style="display:none"></div>
 <%-- 					<span>Exp sec ${expiringSeconds}</span> --%>

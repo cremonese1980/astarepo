@@ -196,7 +196,7 @@ function updateItems(startDate){
 
 		<div class="section1" style="background-color: #F8F8F8;">
 				<div class="inner" style="background-color:#DDDDDD;">
-					<b>${astaService.testPhaseMessage}</b>
+						<span style="font-size:12px">${astaService.testPhaseMessage}</span>
 					<div id="updateItemContent" style="display:none"></div>
 					<div  class="error" style="color:red;padding:15px;margin-left:20px;display:none" id="divTextItem">
 						<img style="width:25px;text-align:center" src="img/icons/attention_icon2.png"/><br/><span id="textItem"></span>

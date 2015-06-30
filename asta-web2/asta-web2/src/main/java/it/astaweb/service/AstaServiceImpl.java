@@ -254,11 +254,20 @@ public class AstaServiceImpl implements AstaService {
 		
 		Date now = CalendarUtils.currentTimeInItaly();
 		Calendar calendar = new GregorianCalendar();
-		calendar.set(2015, Calendar.JUNE, 21, 18, 0,0);
+		calendar.set(2015, Calendar.JULY, 11, 12, 0,0);
 		
 		if(now.before(calendar.getTime())){
-			return "Fase di test senza nessun valore, se non quello di un prezioso aiuto, " +
-					"che terminerà in data " + df.get().format(calendar.getTime()) + ". Grazie!";
+			return "In questo sito troverai elenco e foto dei"
+					+ "	dispositivi di protezione individuale di Rocco, potrai rilanciare per"
+					+ "	aggiudicarti molti di quelli che sono stati i suoi strumenti di	lavoro. Precisiamo che i dpi in asta hanno valore affettivo e non"
+					+ "	sono da considerarsi materiale di sicurezza da utilizzare."
+					+ "	L'iniziativa ha scopo benefico: il ricavato sarà interamente devoluto"
+					+ "	a Gabrio ed Alice. I prezzi di partenza posso fungere da prima"
+					+ "	offerta, ogni rilancio successivo dovrà essere pari ad un minimo di"
+					+ "	euro 5. Modalità di pagamento: ricarica Postepay. Modalità di"
+					+ "	consegna: tramite amici/colleghi/concittadini. I materiali acquistati"
+					+ "	non hanno certificazioni. Gli articoli scadono alle 23:59 del giorno 10 Luglio."
+					+ "	Tenete monitorati quelli di vostro interesse!";
 		}
 		
 		return "";

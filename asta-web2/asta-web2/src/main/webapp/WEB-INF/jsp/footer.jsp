@@ -40,7 +40,7 @@
 			offerta, ogni rilancio successivo dovrà essere pari ad un minimo di
 			euro 5. Modalità di pagamento: ricarica Postepay. Modalità di
 			consegna: tramite amici/colleghi/concittadini. I materiali acquistati
-			non hanno certificazioni. Gli articoli scadono tra le ore 20:00 del giorno 9 e le ore 22:00 del giorno 11 luglio.
+			non hanno certificazioni. Gli articoli scadono alle 23:59 del giorno 10 Luglio.
 			Tenete monitorati quelli di vostro interesse!</div>
 	</div>
 </div>

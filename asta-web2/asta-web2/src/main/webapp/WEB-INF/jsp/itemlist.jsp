@@ -99,6 +99,8 @@
 
 <script>
 function updateItems(startDate){
+	
+	
 		
 		var xmlhttpBis;
 		

@@ -1,5 +1,7 @@
 
 TODO ripristinare il processo ogni 60 secondi quando sta per finire asta
+Rimettere in vendita allo stesso prezzo fino al 10 agosto
+
 Storico rilanci, colare diversamente le righe pari e dispari.
 TEstare rilanci intorno alla scadenza asta. Push di rilanci etc.
 Togli possibilità di rilanciare con pwd frittella, NON solo il bottone, perchè con invio rilancio lo stesso

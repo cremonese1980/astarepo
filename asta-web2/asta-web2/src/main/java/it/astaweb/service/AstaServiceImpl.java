@@ -221,11 +221,12 @@ public class AstaServiceImpl implements AstaService {
 			item.setStatus(ItemStatus.SOLD_OUT);
 			setNewsToBeSent(item);
 		}else{
-			LOG.info("...........Non venduto... :( \nAbbassiamo il prezzo del 20%");
-			item.setStatus(ItemStatus.ON_SELL);
-			item.setBaseAuctionPrice(item.getBaseAuctionPrice().multiply(new BigDecimal(0.8)));
-			int minSellTime = Integer.parseInt(propertyService.getValue(Constants.PROPERTY_MIN_SELL_TIME_HOUR.getValue()));
-			item.setExpiringDate(CalendarUtils.currentTimeInItalyAddHour(minSellTime));
+//			LOG.info("...........Non venduto... :( \nAbbassiamo il prezzo del 20%");
+			LOG.info("...........Non venduto... :(");
+			item.setStatus(ItemStatus.SOLD_OUT);
+//			item.setBaseAuctionPrice(item.getBaseAuctionPrice().multiply(new BigDecimal(0.8)));
+//			int minSellTime = Integer.parseInt(propertyService.getValue(Constants.PROPERTY_MIN_SELL_TIME_HOUR.getValue()));
+//			item.setExpiringDate(CalendarUtils.currentTimeInItalyAddHour(minSellTime));
 		}
 		updateItem(item);
 	}
